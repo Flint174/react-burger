@@ -1,4 +1,4 @@
-import AppHeader from "../AppHeader/AppHeader";
+import AppHeader from "../AppHeader";
 
 function App () {
     return (
