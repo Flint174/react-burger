@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Container from './Container'
 import Space from "../Space";
 
@@ -9,6 +10,11 @@ const Link = (props) => {
             <p className="text text_type_main-default">{props.text}</p>
         </Container >
     )
+}
+
+Link.propTypes = {
+    icon: PropTypes.element,
+    text: PropTypes.string
 }
 
 export default Link

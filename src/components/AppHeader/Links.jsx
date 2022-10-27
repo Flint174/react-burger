@@ -5,7 +5,7 @@ import {
     ListIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Links = (props) => {
+const Links = () => {
     return (
         <>
             <Container>
