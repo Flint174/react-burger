@@ -1,4 +1,4 @@
-import style from "./AppHeader.module.css";
+import style from "./style.module.css";
 import { clsx } from "clsx";
 
 const Container = (props) => {

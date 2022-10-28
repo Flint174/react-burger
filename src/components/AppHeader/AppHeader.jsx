@@ -1,4 +1,4 @@
-import style from "./AppHeader.module.css";
+import style from "./style.module.css";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import Links from "./Links";
 import Auth from "./Auth";
