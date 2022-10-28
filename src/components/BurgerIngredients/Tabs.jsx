@@ -4,7 +4,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 const Tabs = ({ value, tabs, onClick }) => {
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="flex mb-10">
             {
                 tabs.map((tab, index) => (
                     <Tab value={tab.value} active={value === tab.value} key={index} onClick={onClick}>
@@ -12,15 +12,6 @@ const Tabs = ({ value, tabs, onClick }) => {
                     </Tab>
                 ))
             }
-            {/* <Tab value="one" active={current === 'one'} onClick={onClick}>
-                One
-            </Tab>
-            <Tab value="two" active={current === 'two'} onClick={onClick}>
-                Two
-            </Tab>
-            <Tab value="three" active={current === 'three'} onClick={onClick}>
-                Three
-            </Tab> */}
         </div>
     )
 }

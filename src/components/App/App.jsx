@@ -4,7 +4,7 @@ import { data } from "./utils/data";
 
 function App () {
     // TODO: add a listener for window resize event
-    const appMainHeight = 500
+    // const appMainHeight = 500
     return (
         <>
             <AppHeader />

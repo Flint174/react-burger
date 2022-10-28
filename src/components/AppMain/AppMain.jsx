@@ -1,12 +1,17 @@
 import BurgerIngredients from "../BurgerIngredients";
+import BurgerConstructor from "../BurgerConstructor";
 import PropTypes from "prop-types";
 import { clsx } from "clsx";
 
-const AppMain = (props) => {
+const AppMain = ({ data }) => {
+    const bun = data.find(el => el.type === 'bun')
+    const ingredients = data.filter(el => el.type !== 'bun')
+
     return (
         // <main className={clsx(props.className)} style={{ height: props.height, ...props.style, overflow: "hidden" }}>
-        <main className={clsx(props.className)} style={{ ...props.style, overflow: "hidden" }}>
-            <BurgerIngredients data={props.data} height={500} />
+        <main className={clsx('flex row justify_content-center')}>
+            <BurgerIngredients className="mr-10" data={data} height={500} />
+            <BurgerConstructor bun={bun} ingredients={ingredients} />
         </main>
     )
 }

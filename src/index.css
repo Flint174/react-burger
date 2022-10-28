@@ -12,6 +12,10 @@ code {
         monospace;
 }
 
+:root {
+    --spacing-one-step: 4px;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -22,4 +26,64 @@ code {
 
 ::-webkit-scrollbar-thumb {
     background: #8585AD;
+}
+
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.align_items-center {
+    align-items: center;
+}
+
+.align_items-end {
+    align-items: flex-end;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.nowrap {
+    flex-wrap: nowrap;
+}
+
+.justify_content-start {
+    justify-content: start;
+}
+
+.justify_content-center {
+    justify-content: center;
+}
+
+.justify_content-end {
+    justify-content: end;
+}
+
+.gap-1 {
+    gap: var(--spacing-one-step);
+}
+
+.gap-2 {
+    gap: calc(var(--spacing-one-step) * 2);
+}
+
+.gap-3 {
+    gap: calc(var(--spacing-one-step) * 3);
+}
+
+.gap-4 {
+    gap: calc(var(--spacing-one-step) * 4);
+}
+
+.gap-5 {
+    gap: calc(var(--spacing-one-step) * 5);
 }

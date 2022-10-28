@@ -2,36 +2,38 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import Tabs from "./Tabs";
 import List from "./List";
+import { clsx } from "clsx";
 
-const BurderIngredients = ({ data, height }) => {
+const BurderIngredients = ({ data, height, className }) => {
     const tabs = [
         {
-            value: '1',
-            text: 'Булки'
+            text: 'Булки',
+            value: 'bun'
         },
         {
-            value: '2',
-            text: 'Соусы'
+            text: 'Соусы',
+            value: 'sauce'
         },
         {
-            value: '3',
-            text: 'Начинки'
+            text: 'Начинки',
+            value: 'main'
         },
     ]
     const [activeTab, setActiveTab] = useState(tabs[0].value)
     const list = Object.entries(
-        data.reduce((acc, value) => (
-            {
-                ...acc,
-                [value.type]: Array.isArray(acc[value.type]) ? [].concat(acc[value.type], value) : [value]
+        data.reduce((acc, value) => ({
+            ...acc,
+            [value.type]: Array.isArray(acc[value.type]) ? [].concat(acc[value.type], value) : [value]
 
-            }), {})
-    ).map(([key, value]) => ({ type: key, data: value }))
-
-    console.log('list', { data, list })
+        }), {})
+    ).map(([key, value]) => ({
+        // type: key, 
+        type: tabs.find(el => el.value === key).text,
+        data: value
+    }))
 
     return (
-        <div>
+        <div className={clsx(className)} style={{ width: 600 }}>
             <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
             <Tabs value={activeTab} tabs={tabs} onClick={setActiveTab} />
             <List data={list} height={height} />

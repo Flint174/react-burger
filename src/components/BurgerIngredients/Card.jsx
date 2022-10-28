@@ -7,7 +7,6 @@ import {
 import { clsx } from "clsx";
 
 const Card = ({ image, price, name, count, className }) => {
-    console.log('card style', image)
     return (
         <div className={clsx(style.card_container, className)}>
             {!!count && <Counter count={count} />}
