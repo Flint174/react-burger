@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import Card, { cardPropTypes } from "./Card";
+import { Card, cardPropTypes } from "./Card";
 
-const ListItem = ({ type, data }) => {
+export const ListItem = ({ type, data }) => {
     return (
         <>
             <p className="text text_type_main-large mb-6">{type}</p>
@@ -18,5 +18,3 @@ export const listItemPropTypes = {
 }
 
 ListItem.propTypes = listItemPropTypes
-
-export default ListItem

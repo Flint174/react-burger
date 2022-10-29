@@ -7,7 +7,7 @@ import {
 import { ingredientTypes } from "../../utils/types";
 import { clsx } from "clsx";
 
-const Card = ({ image, price, name, count, className }) => {
+export const Card = ({ image, price, name, count, className }) => {
     return (
         <div className={clsx(style.card_container, 'flex column align_items-center', className)}>
             {!!count && <Counter count={count} />}
@@ -31,5 +31,3 @@ export const cardPropTypes = {
 }
 
 Card.propTypes = cardPropTypes
-
-export default Card

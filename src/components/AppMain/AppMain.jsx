@@ -1,10 +1,10 @@
-import BurgerIngredients from "../BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor";
+import { BurgerIngredients } from "../BurgerIngredients";
+import { BurgerConstructor } from "../BurgerConstructor";
 import { ingredientTypes } from "../../utils/types";
 import PropTypes from "prop-types";
 import { clsx } from "clsx";
 
-const AppMain = ({ data }) => {
+export const AppMain = ({ data }) => {
     const bun = data.find(el => el.type === 'bun')
     const ingredients = data.filter(el => el.type !== 'bun')
 
@@ -23,5 +23,3 @@ export const appMainPropTypes = {
 }
 
 AppMain.propTypes = appMainPropTypes
-
-export default AppMain

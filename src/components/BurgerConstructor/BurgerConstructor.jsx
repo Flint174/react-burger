@@ -1,11 +1,11 @@
-import Composition, { listPropTypes } from "./Composition";
+import { listPropTypes, Composition } from "./Composition";
 import {
     CurrencyIcon,
     Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
 
-const BurgerConstructor = ({ bun, ingredients, className }) => {
+export const BurgerConstructor = ({ bun, ingredients, className }) => {
     const total = 200
     const height = 400
     return (
@@ -23,5 +23,3 @@ const BurgerConstructor = ({ bun, ingredients, className }) => {
 export const burgerConstructorPropTypes = listPropTypes
 
 BurgerConstructor.propTypes = burgerConstructorPropTypes
-
-export default BurgerConstructor

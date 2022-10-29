@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import Container from './Container'
+import { Container } from './Container'
 
-const Link = (props) => {
+export const Link = (props) => {
     return (
         <Container className='m-5'>
             {props.icon}
@@ -14,5 +14,3 @@ Link.propTypes = {
     icon: PropTypes.element,
     text: PropTypes.string
 }
-
-export default Link

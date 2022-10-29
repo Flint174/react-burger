@@ -1,11 +1,11 @@
-import Container from "./Container";
-import Link from "./Link";
+import { Container } from "./Container";
+import { Link } from "./Link";
 import {
     BurgerIcon,
     ListIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Links = () => {
+export const Links = () => {
     return (
         <Container>
             <Link icon={<BurgerIcon />} text='Конструктор' />
@@ -13,5 +13,3 @@ const Links = () => {
         </Container>
     )
 }
-
-export default Links

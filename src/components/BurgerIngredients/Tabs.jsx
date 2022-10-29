@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Tabs = ({ value, tabs, onClick }) => {
+export const Tabs = ({ value, tabs, onClick }) => {
 
     return (
         <div className="flex mb-10">
@@ -26,5 +26,3 @@ Tabs.propTypes = {
     value: PropTypes.string,
     onClick: PropTypes.func
 }
-
-export default Tabs

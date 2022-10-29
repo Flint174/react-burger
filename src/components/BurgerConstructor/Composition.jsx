@@ -3,8 +3,9 @@ import {
     ConstructorElement,
     DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ingredientTypes } from "../../utils/types";
 
-const List = ({ ingredients, bun, height }) => {
+export const Composition = ({ ingredients, bun, height }) => {
     return (
         <div className="flex column gap-4">
             {
@@ -57,21 +58,12 @@ const List = ({ ingredients, bun, height }) => {
     )
 }
 
-const ingredient = {
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number
-}
-
 export const listPropTypes = {
     ingredients: PropTypes.arrayOf(
-        PropTypes.shape(ingredient)
+        PropTypes.shape(ingredientTypes)
     ),
-    bun: PropTypes.shape(ingredient),
+    bun: PropTypes.shape(ingredientTypes),
     height: PropTypes.number
 }
 
-List.propTypes = listPropTypes
-
-export default List
+Composition.propTypes = listPropTypes

@@ -1,8 +1,8 @@
-import AppHeader from "../AppHeader";
-import AppMain from "../AppMain";
+import { AppHeader } from "../AppHeader";
+import { AppMain } from "../AppMain";
 import { data } from "../../utils/data";
 
-function App () {
+export const App = () => {
     return (
         <>
             <AppHeader />
@@ -10,6 +10,3 @@ function App () {
         </>
     );
 }
-
-export default App;
-

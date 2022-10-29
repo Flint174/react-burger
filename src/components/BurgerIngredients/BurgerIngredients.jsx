@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import Tabs from "./Tabs";
-import Ingredients from "./Ingredients";
+import { Tabs } from "./Tabs";
+import { Ingredients } from "./Ingredients";
 import { ingredientTypes } from "../../utils/types";
 import { clsx } from "clsx";
 
-const BurderIngredients = ({ data, height, className }) => {
+export const BurgerIngredients = ({ data, height, className }) => {
     const tabs = [
         {
             text: 'Булки',
@@ -48,6 +48,4 @@ export const burgerIngredientsPropTypes = {
     height: PropTypes.number.isRequired
 }
 
-BurderIngredients.propTypes = burgerIngredientsPropTypes
-
-export default BurderIngredients
+BurgerIngredients.propTypes = burgerIngredientsPropTypes
