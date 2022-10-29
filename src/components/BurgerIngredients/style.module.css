@@ -1,0 +1,19 @@
+.card_container {
+    width: 272px;
+    position: relative;
+}
+
+.card_img {
+    max-width: 240px;
+    max-height: 120px;
+}
+
+.card_name {
+    height: 48px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.list_container {
+    overflow: auto;
+}
