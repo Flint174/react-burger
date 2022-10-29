@@ -1,4 +1,4 @@
-import List, { listPropTypes } from "./List";
+import Composition, { listPropTypes } from "./Composition";
 import {
     CurrencyIcon,
     Button
@@ -10,7 +10,7 @@ const BurgerConstructor = ({ bun, ingredients, className }) => {
     const height = 400
     return (
         <div className={clsx('flex column', className)} style={{ width: 600 }}>
-            <List bun={bun} ingredients={ingredients} height={height} />
+            <Composition bun={bun} ingredients={ingredients} height={height} />
             <div className="mt-10 flex row align_items-center" style={{ alignSelf: 'flex-end' }}>
                 <p className="text text_type_digits-medium mr-2">{total}</p>
                 <CurrencyIcon />

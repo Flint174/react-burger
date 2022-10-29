@@ -4,6 +4,7 @@ import {
     CurrencyIcon,
     Counter
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ingredientTypes } from "../../utils/types";
 import { clsx } from "clsx";
 
 const Card = ({ image, price, name, count, className }) => {
@@ -25,10 +26,7 @@ const Card = ({ image, price, name, count, className }) => {
 }
 
 export const cardPropTypes = {
-    _id: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number,
-    name: PropTypes.string,
+    ...ingredientTypes,
     count: PropTypes.number
 }
 

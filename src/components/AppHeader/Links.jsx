@@ -7,12 +7,10 @@ import {
 
 const Links = () => {
     return (
-        <>
-            <Container>
-                <Link icon={<BurgerIcon />} text='Конструктор' />
-                <Link icon={<ListIcon />} text='Лента заказов' />
-            </Container>
-        </>
+        <Container>
+            <Link icon={<BurgerIcon />} text='Конструктор' />
+            <Link icon={<ListIcon />} text='Лента заказов' />
+        </Container>
     )
 }
 

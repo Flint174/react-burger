@@ -1,5 +1,6 @@
 import BurgerIngredients from "../BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor";
+import { ingredientTypes } from "../../utils/types";
 import PropTypes from "prop-types";
 import { clsx } from "clsx";
 
@@ -8,8 +9,8 @@ const AppMain = ({ data }) => {
     const ingredients = data.filter(el => el.type !== 'bun')
 
     return (
-        <main className={clsx('flex row justify_content-center')}>
-            <BurgerIngredients className="mr-10" data={data} height={500} />
+        <main className={clsx('flex row justify_content-center gap-10')}>
+            <BurgerIngredients data={data} height={500} />
             <BurgerConstructor bun={bun} ingredients={ingredients} />
         </main>
     )
@@ -17,20 +18,7 @@ const AppMain = ({ data }) => {
 
 export const appMainPropTypes = {
     data: PropTypes.arrayOf(
-        PropTypes.shape({
-            _id: PropTypes.string,
-            name: PropTypes.string,
-            type: PropTypes.string,
-            proteings: PropTypes.number,
-            fat: PropTypes.number,
-            carbohydrates: PropTypes.number,
-            calories: PropTypes.number,
-            price: PropTypes.number,
-            image: PropTypes.string,
-            image_mobile: PropTypes.string,
-            image_large: PropTypes.string,
-            __v: PropTypes.number
-        })
+        PropTypes.shape(ingredientTypes)
     ).isRequired,
 }
 

@@ -6,7 +6,7 @@ const ListItem = ({ type, data }) => {
         <>
             <p className="text text_type_main-large mb-6">{type}</p>
             <div className='flex wor wrap mb-10'>
-                {data.map((el, index) => (<Card className="ml-4" {...el} key={index} />))}
+                {data.map((el, index) => (<Card className="ml-4" {...el} key={el._id} />))}
             </div>
         </>
     )

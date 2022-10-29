@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Tabs from "./Tabs";
-import List from "./List";
+import Ingredients from "./Ingredients";
+import { ingredientTypes } from "../../utils/types";
 import { clsx } from "clsx";
 
 const BurderIngredients = ({ data, height, className }) => {
@@ -35,22 +36,14 @@ const BurderIngredients = ({ data, height, className }) => {
         <div className={clsx(className)} style={{ width: 600 }}>
             <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
             <Tabs value={activeTab} tabs={tabs} onClick={setActiveTab} />
-            <List data={list} height={height} />
+            <Ingredients data={list} height={height} />
         </div>
     )
 }
 
 export const burgerIngredientsPropTypes = {
     data: PropTypes.arrayOf(
-        PropTypes.shape({
-            _id: PropTypes.string,
-            name: PropTypes.string,
-            type: PropTypes.string,
-            price: PropTypes.number,
-            image: PropTypes.string,
-            image_mobile: PropTypes.string,
-            image_large: PropTypes.string,
-        })
+        PropTypes.shape(ingredientTypes)
     ).isRequired,
     height: PropTypes.number.isRequired
 }
