@@ -1,4 +1,3 @@
-// import PropTypes from "prop-type";
 import List, { listPropTypes } from "./List";
 import {
     CurrencyIcon,

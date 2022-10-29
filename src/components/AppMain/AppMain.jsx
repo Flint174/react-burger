@@ -8,7 +8,6 @@ const AppMain = ({ data }) => {
     const ingredients = data.filter(el => el.type !== 'bun')
 
     return (
-        // <main className={clsx(props.className)} style={{ height: props.height, ...props.style, overflow: "hidden" }}>
         <main className={clsx('flex row justify_content-center')}>
             <BurgerIngredients className="mr-10" data={data} height={500} />
             <BurgerConstructor bun={bun} ingredients={ingredients} />
@@ -33,7 +32,6 @@ export const appMainPropTypes = {
             __v: PropTypes.number
         })
     ).isRequired,
-    // height: PropTypes.number.isRequired
 }
 
 AppMain.propTypes = appMainPropTypes

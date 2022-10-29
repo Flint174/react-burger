@@ -68,6 +68,10 @@ code {
     justify-content: end;
 }
 
+.justify_content-space_evenly {
+    justify-content: space-evenly;
+}
+
 .gap-1 {
     gap: var(--spacing-one-step);
 }

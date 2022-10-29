@@ -27,7 +27,6 @@ const BurderIngredients = ({ data, height, className }) => {
 
         }), {})
     ).map(([key, value]) => ({
-        // type: key, 
         type: tabs.find(el => el.value === key).text,
         data: value
     }))

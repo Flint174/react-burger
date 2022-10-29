@@ -8,14 +8,14 @@ import { clsx } from "clsx";
 
 const Card = ({ image, price, name, count, className }) => {
     return (
-        <div className={clsx(style.card_container, className)}>
+        <div className={clsx(style.card_container, 'flex column align_items-center', className)}>
             {!!count && <Counter count={count} />}
             <img
                 className={clsx(style.card_img, "ml-4 mr-4")}
                 src={image}
                 alt="Oops"
             />
-            <div className={clsx(style.card_item, "mt-1 mb-1")}>
+            <div className="flex row align_items-center mt-1 mb-1">
                 <p className="text text_type_digits-default mr-1">{price}</p>
                 <CurrencyIcon />
             </div>
