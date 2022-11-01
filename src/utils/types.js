@@ -14,3 +14,7 @@ export const ingredientTypes = {
     image_large: PropTypes.string,
     __v: PropTypes.number
 }
+
+export const modalTypes = {
+    onClose: PropTypes.func
+}
