@@ -12,8 +12,6 @@ export const ListItem = ({ type, data, onClick }) => {
     }
 
     function openOrderDetails (value) {
-        console.log('data', data)
-        console.log('set info', value)
         setInfo(value)
         setIsToggled(true)
     }

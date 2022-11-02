@@ -20,6 +20,7 @@ export const BurgerConstructor = ({ bun, ingredients, className }) => {
 
     function getOrderDedails () {
         // fetch() ...
+        // test data
         Promise.resolve(Math.floor(Math.random() * 1000000))
             .then(number => {
                 setOrderNumber(number)
