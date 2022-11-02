@@ -13,7 +13,7 @@ export const Modal = ({ onClose, children }) => {
             <div className={style.modal_card_close}>
                 <CloseIcon onClick={onClose} />
             </div>
-            <div className="pt-30 pb-30 flex column align_items-center justify_content-center">
+            <div className="flex column align_items-center justify_content-center">
                 {children}
             </div>
         </div>

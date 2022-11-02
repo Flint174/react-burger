@@ -16,5 +16,6 @@ export const ingredientTypes = {
 }
 
 export const modalTypes = {
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    show: PropTypes.bool
 }

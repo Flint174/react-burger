@@ -48,6 +48,10 @@ code {
     align-items: flex-end;
 }
 
+.align_self-start {
+    align-self: flex-start;
+}
+
 .wrap {
     flex-wrap: wrap;
 }

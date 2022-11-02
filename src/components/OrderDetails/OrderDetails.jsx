@@ -4,9 +4,7 @@ import { modalsElement } from "../../utils/constants";
 import { modalTypes } from "../../utils/types";
 import { Modal } from "../Modal";
 import { ModalOverlay } from "../ModalOverlay";
-import style from "./style.module.css";
 import doneSvg from "../../images/done.svg";
-import { clsx } from "clsx";
 
 export const OrderDetail = ({ orderNumber, show, onClose }) => {
     return createPortal((
@@ -16,7 +14,7 @@ export const OrderDetail = ({ orderNumber, show, onClose }) => {
 
                 <ModalOverlay onClose={onClose}>
                     <Modal onClose={onClose}>
-                        <p className="text text_type_digits-large">
+                        <p className="text text_type_digits-large mt-30">
                             {('0'.repeat(6) + orderNumber).slice(-6)}
                         </p>
 
@@ -24,13 +22,13 @@ export const OrderDetail = ({ orderNumber, show, onClose }) => {
                             идентификатор заказа
                         </p>
 
-                        <img className={clsx(style.icon, 'm-15')} src={doneSvg} alt="done" />
+                        <img className="m-15" src={doneSvg} alt="done" height={120} width={120} />
 
                         <p className="text text_type_main-default">
                             Ваш заказ начали готовить
                         </p>
 
-                        <p className="text text_type_main-default text_color_inactive mt-2">
+                        <p className="text text_type_main-default text_color_inactive mt-2 mb-30">
                             Дождитесь готовности на орбитальной станции
                         </p>
                     </Modal>
@@ -42,6 +40,5 @@ export const OrderDetail = ({ orderNumber, show, onClose }) => {
 
 export const orderDetailPropTypes = {
     ...modalTypes,
-    orderNumber: PropTypes.number,
-    show: PropTypes.bool,
+    orderNumber: PropTypes.number
 }
