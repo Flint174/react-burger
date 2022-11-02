@@ -8,21 +8,23 @@ import { OrderDetail } from "../OrderDetails";
 import { useState } from "react";
 
 export const BurgerConstructor = ({ bun, ingredients, className }) => {
-    const [isToggled, setIsToggled] = useState(true)
+    const [isToggled, setIsToggled] = useState(false)
+    const [orderNumber, setOrderNumber] = useState(0)
 
     const total = 200
     const height = 400
 
-    // function toggle () {
-    //     setIsToggled(!isToggled)
-    // }
-
-    function openOrderDetails () {
-        setIsToggled(true)
-    }
-
     function closeOrderDetails () {
         setIsToggled(false)
+    }
+
+    function getOrderDedails () {
+        // fetch() ...
+        Promise.resolve(Math.floor(Math.random() * 1000000))
+            .then(number => {
+                setOrderNumber(number)
+                setIsToggled(true)
+            })
     }
 
     return (
@@ -31,10 +33,9 @@ export const BurgerConstructor = ({ bun, ingredients, className }) => {
             <div className="mt-10 flex row align_items-center" style={{ alignSelf: 'flex-end' }}>
                 <p className="text text_type_digits-medium mr-2">{total}</p>
                 <CurrencyIcon />
-                <Button htmlType="button" extraClass="ml-10" onClick={openOrderDetails}>ОФОРМИТЬ ЗАКАЗ</Button>
-                {/* <Button htmlType="button" extraClass="ml-10" onClick={toggle}>ОФОРМИТЬ ЗАКАЗ</Button> */}
+                <Button htmlType="button" extraClass="ml-10" onClick={getOrderDedails}>ОФОРМИТЬ ЗАКАЗ</Button>
             </div>
-            <OrderDetail show={isToggled} onClose={closeOrderDetails} />
+            <OrderDetail orderNumber={orderNumber} show={isToggled} onClose={closeOrderDetails} />
         </div>
     )
 }
