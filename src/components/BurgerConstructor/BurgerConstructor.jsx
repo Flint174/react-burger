@@ -6,16 +6,18 @@ import {
 import { clsx } from "clsx";
 import { OrderDetail } from "../OrderDetails";
 import { useState } from "react";
+import style from "./style.module.css";
+import { Modal } from "../Modal";
 
 export const BurgerConstructor = ({ bun, ingredients, className }) => {
-    const [isToggled, setIsToggled] = useState(false)
+    const [show, setShow] = useState(false)
     const [orderNumber, setOrderNumber] = useState(0)
 
     const total = 200
     const height = 400
 
     function closeOrderDetails () {
-        setIsToggled(false)
+        setShow(false)
     }
 
     function getOrderDedails () {
@@ -24,19 +26,24 @@ export const BurgerConstructor = ({ bun, ingredients, className }) => {
         Promise.resolve(Math.floor(Math.random() * 1000000))
             .then(number => {
                 setOrderNumber(number)
-                setIsToggled(true)
+                setShow(true)
             })
     }
 
     return (
-        <div className={clsx('flex column', className)} style={{ width: 600 }}>
+        <div className={clsx('flex column', style.container, className)}>
             <Composition bun={bun} ingredients={ingredients} height={height} />
-            <div className="mt-10 flex row align_items-center" style={{ alignSelf: 'flex-end' }}>
+            <div className="mt-10 flex row align_items-center align_self-end">
                 <p className="text text_type_digits-medium mr-2">{total}</p>
                 <CurrencyIcon />
                 <Button htmlType="button" extraClass="ml-10" onClick={getOrderDedails}>ОФОРМИТЬ ЗАКАЗ</Button>
             </div>
-            <OrderDetail orderNumber={orderNumber} show={isToggled} onClose={closeOrderDetails} />
+
+            <Modal
+                isOpen={show}
+                onClose={closeOrderDetails} >
+                <OrderDetail orderNumber={orderNumber} />
+            </Modal>
         </div>
     )
 }

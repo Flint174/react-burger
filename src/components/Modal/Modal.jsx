@@ -6,13 +6,15 @@ import { createPortal } from "react-dom";
 import { modalsElement } from "../../utils/constants";
 import { useEffect } from "react";
 
-export const Modal = ({ show, title, onClose, children }) => {
+export const Modal = ({ isOpen, title, onClose, children }) => {
 
     function stopPropagation (e) {
         e.stopPropagation()
     }
 
     useEffect(() => {
+
+        if (!isOpen) return
 
         const onKeyDown = (e) => {
             if (e.key === 'Escape') {
@@ -25,14 +27,14 @@ export const Modal = ({ show, title, onClose, children }) => {
             document.removeEventListener('keydown', onKeyDown)
         }
 
-    }, [onClose])
+    }, [isOpen, onClose])
 
     return createPortal((
         <>
             {
-                show &&
+                isOpen &&
 
-                <ModalOverlay onClose={onClose}>
+                (<ModalOverlay onClose={onClose}>
                     <div className={style.modal} onClick={stopPropagation}>
                         <div className={style.modal_card_close}>
                             <CloseIcon onClick={onClose} />
@@ -47,7 +49,9 @@ export const Modal = ({ show, title, onClose, children }) => {
                         </div>
                     </div>
                 </ModalOverlay>
+                )
             }
+
         </>
     ), modalsElement)
 }

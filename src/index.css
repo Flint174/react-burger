@@ -52,6 +52,10 @@ code {
     align-self: flex-start;
 }
 
+.align_self-end {
+    align-self: flex-end;
+}
+
 .wrap {
     flex-wrap: wrap;
 }

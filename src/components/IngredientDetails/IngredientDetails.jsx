@@ -1,5 +1,4 @@
-import { ingredientTypes, modalTypes } from "../../utils/types";
-import { Modal } from "../Modal";
+import { ingredientTypes } from "../../utils/types";
 import { InfoField } from "./InfoField";
 
 export const IngredientDetails = ({ show, onClose, data }) => {
@@ -27,28 +26,19 @@ export const IngredientDetails = ({ show, onClose, data }) => {
 
     return (
         <>
-            {
-                show &&
+            <img src={data.image_large} alt="done" height={240} width={520} />
 
-                <Modal title="Детали ингредиента" onClose={onClose}>
+            <p className="text text_type_main-medium mt-4">
+                {data.name}
+            </p>
 
-                    <img src={data.image_large} alt="done" height={240} width={520} />
-
-                    <p className="text text_type_main-medium mt-4">
-                        {data.name}
-                    </p>
-
-                    <div className="flex row gap-5 mt-8 mb-15">
-                        {info.map((el, index) => <InfoField {...el} key={index} />)}
-                    </div>
-                </Modal>
-
-            }
+            <div className="flex row gap-5 mt-8 mb-15">
+                {info.map((el, index) => <InfoField {...el} key={index} />)}
+            </div>
         </>
     )
 }
 
 export const ingredientDetailsPropTypes = {
-    ...modalTypes,
     data: ingredientTypes
 }

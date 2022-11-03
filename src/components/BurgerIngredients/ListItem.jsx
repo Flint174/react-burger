@@ -1,27 +1,35 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { IngredientDetails } from "../IngredientDetails";
+import { Modal } from "../Modal";
 import { Card, cardPropTypes } from "./Card";
 
 export const ListItem = ({ type, data, onClick }) => {
-    const [isToggled, setIsToggled] = useState(false)
+    const [show, setShow] = useState(false)
     const [info, setInfo] = useState()
 
     function closeOrderDetails () {
-        setIsToggled(false)
+        setShow(false)
     }
 
     function openOrderDetails (value) {
         setInfo(value)
-        setIsToggled(true)
+        setShow(true)
     }
     return (
         <section onClick={onClick}>
             <p className="text text_type_main-large mb-6">{type}</p>
             <div className='flex wor wrap mb-10'>
-                {data.map((el, index) => (<Card className="ml-4" {...el} key={el._id} onClick={() => openOrderDetails(el)} />))}
+                {data.map(el => (<Card className="ml-4" {...el} key={el._id} onClick={() => openOrderDetails(el)} />))}
             </div>
-            <IngredientDetails show={isToggled} onClose={closeOrderDetails} data={info} />
+
+            <Modal
+                title='Детали ингредиента'
+                isOpen={show}
+                onClose={closeOrderDetails}
+            >
+                <IngredientDetails data={info} />
+            </Modal>
         </section>
     )
 }

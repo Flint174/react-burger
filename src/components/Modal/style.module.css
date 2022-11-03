@@ -8,7 +8,7 @@
 }
 
 .modal_card_close {
-    position: absolute;
+    position: fixed;
     top: calc(var(--spacing-one-step) * 15);
     right: calc(var(--spacing-one-step) * 10);
 }

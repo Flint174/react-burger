@@ -1,11 +1,9 @@
 import PropTypes from "prop-types";
-import { modalTypes } from "../../utils/types";
-import { Modal } from "../Modal";
 import doneSvg from "../../images/done.svg";
 
-export const OrderDetail = ({ orderNumber, show, onClose }) => {
+export const OrderDetail = ({ orderNumber }) => {
     return (
-        <Modal show={show} onClose={onClose}>
+        <>
             <p className="text text_type_digits-large mt-4">
                 {('0'.repeat(6) + orderNumber).slice(-6)}
             </p>
@@ -23,11 +21,10 @@ export const OrderDetail = ({ orderNumber, show, onClose }) => {
             <p className="text text_type_main-default text_color_inactive mt-2 mb-30">
                 Дождитесь готовности на орбитальной станции
             </p>
-        </Modal>
+        </>
     )
 }
 
 export const orderDetailPropTypes = {
-    ...modalTypes,
     orderNumber: PropTypes.number
 }

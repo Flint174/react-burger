@@ -8,7 +8,12 @@ export const App = () => {
 
     useEffect(() => {
         fetch(ingredientsUrl)
-            .then(res => res.json())
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                }
+                return Promise.reject(`Ошибка ${res.status}`)
+            })
             .then(json => setData(json.data))
             .catch(err => console.error(err))
     }, [])
