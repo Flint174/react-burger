@@ -4,6 +4,7 @@ import { Tabs } from "./Tabs";
 import { Ingredients } from "./Ingredients";
 import { ingredientTypes } from "../../utils/types";
 import { clsx } from "clsx";
+import style from "./style.module.css";
 
 export const BurgerIngredients = ({ data, height, className }) => {
     const tabs = [
@@ -33,7 +34,7 @@ export const BurgerIngredients = ({ data, height, className }) => {
     }))
 
     return (
-        <div className={clsx(className)} style={{ width: 600 }}>
+        <div className={clsx(style.main_container, className)}>
             <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
             <Tabs value={activeTab} tabs={tabs} onClick={setActiveTab} />
             <Ingredients data={list} height={height} />
