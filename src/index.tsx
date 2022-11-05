@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { App } from './components/App/App';
 import reportWebVitals from './reportWebVitals';
+import { rootElement } from './utils/constants';
 
 const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
+    rootElement as HTMLElement
 );
 root.render(
     <React.StrictMode>

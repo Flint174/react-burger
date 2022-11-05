@@ -1,3 +1,7 @@
+.main_container {
+    width: 600px;
+}
+
 .card_container {
     width: 272px;
     position: relative;

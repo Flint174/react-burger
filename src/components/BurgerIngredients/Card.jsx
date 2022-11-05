@@ -7,9 +7,12 @@ import {
 import { ingredientTypes } from "../../utils/types";
 import { clsx } from "clsx";
 
-export const Card = ({ image, price, name, count, className }) => {
+export const Card = ({ image, price, name, count, onClick, className }) => {
     return (
-        <div className={clsx(style.card_container, 'flex column align_items-center', className)}>
+        <div
+            className={clsx(style.card_container, 'flex column align_items-center', className)}
+            onClick={onClick}
+        >
             {!!count && <Counter count={count} />}
             <img
                 className={clsx(style.card_img, "ml-4 mr-4")}
@@ -27,7 +30,8 @@ export const Card = ({ image, price, name, count, className }) => {
 
 export const cardPropTypes = {
     ...ingredientTypes,
-    count: PropTypes.number
+    count: PropTypes.number,
+    onClick: PropTypes.func
 }
 
 Card.propTypes = cardPropTypes

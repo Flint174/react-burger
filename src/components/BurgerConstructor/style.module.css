@@ -1,0 +1,7 @@
+.container {
+    width: 600px;
+}
+
+.ingredients_scroll {
+    overflow: auto;
+}

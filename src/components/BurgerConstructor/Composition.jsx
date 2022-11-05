@@ -4,6 +4,8 @@ import {
     DragIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientTypes } from "../../utils/types";
+import style from "./style.module.css";
+import { clsx } from "clsx";
 
 export const Composition = ({ ingredients, bun, height }) => {
     return (
@@ -20,11 +22,8 @@ export const Composition = ({ ingredients, bun, height }) => {
                 />
             }
             <div
-                className="flex column gap-4"
-                style={{
-                    overflow: 'auto',
-                    height: height
-                }}
+                className={clsx(style.ingredients_scroll, "flex column gap-4")}
+                style={{ height: height }}
             >
                 {
                     ingredients &&
