@@ -1,7 +1,7 @@
 import { ingredientTypes } from "../../utils/types";
 import { InfoField } from "./InfoField";
 
-export const IngredientDetails = ({ show, onClose, data }) => {
+export const IngredientDetails = ({ data }) => {
 
     const info = data
         ? [
@@ -42,3 +42,5 @@ export const IngredientDetails = ({ show, onClose, data }) => {
 export const ingredientDetailsPropTypes = {
     data: ingredientTypes
 }
+
+IngredientDetails.propTypes = ingredientDetailsPropTypes

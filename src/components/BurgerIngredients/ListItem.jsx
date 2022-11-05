@@ -20,7 +20,7 @@ export const ListItem = ({ type, data, onClick }) => {
         <section onClick={onClick}>
             <p className="text text_type_main-large mb-6">{type}</p>
             <div className='flex wor wrap mb-10'>
-                {data.map(el => (<Card className="ml-4" {...el} key={el._id} onClick={() => openOrderDetails(el)} />))}
+                {data.map(el => (<Card extraClass="ml-4" {...el} key={el._id} onClick={() => openOrderDetails(el)} />))}
             </div>
 
             <Modal

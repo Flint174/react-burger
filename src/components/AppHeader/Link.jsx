@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import { Container } from './Container'
 
-export const Link = (props) => {
+export const Link = ({ text, icon }) => {
     return (
-        <Container className='m-5'>
-            {props.icon}
-            <p className="text text_type_main-default ml-2">{props.text}</p>
+        <Container extraClass='m-5'>
+            {icon}
+            <p className="text text_type_main-default ml-2">{text}</p>
         </Container >
     )
 }

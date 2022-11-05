@@ -9,7 +9,7 @@ import { useState } from "react";
 import style from "./style.module.css";
 import { Modal } from "../Modal";
 
-export const BurgerConstructor = ({ bun, ingredients, className }) => {
+export const BurgerConstructor = ({ bun, ingredients }) => {
     const [show, setShow] = useState(false)
     const [orderNumber, setOrderNumber] = useState(0)
 
@@ -31,7 +31,7 @@ export const BurgerConstructor = ({ bun, ingredients, className }) => {
     }
 
     return (
-        <div className={clsx('flex column', style.container, className)}>
+        <div className={clsx('flex column', style.container)}>
             <Composition bun={bun} ingredients={ingredients} height={height} />
             <div className="mt-10 flex row align_items-center align_self-end">
                 <p className="text text_type_digits-medium mr-2">{total}</p>
