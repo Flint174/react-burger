@@ -2,6 +2,7 @@ import { AppHeader } from "../AppHeader";
 import { AppMain } from "../AppMain";
 import { useEffect, useState } from "react";
 import { ingredientsUrl } from "../../utils/constants";
+import { AppDataContext } from "../../context/appContext";
 
 export const App = () => {
     const [data, setData] = useState([])
@@ -21,7 +22,9 @@ export const App = () => {
     return (
         <>
             <AppHeader />
-            <AppMain data={data} />
+            <AppDataContext.Provider value={{ data }}>
+                <AppMain />
+            </AppDataContext.Provider>
         </>
     );
 }

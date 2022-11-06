@@ -1,34 +1,70 @@
-import { listPropTypes, Composition } from "./Composition";
+import { Composition } from "./Composition";
 import {
     CurrencyIcon,
     Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
 import { OrderDetail } from "../OrderDetails";
-import { useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import style from "./style.module.css";
 import { Modal } from "../Modal";
+import { AppDataContext } from "../../context/appContext";
+import { ordersUrl } from "../../utils/constants";
 
-export const BurgerConstructor = ({ bun, ingredients }) => {
+export const BurgerConstructor = () => {
     const [show, setShow] = useState(false)
     const [orderNumber, setOrderNumber] = useState(0)
+    const { data } = useContext(AppDataContext)
 
-    const total = 200
+    const getBun = (value) => value.find(el => el.type === 'bun')
+    const [bun, setBun] = useState(getBun(data))
+
+    const getIngredients = (value) => value.filter(el => el.type !== 'bun')
+    const [ingredients, setIngredients] = useState(getIngredients(data))
+
+    const [total, setTotal] = useState(0)
+
+    useEffect(() => {
+        const newBun = getBun(data)
+        const newIngredients = getIngredients(data)
+        const bunPrice = newBun && newBun.price
+            ? newBun.price * 2
+            : 0
+        const ingredientsPrice = Array.isArray(newIngredients)
+            ? newIngredients.reduce((acc, value) => acc + value.price, 0)
+            : 0
+        setBun(newBun)
+        setIngredients(newIngredients)
+        setTotal(bunPrice + ingredientsPrice)
+    }, [data])
+
     const height = 400
 
     function closeOrderDetails () {
         setShow(false)
     }
 
-    function getOrderDedails () {
-        // fetch() ...
-        // test data
-        Promise.resolve(Math.floor(Math.random() * 1000000))
-            .then(number => {
-                setOrderNumber(number)
+    const getOrderDedails = useCallback(() => {
+
+        fetch(ordersUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ingredients: [bun._id, ...ingredients.map(el => el._id), bun._id] })
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json()
+                }
+                return Promise.reject(`Ошибка ${res.status}`)
+            })
+            .then(json => {
+                setOrderNumber(json.order.number)
                 setShow(true)
             })
-    }
+            .catch(err => console.error(err))
+    }, [bun, ingredients])
 
     return (
         <div className={clsx('flex column', style.container)}>
@@ -47,7 +83,3 @@ export const BurgerConstructor = ({ bun, ingredients }) => {
         </div>
     )
 }
-
-export const burgerConstructorPropTypes = listPropTypes
-
-BurgerConstructor.propTypes = burgerConstructorPropTypes

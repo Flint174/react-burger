@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Tabs } from "./Tabs";
 import { Ingredients } from "./Ingredients";
-import { ingredientTypes } from "../../utils/types";
 import { clsx } from "clsx";
 import style from "./style.module.css";
+import { AppDataContext } from "../../context/appContext";
 
-export const BurgerIngredients = ({ data, height }) => {
+export const BurgerIngredients = ({ height }) => {
     const tabs = [
         {
             text: 'Булки',
@@ -21,6 +21,7 @@ export const BurgerIngredients = ({ data, height }) => {
             value: 'main'
         },
     ]
+    const { data } = useContext(AppDataContext)
     const [activeTab, setActiveTab] = useState(tabs[0].value)
     const list = Object.entries(
         data.reduce((acc, value) => ({
@@ -28,6 +29,7 @@ export const BurgerIngredients = ({ data, height }) => {
             [value.type]: Array.isArray(acc[value.type]) ? [].concat(acc[value.type], value) : [value]
 
         }), {})
+
     ).map(([key, value]) => ({
         type: tabs.find(el => el.value === key).text,
         data: value
@@ -43,9 +45,6 @@ export const BurgerIngredients = ({ data, height }) => {
 }
 
 export const burgerIngredientsPropTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape(ingredientTypes)
-    ).isRequired,
     height: PropTypes.number.isRequired
 }
 
