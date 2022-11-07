@@ -9,7 +9,8 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import style from "./style.module.css";
 import { Modal } from "../Modal";
 import { AppDataContext } from "../../context/appContext";
-import { ordersUrl } from "../../utils/constants";
+import { ORDERS_URL } from "../../utils/constants";
+import { request, handleError } from '../../utils/request'
 
 export const BurgerConstructor = () => {
     const [show, setShow] = useState(false)
@@ -46,28 +47,22 @@ export const BurgerConstructor = () => {
 
     const getOrderDedails = useCallback(() => {
 
-        fetch(ordersUrl, {
+        request(ORDERS_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ ingredients: [bun._id, ...ingredients.map(el => el._id), bun._id] })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json()
-                }
-                return Promise.reject(`Ошибка ${res.status}`)
-            })
             .then(json => {
                 setOrderNumber(json.order.number)
                 setShow(true)
             })
-            .catch(err => console.error(err))
+            .catch(handleError)
     }, [bun, ingredients])
 
     return (
-        <div className={clsx('flex column', style.container)}>
+        <section className={clsx('flex column', style.container)}>
             <Composition bun={bun} ingredients={ingredients} height={height} />
             <div className="mt-10 flex row align_items-center align_self-end">
                 <p className="text text_type_digits-medium mr-2">{total}</p>
@@ -80,6 +75,6 @@ export const BurgerConstructor = () => {
                 onClose={closeOrderDetails} >
                 <OrderDetail orderNumber={orderNumber} />
             </Modal>
-        </div>
+        </section>
     )
 }

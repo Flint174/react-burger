@@ -3,9 +3,9 @@ import { clsx } from "clsx";
 
 export const Container = ({ extraClass, children }) => {
     return (
-        <div className={clsx('flex row nowrap justify_content-space_evenly align_items-center', extraClass)}>
+        <nav className={clsx('flex row nowrap justify_content-space_evenly align_items-center', extraClass)}>
             {children}
-        </div>
+        </nav>
     )
 }
 

@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import 'normalize.css'
 import './index.css';
+import '@ya.praktikum/react-developer-burger-ui-components'
 import { App } from './components/App/App';
 import reportWebVitals from './reportWebVitals';
-import { rootElement } from './utils/constants';
+import { ROOT_ELEMENT } from './utils/constants';
 
 const root = ReactDOM.createRoot(
-    rootElement as HTMLElement
+    ROOT_ELEMENT as HTMLElement
 );
 root.render(
     <React.StrictMode>

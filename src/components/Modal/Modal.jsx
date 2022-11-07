@@ -3,7 +3,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { modalTypes } from "../../utils/types";
 import { ModalOverlay } from "../ModalOverlay";
 import { createPortal } from "react-dom";
-import { modalsElement } from "../../utils/constants";
+import { MODALS_ELEMENT } from "../../utils/constants";
 import { useEffect } from "react";
 import { clsx } from "clsx";
 
@@ -36,25 +36,25 @@ export const Modal = ({ isOpen, title, onClose, children }) => {
                 isOpen &&
 
                 (<ModalOverlay onClose={onClose}>
-                    <div className={style.modal} onClick={stopPropagation}>
+                    <section className={style.modal} onClick={stopPropagation}>
                         <div className={style.modal_card_close}>
                             <CloseIcon onClick={onClose} />
                         </div>
                         <div className={clsx(style.title_container, "flex row align_items-center mt-10 ml-10 mr-10")}>
-                            <p className="text text_type_main-large">
+                            <h3 className="text text_type_main-large">
                                 {title}
-                            </p>
+                            </h3>
                         </div>
                         <div className="flex column align_items-center justify_content-center">
                             {children}
                         </div>
-                    </div>
+                    </section>
                 </ModalOverlay>
                 )
             }
 
         </>
-    ), modalsElement)
+    ), MODALS_ELEMENT)
 }
 
 export const modalPropTypes = modalTypes
