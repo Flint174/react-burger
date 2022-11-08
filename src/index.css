@@ -13,7 +13,8 @@ code {
 }
 
 :root {
-    --spacing-one-step: 4px;
+    --shadow-box-color_modal: rgba(0, 0, 0, 0.04);
+    --bg-color_overlay: rgba(0, 0, 0, 0.6);
 }
 
 ::-webkit-scrollbar {
@@ -81,25 +82,25 @@ code {
 }
 
 .gap-1 {
-    gap: var(--spacing-one-step);
+    gap: var(--offset-base-size);
 }
 
 .gap-2 {
-    gap: calc(var(--spacing-one-step) * 2);
+    gap: calc(var(--offset-base-size) * 2);
 }
 
 .gap-3 {
-    gap: calc(var(--spacing-one-step) * 3);
+    gap: calc(var(--offset-base-size) * 3);
 }
 
 .gap-4 {
-    gap: calc(var(--spacing-one-step) * 4);
+    gap: calc(var(--offset-base-size) * 4);
 }
 
 .gap-5 {
-    gap: calc(var(--spacing-one-step) * 5);
+    gap: calc(var(--offset-base-size) * 5);
 }
 
 .gap-10 {
-    gap: calc(var(--spacing-one-step) * 10);
+    gap: calc(var(--offset-base-size) * 10);
 }

@@ -1,51 +1,50 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useContext, useMemo } from "react";
 import { Tabs } from "./Tabs";
 import { Ingredients } from "./Ingredients";
-import { ingredientTypes } from "../../utils/types";
 import { clsx } from "clsx";
 import style from "./style.module.css";
+import { AppDataContext } from "../../context/appContext";
 
-export const BurgerIngredients = ({ data, height, className }) => {
-    const tabs = [
+export const BurgerIngredients = ({ height }) => {
+    const tabs = useMemo(() => [
         {
             text: 'Булки',
-            value: 'bun'
+            value: 'bun',
         },
         {
             text: 'Соусы',
-            value: 'sauce'
+            value: 'sauce',
         },
         {
             text: 'Начинки',
-            value: 'main'
+            value: 'main',
         },
-    ]
+    ], [])
+    const { data } = useContext(AppDataContext)
     const [activeTab, setActiveTab] = useState(tabs[0].value)
-    const list = Object.entries(
+    const list = useMemo(() => Object.entries(
         data.reduce((acc, value) => ({
             ...acc,
             [value.type]: Array.isArray(acc[value.type]) ? [].concat(acc[value.type], value) : [value]
 
         }), {})
+
     ).map(([key, value]) => ({
-        type: tabs.find(el => el.value === key).text,
+        type: tabs.find(el => el.value === key) || { value: key },
         data: value
-    }))
+    })), [data, tabs])
 
     return (
-        <div className={clsx(style.main_container, className)}>
-            <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
+        <section className={clsx(style.main_container)}>
+            <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
             <Tabs value={activeTab} tabs={tabs} onClick={setActiveTab} />
-            <Ingredients data={list} height={height} />
-        </div>
+            <Ingredients data={list} height={height} currentSection={activeTab} />
+        </section>
     )
 }
 
 export const burgerIngredientsPropTypes = {
-    data: PropTypes.arrayOf(
-        PropTypes.shape(ingredientTypes)
-    ).isRequired,
     height: PropTypes.number.isRequired
 }
 
