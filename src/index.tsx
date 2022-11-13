@@ -6,13 +6,17 @@ import '@ya.praktikum/react-developer-burger-ui-components'
 import { App } from './components/app/app';
 import reportWebVitals from './reportWebVitals';
 import { ROOT_ELEMENT } from './utils/constants';
+import { Provider } from "react-redux";
+import { store } from './services'
 
 const root = ReactDOM.createRoot(
     ROOT_ELEMENT as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <App />
+        <Provider store={store}>
+            <App />
+        </Provider>
     </React.StrictMode>
 );
 

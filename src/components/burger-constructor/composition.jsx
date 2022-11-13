@@ -23,12 +23,12 @@ export const Composition = ({ ingredients, bun, height }) => {
             }
             <div
                 className={clsx(style.ingredients_scroll, "flex column gap-4")}
-                style={{ height: height }}
+                style={{ maxHeight: height }}
             >
                 {
                     ingredients &&
-                    ingredients.map((el, index) => (
-                        <div className="flex row align_items-center" key={index}>
+                    ingredients.map(el => (
+                        <div className="flex row align_items-center" key={el.uuid}>
                             <DragIcon />
                             <ConstructorElement
                                 text={el.name}
@@ -59,10 +59,14 @@ export const Composition = ({ ingredients, bun, height }) => {
 
 export const listPropTypes = {
     ingredients: PropTypes.arrayOf(
-        PropTypes.shape(ingredientTypes)
-    ),
+        PropTypes.shape({
+            ...ingredientTypes,
+            uuid: PropTypes.string.isRequired
+        })
+    ).isRequired,
+    // bun: PropTypes.shape(ingredientTypes).isRequired,
     bun: PropTypes.shape(ingredientTypes),
-    height: PropTypes.number
+    height: PropTypes.number.isRequired
 }
 
 Composition.propTypes = listPropTypes

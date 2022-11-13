@@ -5,37 +5,51 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
 import { OrderDetail } from "../order-details";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import style from "./style.module.css";
 import { Modal } from "../modal";
-import { AppDataContext } from "../../context/appContext";
 import { ORDERS_URL } from "../../utils/constants";
 import { request, handleError } from '../../utils/request'
+import {
+    useSelector,
+    useDispatch
+} from "react-redux";
+import {
+    setBun,
+    // removeBun,
+    addIngredient,
+    // removeIngredient
+} from "../../services/slices/constructor-slice";
+import { v4 as uuidv4 } from 'uuid';
 
 export const BurgerConstructor = () => {
     const [show, setShow] = useState(false)
     const [orderNumber, setOrderNumber] = useState(0)
-    const { data } = useContext(AppDataContext)
+    const dispatch = useDispatch()
+    const data = useSelector(store => store.ingredientsReducer.data)
 
     const getBun = (value) => value.find(el => el.type === 'bun')
-    const [bun, setBun] = useState(getBun(data))
+    const { bun, ingredients } = useSelector(store => store.constructorReducer)
 
-    const getIngredients = (value) => value.filter(el => el.type !== 'bun')
-    const [ingredients, setIngredients] = useState(getIngredients(data))
+    const getIngredients = (value) =>
+        value
+            .filter(el => el.type !== 'bun')
+            .map(el => ({ ...el, uuid: uuidv4() }))
 
     const [total, setTotal] = useState(0)
 
     useEffect(() => {
         const newBun = getBun(data)
         const newIngredients = getIngredients(data)
+        console.log({ newIngredients })
         const bunPrice = newBun && newBun.price
             ? newBun.price * 2
             : 0
         const ingredientsPrice = Array.isArray(newIngredients)
             ? newIngredients.reduce((acc, value) => acc + value.price, 0)
             : 0
-        setBun(newBun)
-        setIngredients(newIngredients)
+        dispatch(setBun(newBun))
+        newIngredients.forEach(el => dispatch(addIngredient(el)))
         setTotal(bunPrice + ingredientsPrice)
     }, [data])
 
