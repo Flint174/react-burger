@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { ingredientTypes } from "../../utils/types";
-import { InfoField } from "./InfoField";
+import { InfoField } from "./info-field";
 
 export const IngredientDetails = ({ data }) => {
 

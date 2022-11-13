@@ -1,5 +1,5 @@
-import { AppHeader } from "../AppHeader";
-import { AppMain } from "../AppMain";
+import { AppHeader } from "../app-header";
+import { AppMain } from "../app-main";
 import { useEffect, useState } from "react";
 import { INGREDIENTS_URL } from "../../utils/constants";
 import { AppDataContext } from "../../context/appContext";

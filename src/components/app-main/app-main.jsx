@@ -1,5 +1,5 @@
-import { BurgerIngredients } from "../BurgerIngredients";
-import { BurgerConstructor } from "../BurgerConstructor";
+import { BurgerIngredients } from "../burger-ingredients";
+import { BurgerConstructor } from "../burger-constructor";
 import { clsx } from "clsx";
 
 export const AppMain = () => {

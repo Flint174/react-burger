@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { ListItem, listItemPropTypes } from "./ListItem";
+import { ListItem, listItemPropTypes } from "./list-item";
 import { clsx } from "clsx";
 import style from "./style.module.css";
 import { createRef, useEffect, useState } from "react";

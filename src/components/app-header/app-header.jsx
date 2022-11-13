@@ -1,6 +1,6 @@
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Links } from "./Links";
-import { Auth } from "./Auth";
+import { Links } from "./links";
+import { Auth } from "./auth";
 
 export const AppHeader = () => {
     return (

@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { forwardRef, useState } from "react";
-import { IngredientDetails } from "../IngredientDetails";
-import { Modal } from "../Modal";
-import { Card, cardPropTypes } from "./Card";
+import { IngredientDetails } from "../ingredient-details";
+import { Modal } from "../modal";
+import { Card, cardPropTypes } from "./card";
 
 export const ListItem = forwardRef(({ type, data, onClick }, ref) => {
     const [show, setShow] = useState(false)

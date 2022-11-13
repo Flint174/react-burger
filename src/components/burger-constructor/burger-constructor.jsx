@@ -1,13 +1,13 @@
-import { Composition } from "./Composition";
+import { Composition } from "./composition";
 import {
     CurrencyIcon,
     Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
-import { OrderDetail } from "../OrderDetails";
+import { OrderDetail } from "../order-details";
 import { useCallback, useContext, useEffect, useState } from "react";
 import style from "./style.module.css";
-import { Modal } from "../Modal";
+import { Modal } from "../modal";
 import { AppDataContext } from "../../context/appContext";
 import { ORDERS_URL } from "../../utils/constants";
 import { request, handleError } from '../../utils/request'

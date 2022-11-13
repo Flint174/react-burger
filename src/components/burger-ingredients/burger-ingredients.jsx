@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState, useContext, useMemo } from "react";
-import { Tabs } from "./Tabs";
-import { Ingredients } from "./Ingredients";
+import { Tabs } from "./tabs";
+import { Ingredients } from "./ingredients";
 import { clsx } from "clsx";
 import style from "./style.module.css";
 import { AppDataContext } from "../../context/appContext";

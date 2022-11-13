@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Container } from './Container'
+import { Container } from './container'
 
 export const Link = ({ text, icon }) => {
     return (

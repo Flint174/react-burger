@@ -1,4 +1,4 @@
-import { Link } from "./Link";
+import { Link } from "./link";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export const Auth = () => {
