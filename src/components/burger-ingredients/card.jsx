@@ -10,7 +10,7 @@ import { clsx } from "clsx";
 export const Card = ({ image, price, name, count, onClick, extraClass }) => {
     return (
         <div
-            className={clsx(style.card_container, 'flex column align_items-center', extraClass)}
+            className={clsx(style.card_container, 'flex column align-items_center', extraClass)}
             onClick={onClick}
         >
             {!!count && <Counter count={count} />}
@@ -19,7 +19,7 @@ export const Card = ({ image, price, name, count, onClick, extraClass }) => {
                 src={image}
                 alt="Oops"
             />
-            <div className="flex row align_items-center mt-1 mb-1">
+            <div className="flex row align-items_center mt-1 mb-1">
                 <p className="text text_type_digits-default mr-1">{price}</p>
                 <CurrencyIcon />
             </div>

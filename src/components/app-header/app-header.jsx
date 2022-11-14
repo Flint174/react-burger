@@ -4,7 +4,7 @@ import { Auth } from "./auth";
 
 export const AppHeader = () => {
     return (
-        <header className="flex row nowrap justify_content-space_evenly align_items-center pt-4 pb-4">
+        <header className="flex row nowrap justify-content_space-evenly align-items_center pt-4 pb-4">
             <Links />
             <Logo />
             <Auth />

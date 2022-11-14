@@ -14,7 +14,9 @@ code {
 
 :root {
     --shadow-box-color_modal: rgba(0, 0, 0, 0.04);
+    --border-color_modal: rgba(76, 76, 255, 0.2);
     --bg-color_overlay: rgba(0, 0, 0, 0.6);
+    --bg-color_element: #1C1C21;
 }
 
 ::-webkit-scrollbar {
@@ -41,19 +43,19 @@ code {
     flex-direction: column;
 }
 
-.align_items-center {
+.align-items_center {
     align-items: center;
 }
 
-.align_items-end {
+.align-items_end {
     align-items: flex-end;
 }
 
-.align_self-start {
+.align-items_start {
     align-self: flex-start;
 }
 
-.align_self-end {
+.align-self_end {
     align-self: flex-end;
 }
 
@@ -65,19 +67,19 @@ code {
     flex-wrap: nowrap;
 }
 
-.justify_content-start {
+.justify-content_start {
     justify-content: start;
 }
 
-.justify_content-center {
+.justify-content_center {
     justify-content: center;
 }
 
-.justify_content-end {
+.justify-content_end {
     justify-content: end;
 }
 
-.justify_content-space_evenly {
+.justify-content_space-evenly {
     justify-content: space-evenly;
 }
 

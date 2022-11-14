@@ -40,12 +40,12 @@ export const Modal = ({ isOpen, title, onClose, children }) => {
                         <div className={style.modal_card_close}>
                             <CloseIcon onClick={onClose} />
                         </div>
-                        <div className={clsx(style.title_container, "flex row align_items-center mt-10 ml-10 mr-10")}>
+                        <div className={clsx(style.title_container, "flex row align-items_center mt-10 ml-10 mr-10")}>
                             <h3 className="text text_type_main-large">
                                 {title}
                             </h3>
                         </div>
-                        <div className="flex column align_items-center justify_content-center">
+                        <div className="flex column align-items_center justify-content_center">
                             {children}
                         </div>
                     </section>

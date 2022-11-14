@@ -78,12 +78,11 @@ export const BurgerConstructor = () => {
     return (
         <section className={clsx('flex column', style.container)}>
             <Composition bun={bun} ingredients={ingredients} height={height} />
-            <div className="mt-10 flex row align_items-center align_self-end">
+            <div className="mt-10 flex row align-items_center align-self_end">
                 <p className="text text_type_digits-medium mr-2">{total}</p>
                 <CurrencyIcon />
                 <Button htmlType="button" extraClass="ml-10" onClick={getOrderDedails}>ОФОРМИТЬ ЗАКАЗ</Button>
             </div>
-
             <Modal
                 isOpen={show}
                 onClose={closeOrderDetails} >

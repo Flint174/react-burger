@@ -4,7 +4,7 @@ import { clsx } from "clsx";
 
 export const InfoField = ({ name, value }) => {
     return (
-        <div className={clsx(style.container, "flex column align_items-center")}>
+        <div className={clsx(style.container, "flex column align-items_center")}>
             <p className="text text_type_main-default text_color_inactive">
                 {name}
             </p>
