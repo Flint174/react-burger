@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import { ingredientTypes } from "../../utils/types";
+import { ingredientPropType } from "../../utils/types";
 import { InfoField } from "./info-field";
 
 export const IngredientDetails = ({ data }) => {
@@ -41,7 +40,7 @@ export const IngredientDetails = ({ data }) => {
 }
 
 export const ingredientDetailsPropTypes = {
-    data: PropTypes.shape(ingredientTypes)
+    data: ingredientPropType
 }
 
 IngredientDetails.propTypes = ingredientDetailsPropTypes

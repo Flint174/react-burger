@@ -35,12 +35,15 @@ export const ingredientsSlice = createSlice({
     reducers: {
         setData (state, { payload }) {
             state.data = payload
-        }
+        },
+        // setLoading (state, { payload }) {
+        //     console.log('setLoading', payload)
+        //     state.loading = payload
+        // }
     },
     extraReducers: (builder) =>
         builder
             .addCase(fetchData.fulfilled, (state, action) => {
-                // state.data = action.payload.data
                 return {
                     data: action.payload.data,
                     error: false,
@@ -48,17 +51,18 @@ export const ingredientsSlice = createSlice({
                 }
             })
             .addCase(fetchData.rejected, (state, action) => {
-                // console.log('rejected', { state, action })
                 handleError(action.error.message)
                 state.error = true
             })
             .addCase(fetchData.pending, (state, action) => {
-                // console.log('pending', { state, action })
                 state.error = false
                 state.loading = true
             })
 })
 
-export const { setData } = ingredientsSlice.actions
+export const {
+    setData,
+    setLoading
+} = ingredientsSlice.actions
 
 export const ingredientsReducer = ingredientsSlice.reducer

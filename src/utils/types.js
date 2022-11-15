@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const ingredientTypes = {
+export const ingredientType = {
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
@@ -15,8 +15,10 @@ export const ingredientTypes = {
     __v: PropTypes.number
 }
 
-export const modalTypes = {
+export const modalType = {
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string,
     isOpen: PropTypes.bool.isRequired
 }
+
+export const ingredientPropType = PropTypes.shape(ingredientType)

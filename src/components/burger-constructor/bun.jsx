@@ -2,10 +2,12 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { useMemo } from "react";
 import { ConstructorElementEmpty } from "./constructor-element-empty";
 import PropTypes from "prop-types";
-import { ingredientTypes } from "../../utils/types";
+import { useSelector } from "react-redux";
 
-export const Bun = ({ bun, type, extraClass }) => {
+export const Bun = ({ type, extraClass }) => {
+    const bun = useSelector(store => store.constructorReducer.bun)
     const alt = 'Выберите булку'
+
     const bunTop = useMemo(() => {
         return bun ? (
             <ConstructorElement
@@ -44,9 +46,7 @@ export const Bun = ({ bun, type, extraClass }) => {
         )
     }, [bun, extraClass])
 
-    const bunResult = type === 'top'
-        ? bunTop
-        : bunBottom
+    const bunResult = type === 'top' ? bunTop : bunBottom
 
     return (
         <>
@@ -55,10 +55,9 @@ export const Bun = ({ bun, type, extraClass }) => {
     )
 }
 
-export const bunProps = {
-    bun: PropTypes.shape(ingredientTypes),
+export const bunPropTypes = {
     type: PropTypes.oneOf(['top', 'bottom']).isRequired,
     extraClass: PropTypes.string
 }
 
-Bun.propTypes = bunProps
+Bun.propTypes = bunPropTypes

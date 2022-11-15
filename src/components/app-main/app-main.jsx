@@ -6,7 +6,7 @@ export const AppMain = () => {
 
     return (
         <main className={clsx('flex row justify-content_center gap-10')}>
-            <BurgerIngredients height={500} />
+            <BurgerIngredients />
             <BurgerConstructor />
         </main>
     )

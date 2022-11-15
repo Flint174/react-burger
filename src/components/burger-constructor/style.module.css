@@ -5,6 +5,11 @@
 
 .ingredients_scroll {
     overflow: auto;
+    max-height: 400px;
+}
+
+.composition_list_item_children {
+    flex-grow: 1;
 }
 
 .empty-element_default {

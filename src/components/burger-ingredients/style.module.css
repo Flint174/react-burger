@@ -20,4 +20,5 @@
 
 .list_container {
     overflow: auto;
+    max-height: 500px;
 }

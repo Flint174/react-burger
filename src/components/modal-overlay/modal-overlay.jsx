@@ -1,5 +1,5 @@
 import style from "./style.module.css";
-import { modalTypes } from "../../utils/types";
+import { modalType } from "../../utils/types";
 
 export const ModalOverlay = ({ onClose, children }) => {
 
@@ -10,5 +10,5 @@ export const ModalOverlay = ({ onClose, children }) => {
     )
 }
 
-export const modalOverlayPropTypes = modalTypes
+export const modalOverlayPropTypes = modalType
 

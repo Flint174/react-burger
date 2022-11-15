@@ -1,6 +1,6 @@
 import style from "./style.module.css";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { modalTypes } from "../../utils/types";
+import { modalType } from "../../utils/types";
 import { ModalOverlay } from "../modal-overlay";
 import { createPortal } from "react-dom";
 import { MODALS_ELEMENT } from "../../utils/constants";
@@ -57,4 +57,4 @@ export const Modal = ({ isOpen, title, onClose, children }) => {
     ), MODALS_ELEMENT)
 }
 
-export const modalPropTypes = modalTypes
+export const modalPropTypes = modalType

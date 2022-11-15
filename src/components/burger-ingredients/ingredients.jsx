@@ -4,7 +4,8 @@ import { clsx } from "clsx";
 import style from "./style.module.css";
 import { createRef, useEffect, useState } from "react";
 
-export const Ingredients = ({ data, height, currentSection }) => {
+export const Ingredients = ({ data, currentSection }) => {
+
     const [itemRefs, setItemRefs] = useState([])
 
     useEffect(() => {
@@ -22,7 +23,7 @@ export const Ingredients = ({ data, height, currentSection }) => {
     }, [currentSection])
 
     return (
-        <div className={clsx(style.list_container, 'flex column')} style={{ height: height }}>
+        <div className={clsx(style.list_container, 'flex column')}>
             {data.map((item, index) => (<ListItem type={item.type} data={item.data} key={index} ref={itemRefs[index]} />))}
         </div>
     )
@@ -33,7 +34,6 @@ export const listPropTypes = {
         PropTypes.shape(listItemPropTypes)
     ).isRequired,
     currentSection: PropTypes.string.isRequired,
-    height: PropTypes.number.isRequired
 }
 
 Ingredients.propTypes = listPropTypes

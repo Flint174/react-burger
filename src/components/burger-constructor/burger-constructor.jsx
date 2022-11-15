@@ -16,9 +16,7 @@ import {
 } from "react-redux";
 import {
     setBun,
-    // removeBun,
     addIngredient,
-    // removeIngredient
 } from "../../services/slices/constructor-slice";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -26,7 +24,7 @@ export const BurgerConstructor = () => {
     const [show, setShow] = useState(false)
     const [orderNumber, setOrderNumber] = useState(0)
     const dispatch = useDispatch()
-    const data = useSelector(store => store.ingredientsReducer.data)
+    const { data } = useSelector(store => store.ingredientsReducer)
 
     const getBun = (value) => value.find(el => el.type === 'bun')
     const { bun, ingredients } = useSelector(store => store.constructorReducer)
@@ -41,7 +39,6 @@ export const BurgerConstructor = () => {
     useEffect(() => {
         const newBun = getBun(data)
         const newIngredients = getIngredients(data)
-        console.log({ newIngredients })
         const bunPrice = newBun && newBun.price
             ? newBun.price * 2
             : 0
@@ -52,8 +49,6 @@ export const BurgerConstructor = () => {
         newIngredients.forEach(el => dispatch(addIngredient(el)))
         setTotal(bunPrice + ingredientsPrice)
     }, [data])
-
-    const height = 400
 
     function closeOrderDetails () {
         setShow(false)
@@ -77,7 +72,7 @@ export const BurgerConstructor = () => {
 
     return (
         <section className={clsx('flex column', style.container)}>
-            <Composition bun={bun} ingredients={ingredients} height={height} />
+            <Composition />
             <div className="mt-10 flex row align-items_center align-self_end">
                 <p className="text text_type_digits-medium mr-2">{total}</p>
                 <CurrencyIcon />
