@@ -3,8 +3,9 @@ import { useMemo } from "react";
 import { ConstructorElementEmpty } from "./constructor-element-empty";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { CompositionListItem } from "./composition-list-item";
 
-export const Bun = ({ type, extraClass }) => {
+export const Bun = ({ type }) => {
     const bun = useSelector(store => store.constructorReducer.bun)
     const alt = 'Выберите булку'
 
@@ -16,16 +17,14 @@ export const Bun = ({ type, extraClass }) => {
                 price={bun.price}
                 isLocked={true}
                 type="top"
-                extraClass={extraClass}
             />
         ) : (
             <ConstructorElementEmpty
                 type={'top'}
-                extraClass={extraClass}
                 text={alt}
             />
         )
-    }, [bun, extraClass])
+    }, [bun])
 
     const bunBottom = useMemo(() => {
         return bun ? (
@@ -35,29 +34,26 @@ export const Bun = ({ type, extraClass }) => {
                 price={bun.price}
                 isLocked={true}
                 type="bottom"
-                extraClass={extraClass}
             />
         ) : (
             <ConstructorElementEmpty
                 type={'bottom'}
-                extraClass={extraClass}
                 text={alt}
             />
         )
-    }, [bun, extraClass])
+    }, [bun])
 
     const bunResult = type === 'top' ? bunTop : bunBottom
 
     return (
-        <>
+        <CompositionListItem isLocked={true}>
             {bunResult}
-        </>
+        </CompositionListItem>
     )
 }
 
 export const bunPropTypes = {
-    type: PropTypes.oneOf(['top', 'bottom']).isRequired,
-    extraClass: PropTypes.string
+    type: PropTypes.oneOf(['top', 'bottom']).isRequired
 }
 
 Bun.propTypes = bunPropTypes

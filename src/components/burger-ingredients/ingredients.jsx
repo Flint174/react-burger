@@ -1,36 +1,45 @@
 import PropTypes from "prop-types";
-import { ListItem, listItemPropTypes } from "./list-item";
+import { Category, listItemPropTypes } from "./category";
 import { clsx } from "clsx";
 import style from "./style.module.css";
 import { createRef, useEffect, useState } from "react";
+import { useMemo } from "react";
 
-export const Ingredients = ({ data, currentSection }) => {
+export const Ingredients = ({ categories, currentSection }) => {
 
     const [itemRefs, setItemRefs] = useState([])
 
     useEffect(() => {
+        console.log('useEffect', categories)
         setItemRefs(prev =>
-            data.map((_, index) =>
+            categories.map((_, index) =>
                 prev[index] || createRef()
             ))
-    }, [data])
+    }, [categories])
 
     useEffect(() => {
-        const index = data.findIndex(el => el.type.value === currentSection)
+        const index = categories.findIndex(el => el.type.value === currentSection)
         if (index > -1 && itemRefs[index]) {
             itemRefs[index].current.scrollIntoView({ behavior: 'smooth' })
         }
     }, [currentSection])
 
+    const categoriesList = useMemo(() =>
+        categories
+            .map((category, index) =>
+                (<Category type={category.type} cards={category.cards} key={index} ref={itemRefs[index]} />)
+            ), [categories, itemRefs])
+
     return (
         <div className={clsx(style.list_container, 'flex column')}>
-            {data.map((item, index) => (<ListItem type={item.type} data={item.data} key={index} ref={itemRefs[index]} />))}
+            {/* {categories.map((category, index) => (<Category type={category.type} cards={category.cards} key={index} ref={itemRefs[index]} />))} */}
+            {categoriesList}
         </div>
     )
 }
 
 export const listPropTypes = {
-    data: PropTypes.arrayOf(
+    categories: PropTypes.arrayOf(
         PropTypes.shape(listItemPropTypes)
     ).isRequired,
     currentSection: PropTypes.string.isRequired,

@@ -36,19 +36,19 @@ export const BurgerConstructor = () => {
 
     const [total, setTotal] = useState(0)
 
-    useEffect(() => {
-        const newBun = getBun(data)
-        const newIngredients = getIngredients(data)
-        const bunPrice = newBun && newBun.price
-            ? newBun.price * 2
-            : 0
-        const ingredientsPrice = Array.isArray(newIngredients)
-            ? newIngredients.reduce((acc, value) => acc + value.price, 0)
-            : 0
-        dispatch(setBun(newBun))
-        newIngredients.forEach(el => dispatch(addIngredient(el)))
-        setTotal(bunPrice + ingredientsPrice)
-    }, [data])
+    // useEffect(() => {
+    //     const newBun = getBun(data)
+    //     const newIngredients = getIngredients(data)
+    //     const bunPrice = newBun && newBun.price
+    //         ? newBun.price * 2
+    //         : 0
+    //     const ingredientsPrice = Array.isArray(newIngredients)
+    //         ? newIngredients.reduce((acc, value) => acc + value.price, 0)
+    //         : 0
+    //     dispatch(setBun(newBun))
+    //     newIngredients.forEach(el => dispatch(addIngredient(el)))
+    //     setTotal(bunPrice + ingredientsPrice)
+    // }, [data])
 
     function closeOrderDetails () {
         setShow(false)

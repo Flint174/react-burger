@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
-import { forwardRef, useState } from "react";
+import { forwardRef, useState, useMemo } from "react";
 import { IngredientDetails } from "../ingredient-details";
 import { Modal } from "../modal";
-import { Card, cardPropTypes } from "./card";
+import {
+    Card,
+    cardPropTypes
+} from "./card";
 
-export const ListItem = forwardRef(({ type, data, onClick }, ref) => {
+export const Category = forwardRef(({ type, cards, onClick }, ref) => {
     const [show, setShow] = useState(false)
     const [info, setInfo] = useState()
 
@@ -16,11 +19,23 @@ export const ListItem = forwardRef(({ type, data, onClick }, ref) => {
         setInfo(value)
         setShow(true)
     }
+
+    const cardsList = useMemo(() =>
+        cards
+            .filter(card => {
+                console.log('filter', card)
+                return card
+            })
+            .map(card =>
+                (<Card extraClass="ml-4" info={card} key={card._id} onClick={() => openOrderDetails(card)} />)
+            ), [cards])
+
     return (
         <section onClick={onClick} ref={ref}>
             <h2 className="text text_type_main-large mb-6">{type.text || type.value}</h2>
             <div className='flex wor wrap mb-10'>
-                {data.map(el => (<Card extraClass="ml-4" {...el} key={el._id} onClick={() => openOrderDetails(el)} />))}
+                {/* {cards.filter(card => card !== undefined).map(card => (<Card extraClass="ml-4" info={card} key={card._id} onClick={() => openOrderDetails(card)} />))} */}
+                {cardsList}
             </div>
 
             <Modal
@@ -39,7 +54,7 @@ export const listItemPropTypes = {
         text: PropTypes.string,
         value: PropTypes.string,
     }).isRequired,
-    data: PropTypes.arrayOf(PropTypes.shape(cardPropTypes)).isRequired
+    cards: PropTypes.arrayOf(PropTypes.shape(cardPropTypes)).isRequired
 }
 
-ListItem.propTypes = listItemPropTypes
+Category.propTypes = listItemPropTypes

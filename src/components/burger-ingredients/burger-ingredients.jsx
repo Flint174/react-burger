@@ -11,37 +11,31 @@ import {
     useSelector,
     useDispatch
 } from "react-redux";
-import {
-    fetchData,
-    // setLoading
-} from "../../services/slices/ingredients-slice";
+import { fetchData } from "../../services/slices/ingredients-slice";
 
 export const BurgerIngredients = () => {
-    const createTab = (name, value) => ({ text: name, value })
-    const tabs = useMemo(() => [
+    const createTab = (text, value) => ({ text, value })
+    const tabs = useMemo(() => ([
         createTab('Булки', 'bun'),
         createTab('Соусы', 'sauce'),
         createTab('Начинки', 'main')
-    ], [])
-    const { data, loading } = useSelector(store => store.ingredientsReducer)
-    const dispatch = useDispatch()
-    const [activeTab, setActiveTab] = useState(Array.isArray(tabs) && tabs.length ? tabs[0].value : '')
+    ]), [])
 
-    const list = useMemo(() =>
-        tabs.map(tab => ({
-            type: tab,
-            data: data.filter(el => el.type === tab.value)
-        })), [data])
+    const { data, loading } = useSelector(store => store.ingredientsReducer)
+
+    const categories = useMemo(() => tabs.map(tab => ({
+        type: tab,
+        cards: data.filter(el => el.type === tab.value)
+    })), [data, tabs])
+
+    console.log('burger', categories)
+
+    const dispatch = useDispatch()
+    const [activeTab, setActiveTab] = useState(tabs[0].value)
 
     useEffect(() => {
-        // console.log('mount', { data, loading })
         if (!data.length && !loading) {
-            // console.log('fetch')
-            // dispatch(setLoading(true))
             dispatch(fetchData())
-        }
-        return () => {
-            console.log('unmount')
         }
     }, [])
 
@@ -49,7 +43,7 @@ export const BurgerIngredients = () => {
         <section className={clsx(style.main_container)}>
             <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
             <Tabs value={activeTab} tabs={tabs} onClick={setActiveTab} />
-            <Ingredients data={list} currentSection={activeTab} />
+            <Ingredients categories={categories} currentSection={activeTab} />
         </section>
     )
 }

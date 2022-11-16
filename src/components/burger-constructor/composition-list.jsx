@@ -10,7 +10,7 @@ export const CompositionList = () => {
     return (
         <div className={clsx(style.ingredients_scroll, "flex column gap-4")} >
             {
-                ingredients
+                Array.isArray(ingredients) && ingredients.length
                     ? ingredients.map(el => (
                         <CompositionListItem key={el.uuid}>
                             <ConstructorElement
@@ -21,9 +21,9 @@ export const CompositionList = () => {
 
                         </CompositionListItem>
                     )) : (
-                        <CompositionListItem>
+                        <CompositionListItem isLocked={true}>
                             <ConstructorElementEmpty
-                                text={'Выберите ингредиенты'}
+                                text={'Выберите ингредиент'}
                             />
                         </CompositionListItem>
                     )

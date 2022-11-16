@@ -35,11 +35,7 @@ export const ingredientsSlice = createSlice({
     reducers: {
         setData (state, { payload }) {
             state.data = payload
-        },
-        // setLoading (state, { payload }) {
-        //     console.log('setLoading', payload)
-        //     state.loading = payload
-        // }
+        }
     },
     extraReducers: (builder) =>
         builder
@@ -60,9 +56,6 @@ export const ingredientsSlice = createSlice({
             })
 })
 
-export const {
-    setData,
-    setLoading
-} = ingredientsSlice.actions
+export const { setData } = ingredientsSlice.actions
 
 export const ingredientsReducer = ingredientsSlice.reducer

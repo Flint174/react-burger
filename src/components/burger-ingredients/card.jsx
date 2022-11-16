@@ -4,13 +4,36 @@ import {
     CurrencyIcon,
     Counter
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientType } from "../../utils/types";
+import { ingredientPropType } from "../../utils/types";
+import { dragTypes } from "../../utils/constants";
 import { clsx } from "clsx";
+import { useDrag } from "react-dnd";
 
-export const Card = ({ image, price, name, count, onClick, extraClass }) => {
+export const Card = ({ info, count, onClick, extraClass }) => {
+    const { image, price, name } = info
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: dragTypes.INGREDIENT,
+        item: { name, price },
+        end: (item, monitor) => {
+            const dropResult = monitor.getDropResult()
+            if (item && dropResult) {
+                // alert(`You dropped ${item.name} into ${dropResult.name}!`)
+                // console.log({ item, monitor })
+            }
+        },
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+            // handlerId: monitor.getHandlerId(),
+        }),
+    }))
+
+    const dragStyle = isDragging ? { opacity: 0.2 } : {}
+
     return (
         <div
+            ref={drag}
             className={clsx(style.card_container, 'flex column align-items_center', extraClass)}
+            style={dragStyle}
             onClick={onClick}
         >
             {!!count && <Counter count={count} />}
@@ -29,7 +52,8 @@ export const Card = ({ image, price, name, count, onClick, extraClass }) => {
 }
 
 export const cardPropTypes = {
-    ...ingredientType,
+    info: ingredientPropType.isRequired,
+    // info: ingredientPropType,
     count: PropTypes.number,
     onClick: PropTypes.func,
     extraClass: PropTypes.string

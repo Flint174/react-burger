@@ -1,12 +1,25 @@
 import { Bun } from "./bun";
 import { CompositionList } from "./composition-list";
+import { useDrop } from 'react-dnd'
+import { dragTypes } from "../../utils/constants";
 
 export const Composition = () => {
+    const [{ canDrop, isOver }, drop] = useDrop(() => ({
+        accept: dragTypes.INGREDIENT,
+        drop: () => ({ name: 'Dustbin' }),
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+            canDrop: monitor.canDrop(),
+        }),
+    }))
     return (
-        <div className="flex column gap-4">
-            <Bun type={'top'} extraClass="mt-25 ml-8" />
+        <div
+            ref={drop}
+            className="flex column gap-4 mt-25"
+        >
+            <Bun type={'top'} />
             <CompositionList />
-            <Bun type={'bottom'} extraClass="ml-8" />
+            <Bun type={'bottom'} />
         </div>
     )
 }
