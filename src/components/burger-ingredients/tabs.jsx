@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { categoriesPropType } from "../../utils/types";
 
 export const Tabs = ({ value, tabs, onClick }) => {
 
@@ -17,12 +18,7 @@ export const Tabs = ({ value, tabs, onClick }) => {
 }
 
 Tabs.propTypes = {
-    tabs: PropTypes.arrayOf(
-        PropTypes.exact({
-            value: PropTypes.string,
-            text: PropTypes.string
-        })
-    ),
+    tabs: categoriesPropType.isRequired,
     value: PropTypes.string,
     onClick: PropTypes.func
 }

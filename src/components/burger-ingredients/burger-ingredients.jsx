@@ -23,13 +23,6 @@ export const BurgerIngredients = () => {
 
     const { data, loading } = useSelector(store => store.ingredientsReducer)
 
-    const categories = useMemo(() => tabs.map(tab => ({
-        type: tab,
-        cards: data.filter(el => el.type === tab.value)
-    })), [data, tabs])
-
-    console.log('burger', categories)
-
     const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState(tabs[0].value)
 
@@ -43,7 +36,7 @@ export const BurgerIngredients = () => {
         <section className={clsx(style.main_container)}>
             <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
             <Tabs value={activeTab} tabs={tabs} onClick={setActiveTab} />
-            <Ingredients categories={categories} currentSection={activeTab} />
+            <Ingredients categories={tabs} currentSection={activeTab} />
         </section>
     )
 }

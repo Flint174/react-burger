@@ -1,16 +1,16 @@
 import PropTypes from "prop-types";
-import { Category, listItemPropTypes } from "./category";
+import { Category } from "./category";
 import { clsx } from "clsx";
 import style from "./style.module.css";
 import { createRef, useEffect, useState } from "react";
 import { useMemo } from "react";
+import { categoriesPropType } from "../../utils/types";
 
 export const Ingredients = ({ categories, currentSection }) => {
 
     const [itemRefs, setItemRefs] = useState([])
 
     useEffect(() => {
-        console.log('useEffect', categories)
         setItemRefs(prev =>
             categories.map((_, index) =>
                 prev[index] || createRef()
@@ -18,31 +18,29 @@ export const Ingredients = ({ categories, currentSection }) => {
     }, [categories])
 
     useEffect(() => {
-        const index = categories.findIndex(el => el.type.value === currentSection)
+        const index = categories.findIndex(el => el.value === currentSection)
         if (index > -1 && itemRefs[index]) {
             itemRefs[index].current.scrollIntoView({ behavior: 'smooth' })
         }
     }, [currentSection])
 
     const categoriesList = useMemo(() =>
+        Array.isArray(categories) && categories.length &&
         categories
             .map((category, index) =>
-                (<Category type={category.type} cards={category.cards} key={index} ref={itemRefs[index]} />)
+                (<Category type={category} key={index} ref={itemRefs[index]} />)
             ), [categories, itemRefs])
 
     return (
         <div className={clsx(style.list_container, 'flex column')}>
-            {/* {categories.map((category, index) => (<Category type={category.type} cards={category.cards} key={index} ref={itemRefs[index]} />))} */}
             {categoriesList}
         </div>
     )
 }
 
-export const listPropTypes = {
-    categories: PropTypes.arrayOf(
-        PropTypes.shape(listItemPropTypes)
-    ).isRequired,
+export const ingredientsPropTypes = {
+    categories: categoriesPropType.isRequired,
     currentSection: PropTypes.string.isRequired,
 }
 
-Ingredients.propTypes = listPropTypes
+Ingredients.propTypes = ingredientsPropTypes

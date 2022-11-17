@@ -1,15 +1,14 @@
-import PropTypes from "prop-types";
 import { forwardRef, useState, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { categoryPropType } from "../../utils/types";
 import { IngredientDetails } from "../ingredient-details";
 import { Modal } from "../modal";
-import {
-    Card,
-    cardPropTypes
-} from "./card";
+import { Card } from "./card";
 
-export const Category = forwardRef(({ type, cards, onClick }, ref) => {
+export const Category = forwardRef(({ type, onClick }, ref) => {
     const [show, setShow] = useState(false)
     const [info, setInfo] = useState()
+    const { data } = useSelector(store => store.ingredientsReducer)
 
     function closeOrderDetails () {
         setShow(false)
@@ -21,20 +20,17 @@ export const Category = forwardRef(({ type, cards, onClick }, ref) => {
     }
 
     const cardsList = useMemo(() =>
-        cards
-            .filter(card => {
-                console.log('filter', card)
-                return card
-            })
-            .map(card =>
-                (<Card extraClass="ml-4" info={card} key={card._id} onClick={() => openOrderDetails(card)} />)
-            ), [cards])
+        data
+            .filter(el => el.type === type.value)
+            .map(info => info &&
+                (<Card extraClass="ml-4" info={info} key={info._id} onClick={() => openOrderDetails(info)} />)
+            )
+        , [data, type])
 
     return (
         <section onClick={onClick} ref={ref}>
             <h2 className="text text_type_main-large mb-6">{type.text || type.value}</h2>
             <div className='flex wor wrap mb-10'>
-                {/* {cards.filter(card => card !== undefined).map(card => (<Card extraClass="ml-4" info={card} key={card._id} onClick={() => openOrderDetails(card)} />))} */}
                 {cardsList}
             </div>
 
@@ -49,12 +45,8 @@ export const Category = forwardRef(({ type, cards, onClick }, ref) => {
     )
 })
 
-export const listItemPropTypes = {
-    type: PropTypes.shape({
-        text: PropTypes.string,
-        value: PropTypes.string,
-    }).isRequired,
-    cards: PropTypes.arrayOf(PropTypes.shape(cardPropTypes)).isRequired
+export const categoryPropTypes = {
+    type: categoryPropType.isRequired,
 }
 
-Category.propTypes = listItemPropTypes
+Category.propTypes = categoryPropTypes

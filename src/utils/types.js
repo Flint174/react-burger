@@ -22,3 +22,12 @@ export const modalType = {
 }
 
 export const ingredientPropType = PropTypes.shape(ingredientType)
+
+export const categoryType = {
+    value: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
+}
+
+export const categoryPropType = PropTypes.shape(categoryType)
+
+export const categoriesPropType = PropTypes.arrayOf(categoryPropType)

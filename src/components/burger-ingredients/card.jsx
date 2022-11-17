@@ -53,7 +53,6 @@ export const Card = ({ info, count, onClick, extraClass }) => {
 
 export const cardPropTypes = {
     info: ingredientPropType.isRequired,
-    // info: ingredientPropType,
     count: PropTypes.number,
     onClick: PropTypes.func,
     extraClass: PropTypes.string
