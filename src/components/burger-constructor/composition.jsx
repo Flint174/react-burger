@@ -8,7 +8,6 @@ import { clsx } from "clsx";
 export const Composition = () => {
     const [{ canDrop, isOver }, drop] = useDrop(() => ({
         accept: dragTypes.INGREDIENT,
-        // drop: () => ({ name: 'Dustbin' }),
         collect: (monitor) => ({
             isOver: monitor.isOver(),
             canDrop: monitor.canDrop(),

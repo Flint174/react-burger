@@ -15,14 +15,7 @@ const ingredientsNameGenerator = nameGenerator(name)
 
 export const fetchData = createAsyncThunk(
     ingredientsNameGenerator('request'),
-    async () =>
-        await request(INGREDIENTS_URL)
-
-    // pending timeout
-    // new Promise(resolve => setTimeout(() => resolve(request(INGREDIENTS_URL)), 3000))
-
-    // error
-    // await request(INGREDIENTS_URL + 'l')
+    async () => await request(INGREDIENTS_URL)
 )
 
 export const ingredientsSlice = createSlice({

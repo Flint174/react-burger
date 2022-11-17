@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export const Card = ({ info, count, onClick, extraClass }) => {
     const dispatch = useDispatch()
-    const { image, price, name, _id } = info
+    const { image, price, name } = info
     const [{ isDragging }, drag] = useDrag(() => ({
         type: dragTypes.INGREDIENT,
         item: info,
@@ -32,7 +32,6 @@ export const Card = ({ info, count, onClick, extraClass }) => {
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
-            // handlerId: monitor.getHandlerId(),
         }),
     }))
 

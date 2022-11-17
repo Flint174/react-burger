@@ -11,4 +11,3 @@ export const ModalOverlay = ({ onClose, children }) => {
 }
 
 export const modalOverlayPropTypes = modalType
-
