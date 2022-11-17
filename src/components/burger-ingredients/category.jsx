@@ -1,31 +1,33 @@
-import { forwardRef, useState, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { forwardRef, useState, useMemo, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { categoryPropType } from "../../utils/types";
 import { IngredientDetails } from "../ingredient-details";
 import { Modal } from "../modal";
 import { Card } from "./card";
+import { setDetails } from "../../services/slices/ingredient-details-slice";
 
 export const Category = forwardRef(({ type, onClick }, ref) => {
     const [show, setShow] = useState(false)
-    const [info, setInfo] = useState()
     const { data } = useSelector(store => store.ingredientsReducer)
 
-    function closeOrderDetails () {
-        setShow(false)
-    }
+    const dispatch = useDispatch()
 
-    function openOrderDetails (value) {
-        setInfo(value)
+    const closeOrderDetails = useCallback(() => {
+        setShow(false)
+    }, [setShow])
+
+    const openIngredientsDetails = useCallback((value) => {
+        dispatch(setDetails(value))
         setShow(true)
-    }
+    }, [setShow, dispatch])
 
     const cardsList = useMemo(() =>
         data
             .filter(el => el.type === type.value)
-            .map(info => info &&
-                (<Card extraClass="ml-4" info={info} key={info._id} onClick={() => openOrderDetails(info)} />)
+            .map(info =>
+                (<Card extraClass="ml-4" info={info} key={info._id} onClick={() => openIngredientsDetails(info)} />)
             )
-        , [data, type])
+        , [data, type, openIngredientsDetails])
 
     return (
         <section onClick={onClick} ref={ref}>
@@ -39,7 +41,7 @@ export const Category = forwardRef(({ type, onClick }, ref) => {
                 isOpen={show}
                 onClose={closeOrderDetails}
             >
-                <IngredientDetails data={info} />
+                <IngredientDetails />
             </Modal>
         </section>
     )

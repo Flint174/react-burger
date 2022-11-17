@@ -1,35 +1,37 @@
+import { useSelector } from "react-redux";
 import { ingredientPropType } from "../../utils/types";
 import { InfoField } from "./info-field";
 
-export const IngredientDetails = ({ data }) => {
+export const IngredientDetails = () => {
 
-    const info = data
+    const details = useSelector(store => store.ingredientDetailsReducer)
+    const info = details
         ? [
             {
                 name: 'Калории, ккал',
-                value: data.calories
+                value: details.calories
             },
             {
                 name: 'Белки, г',
-                value: data.proteins
+                value: details.proteins
             },
             {
                 name: 'Жиры, г',
-                value: data.fat
+                value: details.fat
             },
             {
                 name: 'Углеводы, г',
-                value: data.carbohydrates
+                value: details.carbohydrates
             }
         ]
         : []
 
     return (
         <>
-            <img src={data.image_large} alt="done" height={240} width={520} />
+            <img src={details.image_large} alt="done" height={240} width={520} />
 
             <p className="text text_type_main-medium mt-4">
-                {data.name}
+                {details.name}
             </p>
 
             <div className="flex row gap-5 mt-8 mb-15">
