@@ -32,7 +32,7 @@ export const ingredientsSlice = createSlice({
     },
     extraReducers: (builder) =>
         builder
-            .addCase(fetchData.fulfilled, (state, action) => {
+            .addCase(fetchData.fulfilled, (_, action) => {
                 return {
                     data: action.payload.data,
                     error: false,
