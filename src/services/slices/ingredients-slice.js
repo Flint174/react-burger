@@ -18,13 +18,15 @@ export const fetchData = createAsyncThunk(
     async () => await request(INGREDIENTS_URL)
 )
 
+const initialState = {
+    loading: false,
+    error: false,
+    data: []
+}
+
 export const ingredientsSlice = createSlice({
     name,
-    initialState: {
-        loading: false,
-        error: false,
-        data: []
-    },
+    initialState,
     reducers: {
         setData (state, { payload }) {
             state.data = payload
@@ -39,11 +41,14 @@ export const ingredientsSlice = createSlice({
                     loading: false
                 }
             })
-            .addCase(fetchData.rejected, (state, action) => {
+            .addCase(fetchData.rejected, (_, action) => {
                 handleError(action.error.message)
-                state.error = true
+                return {
+                    ...initialState,
+                    error: true
+                }
             })
-            .addCase(fetchData.pending, (state, action) => {
+            .addCase(fetchData.pending, (state) => {
                 state.error = false
                 state.loading = true
             })
