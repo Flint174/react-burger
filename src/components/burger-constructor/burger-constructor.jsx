@@ -7,7 +7,7 @@ import { clsx } from "clsx";
 import { OrderDetail } from "../order-details";
 import { useCallback, useEffect, useState } from "react";
 import style from "./style.module.css";
-import { Modal } from "../modal";
+import { Modal } from "../modal2";
 import { ORDERS_URL } from "../../utils/constants";
 import { request, handleError } from '../../utils/request'
 import {
