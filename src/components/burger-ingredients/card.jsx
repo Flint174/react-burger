@@ -21,7 +21,6 @@ export const Card = ({ info, count, onClick, extraClass }) => {
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()
             if (item && dropResult) {
-                console.log({ item, monitor, dropResult })
                 const newItem = { ...info, uuid: uuidv4() }
                 if (item.type === 'bun') {
                     dispatch(setBun(newItem))
