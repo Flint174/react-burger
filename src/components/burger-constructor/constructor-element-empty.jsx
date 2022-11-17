@@ -5,10 +5,10 @@ import { clsx } from 'clsx'
 export const ConstructorElementEmpty = ({ type, text, extraClass }) => {
 
     const computedStyle = type === 'top'
-        ? style['empty-element_top']
+        ? style.empty_element_top
         : type === 'bottom'
-            ? style['empty-element_bottom']
-            : style['empty-element_default']
+            ? style.empty_element_bottom
+            : style.empty_element_default
 
     return (
         <div className={clsx(computedStyle, extraClass)}>

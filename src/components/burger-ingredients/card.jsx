@@ -8,17 +8,26 @@ import { ingredientPropType } from "../../utils/types";
 import { dragTypes } from "../../utils/constants";
 import { clsx } from "clsx";
 import { useDrag } from "react-dnd";
+import { useDispatch } from "react-redux";
+import { addIngredient, setBun } from "../../services/slices/constructor-slice";
+import { v4 as uuidv4 } from 'uuid';
 
 export const Card = ({ info, count, onClick, extraClass }) => {
-    const { image, price, name } = info
+    const dispatch = useDispatch()
+    const { image, price, name, _id } = info
     const [{ isDragging }, drag] = useDrag(() => ({
         type: dragTypes.INGREDIENT,
-        item: { name, price },
+        item: info,
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()
             if (item && dropResult) {
-                // alert(`You dropped ${item.name} into ${dropResult.name}!`)
-                // console.log({ item, monitor })
+                console.log({ item, monitor, dropResult })
+                const newItem = { ...info, uuid: uuidv4() }
+                if (item.type === 'bun') {
+                    dispatch(setBun(newItem))
+                } else {
+                    dispatch(addIngredient(newItem))
+                }
             }
         },
         collect: (monitor) => ({

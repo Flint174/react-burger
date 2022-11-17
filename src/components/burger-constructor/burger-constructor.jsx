@@ -32,7 +32,7 @@ export const BurgerConstructor = () => {
     const getIngredients = (value) =>
         value
             .filter(el => el.type !== 'bun')
-            .map(el => ({ ...el, uuid: uuidv4() }))
+    // .map(el => ({ ...el, uuid: uuidv4() }))
 
     const [total, setTotal] = useState(0)
 
