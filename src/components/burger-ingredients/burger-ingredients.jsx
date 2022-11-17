@@ -42,9 +42,16 @@ export const BurgerIngredients = () => {
     }, [tabs])
 
     const handleScroll = useCallback(() => {
-        const threshold = 2
-        const index = tabs.filter(tab => tab.ref.current.getBoundingClientRect().y - threshold <= containerRef.current.getBoundingClientRect().y).length - 1
-        setActiveTab(tabs[index].value)
+        const distance = (value) => Math.abs(value.ref.current.getBoundingClientRect().y - containerRef.current.getBoundingClientRect().y)
+        const tab = tabs.reduce((acc, value) => {
+            if (!acc) return value
+            return !acc
+                ? value
+                : distance(acc) > distance(value)
+                    ? value
+                    : acc
+        }, null)
+        setActiveTab(tab.value)
     }, [tabs])
 
     const categoriesList = useMemo(() =>
