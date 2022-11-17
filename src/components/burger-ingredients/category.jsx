@@ -9,6 +9,7 @@ import { setDetails } from "../../services/slices/ingredient-details-slice";
 export const Category = forwardRef(({ type, onClick }, ref) => {
     const [show, setShow] = useState(false)
     const { data } = useSelector(store => store.ingredientsReducer)
+    const { bun, ingredients } = useSelector(store => store.constructorReducer)
 
     const dispatch = useDispatch()
 
@@ -24,10 +25,21 @@ export const Category = forwardRef(({ type, onClick }, ref) => {
     const cardsList = useMemo(() =>
         data
             .filter(el => el.type === type.value)
-            .map(info =>
-                (<Card extraClass="ml-4" info={info} key={info._id} onClick={() => openIngredientsDetails(info)} />)
-            )
-        , [data, type, openIngredientsDetails])
+            .map(info => {
+                const count = info.type === 'bun'
+                    ? (bun || 0) && (bun._id === info._id) * 1
+                    : ingredients.filter(el => el._id === info._id).length
+                return (
+                    <Card
+                        extraClass="ml-4"
+                        info={info}
+                        key={info._id}
+                        count={count}
+                        onClick={() => openIngredientsDetails(info)}
+                    />
+                )
+            })
+        , [data, type, openIngredientsDetails, bun, ingredients])
 
     return (
         <section onClick={onClick} ref={ref}>
