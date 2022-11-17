@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import 'normalize.css'
 import './index.css';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { App } from './components/app/app';
-import reportWebVitals from './reportWebVitals';
+import { App } from './components/app';
+import reportWebVitals from './report-web-vitals';
 import { ROOT_ELEMENT } from './utils/constants';
 import { Provider } from "react-redux";
 import { store } from './services'
