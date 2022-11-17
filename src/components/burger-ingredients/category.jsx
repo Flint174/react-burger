@@ -2,7 +2,7 @@ import { forwardRef, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { categoryPropType } from "../../utils/types";
 import { IngredientDetails } from "../ingredient-details";
-import { Modal } from "../modal2";
+import { Modal } from "../modal";
 import { Card } from "./card";
 
 export const Category = forwardRef(({ type, onClick }, ref) => {
