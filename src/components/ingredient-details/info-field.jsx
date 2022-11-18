@@ -17,6 +17,6 @@ export const InfoField = ({ name, value }) => {
 }
 
 export const InfoFieldPropTypes = {
-    name: PropTypes.string,
-    value: PropTypes.number
+    name: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired
 }

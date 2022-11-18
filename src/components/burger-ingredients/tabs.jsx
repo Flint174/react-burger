@@ -21,6 +21,6 @@ export const Tabs = ({ value, tabs, onClick }) => {
 
 Tabs.propTypes = {
     tabs: categoriesPropType.isRequired,
-    value: PropTypes.string,
-    onClick: PropTypes.func
+    value: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired
 }

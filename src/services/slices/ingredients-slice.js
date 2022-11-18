@@ -1,22 +1,6 @@
-import {
-    createSlice,
-    createAsyncThunk
-} from "@reduxjs/toolkit";
-import { nameGenerator } from "../../utils/store-utils";
-import {
-    request,
-    handleError
-} from "../../utils/request";
-import { INGREDIENTS_URL } from "../../utils/constants";
-
-const name = 'ingredients'
-
-const ingredientsNameGenerator = nameGenerator(name)
-
-export const fetchData = createAsyncThunk(
-    ingredientsNameGenerator('request'),
-    async () => await request(INGREDIENTS_URL)
-)
+import { createSlice } from "@reduxjs/toolkit";
+import { handleError } from "../../utils/request";
+import { fetchIngredietns } from "../actions/ingredients-actions";
 
 const initialState = {
     loading: false,
@@ -25,7 +9,7 @@ const initialState = {
 }
 
 export const ingredientsSlice = createSlice({
-    name,
+    name: 'ingredients',
     initialState,
     reducers: {
         setData (state, { payload }) {
@@ -34,21 +18,21 @@ export const ingredientsSlice = createSlice({
     },
     extraReducers: (builder) =>
         builder
-            .addCase(fetchData.fulfilled, (_, action) => {
+            .addCase(fetchIngredietns.fulfilled, (_, action) => {
                 return {
                     data: action.payload.data,
                     error: false,
                     loading: false
                 }
             })
-            .addCase(fetchData.rejected, (_, action) => {
+            .addCase(fetchIngredietns.rejected, (_, action) => {
                 handleError(action.error.message)
                 return {
                     ...initialState,
                     error: true
                 }
             })
-            .addCase(fetchData.pending, (state) => {
+            .addCase(fetchIngredietns.pending, (state) => {
                 state.error = false
                 state.loading = true
             })

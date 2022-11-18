@@ -15,12 +15,6 @@ export const ingredientType = {
     __v: PropTypes.number
 }
 
-export const modalType = {
-    onClose: PropTypes.func.isRequired,
-    title: PropTypes.string,
-    isOpen: PropTypes.bool.isRequired
-}
-
 export const ingredientPropType = PropTypes.shape(ingredientType)
 
 export const categoryType = {

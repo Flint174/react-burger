@@ -12,6 +12,10 @@
     flex-grow: 1;
 }
 
+.composition_list_item_invisible {
+    opacity: 0;
+}
+
 .composition_container {
     transition: box-shadow .2s;
     border-radius: 60px;

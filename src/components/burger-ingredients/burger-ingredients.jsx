@@ -1,7 +1,6 @@
 import {
     useState,
     useMemo,
-    useEffect,
     useRef,
     createRef,
     useCallback,
@@ -9,11 +8,6 @@ import {
 import { Tabs } from "./tabs";
 import { clsx } from "clsx";
 import style from "./style.module.css";
-import {
-    useSelector,
-    useDispatch
-} from "react-redux";
-import { fetchData } from "../../services/slices/ingredients-slice";
 import { Category } from "./category";
 
 export const BurgerIngredients = () => {
@@ -24,39 +18,23 @@ export const BurgerIngredients = () => {
         createTab('Начинки', 'main')
     ]), [])
 
-    const { data, loading } = useSelector(store => store.ingredientsReducer)
-
-    const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState(tabs[0].value)
-
-    useEffect(() => {
-        if (!data.length && !loading) {
-            dispatch(fetchData())
-        }
-    }, [])
 
     const containerRef = useRef(null)
 
-    const handleTabsClick = useCallback((value) => {
+    const handleTabsClick = (value) => {
         tabs.find(tab => tab.value === value).ref.current.scrollIntoView({ behavior: 'smooth' })
-    }, [tabs])
+    }
 
-    const handleScroll = useCallback(() => {
+    const handleScroll = () => {
         const distance = (value) => Math.abs(value.ref.current.getBoundingClientRect().y - containerRef.current.getBoundingClientRect().y)
-        const tab = tabs.reduce((acc, value) => {
-            if (!acc) return value
-            return !acc
-                ? value
-                : distance(acc) > distance(value)
-                    ? value
-                    : acc
-        }, null)
+        const tab = tabs.reduce((acc, value) => !acc || distance(acc) > distance(value) ? value : acc, null)
         setActiveTab(tab.value)
-    }, [tabs])
+    }
 
     const categoriesList = useMemo(() =>
-        tabs.map((category, index) =>
-            (<Category type={category} key={index} ref={category.ref} />)
+        tabs.map((tab, index) =>
+            (<Category type={tab} key={index} ref={tab.ref} />)
         ), [tabs])
 
     return (

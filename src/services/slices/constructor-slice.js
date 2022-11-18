@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from 'uuid';
+
+const initialState = {
+    bun: null,
+    ingredients: []
+}
 
 export const constructorSlice = createSlice({
     name: 'constructor',
-    initialState: {
-        bun: null,
-        ingredients: []
-    },
+    initialState,
     reducers: {
         setBun (state, { payload }) {
             state.bun = payload
@@ -13,8 +16,11 @@ export const constructorSlice = createSlice({
         removeBun (state) {
             state.bun = null
         },
-        addIngredient (state, { payload }) {
-            state.ingredients.push(payload)
+        addIngredient: {
+            reducer: (state, { payload }) => {
+                state.ingredients.push(payload)
+            },
+            prepare: (ingredient) => ({ payload: { ...ingredient, uuid: uuidv4() } })
         },
         removeIngredient (state, { payload }) {
             state.ingredients = state.ingredients.filter(el => el.uuid !== payload)
@@ -22,6 +28,9 @@ export const constructorSlice = createSlice({
         moveIngredient (state, { payload }) {
             const { dragIndex, hoverIndex } = payload
             state.ingredients.splice(hoverIndex, 0, state.ingredients.splice(dragIndex, 1)[0])
+        },
+        clearConstructor () {
+            return { ...initialState }
         }
     }
 })
@@ -31,7 +40,8 @@ export const {
     removeBun,
     addIngredient,
     removeIngredient,
-    moveIngredient
+    moveIngredient,
+    clearConstructor
 } = constructorSlice.actions
 
 export const constructorReducer = constructorSlice.reducer

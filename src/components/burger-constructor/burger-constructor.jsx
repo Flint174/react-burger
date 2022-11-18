@@ -9,38 +9,34 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import style from "./style.module.css";
 import { Modal } from "../modal";
 import { useSelector } from "react-redux";
-import { fetchOrder } from "../../services/slices/order-slice";
+import { fetchOrder } from "../../services/actions/order-actions";
+import { clearOrder } from '../../services/slices/order-slice'
+import { clearConstructor } from '../../services/slices/constructor-slice'
 import { useDispatch } from "react-redux";
 
 export const BurgerConstructor = () => {
-    const [show, setShow] = useState(false)
-
     const { bun, ingredients } = useSelector(store => store.constructorReducer)
-
-    const [total, setTotal] = useState(0)
 
     const { orderNumber, loading } = useSelector(store => store.orderReducer)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const bunPrice = bun && bun.price ? bun.price * 2 : 0
+    const total = useMemo(() => {
+        const bunPrice = bun ? bun.price * 2 : 0
         const ingredientsPrice = ingredients.reduce((acc, value) => acc + value.price, 0)
-        setTotal(bunPrice + ingredientsPrice)
+        return bunPrice + ingredientsPrice
     }, [bun, ingredients])
 
-    useEffect(() => {
-        orderNumber && setShow(true)
-    }, [orderNumber])
-
     function closeOrderDetails () {
-        setShow(false)
+        dispatch(clearOrder())
+        dispatch(clearConstructor())
     }
 
-    const getOrderDedails = useCallback(() => {
-        dispatch(fetchOrder(JSON.stringify({ ingredients: [bun._id, ...ingredients.map(el => el._id), bun._id] })))
-    }, [dispatch, bun, ingredients])
+    const getOrderDedails = () => {
+        const ingredientsIds = [bun._id, ...ingredients.map(el => el._id), bun._id];
+        dispatch(fetchOrder({ ingredients: ingredientsIds }))
+    }
 
-    const disableButton = useMemo(() => !bun || !ingredients.length || show || loading, [bun, ingredients, show, loading])
+    const disableButton = useMemo(() => !bun || !ingredients.length || orderNumber || loading, [bun, ingredients, orderNumber, loading])
 
     return (
         <section className={clsx('flex column', style.container)}>
@@ -57,11 +53,13 @@ export const BurgerConstructor = () => {
                     ОФОРМИТЬ ЗАКАЗ
                 </Button>
             </div>
-            <Modal
-                isOpen={show}
-                onClose={closeOrderDetails} >
-                <OrderDetail orderNumber={orderNumber} />
-            </Modal>
+            {
+                orderNumber &&
+                <Modal
+                    onClose={closeOrderDetails} >
+                    <OrderDetail orderNumber={orderNumber} />
+                </Modal>
+            }
         </section >
     )
 }

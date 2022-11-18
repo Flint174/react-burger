@@ -8,12 +8,13 @@ import { ingredientPropType } from "../../utils/types";
 import { dragTypes } from "../../utils/constants";
 import { clsx } from "clsx";
 import { useDrag } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addIngredient, setBun } from "../../services/slices/constructor-slice";
 import { v4 as uuidv4 } from 'uuid';
 
-export const Card = ({ info, count, onClick, extraClass }) => {
+export const Card = ({ info, onClick, extraClass }) => {
     const dispatch = useDispatch()
+    const { bun, ingredients } = useSelector(store => store.constructorReducer)
     const { image, price, name } = info
     const [{ isDragging }, drag] = useDrag(() => ({
         type: dragTypes.INGREDIENT,
@@ -21,11 +22,10 @@ export const Card = ({ info, count, onClick, extraClass }) => {
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult()
             if (item && dropResult) {
-                const newItem = { ...info, uuid: uuidv4() }
                 if (item.type === 'bun') {
-                    dispatch(setBun(newItem))
+                    dispatch(setBun(info))
                 } else {
-                    dispatch(addIngredient(newItem))
+                    dispatch(addIngredient(info))
                 }
             }
         },
@@ -35,6 +35,11 @@ export const Card = ({ info, count, onClick, extraClass }) => {
     }))
 
     const dragStyle = isDragging ? { opacity: 0.2 } : {}
+
+    // const calcCount = count * (info.type === 'bun' ? 2 : 1)
+    const count = info.type === 'bun'
+        ? (bun || 0) && (bun._id === info._id) * 2
+        : ingredients.filter(el => el._id === info._id).length
 
     return (
         <div
@@ -60,8 +65,7 @@ export const Card = ({ info, count, onClick, extraClass }) => {
 
 export const cardPropTypes = {
     info: ingredientPropType.isRequired,
-    count: PropTypes.number,
-    onClick: PropTypes.func,
+    onClick: PropTypes.func.isRequired,
     extraClass: PropTypes.string
 }
 

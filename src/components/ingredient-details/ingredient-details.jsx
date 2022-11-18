@@ -40,9 +40,3 @@ export const IngredientDetails = () => {
         </>
     )
 }
-
-export const ingredientDetailsPropTypes = {
-    data: ingredientPropType
-}
-
-IngredientDetails.propTypes = ingredientDetailsPropTypes

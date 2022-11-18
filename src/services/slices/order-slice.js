@@ -1,29 +1,6 @@
-import {
-    createSlice,
-    createAsyncThunk
-} from "@reduxjs/toolkit";
-import { nameGenerator } from "../../utils/store-utils";
-import {
-    request,
-    handleError
-} from "../../utils/request";
-import { ORDERS_URL } from "../../utils/constants";
-
-const name = 'order'
-
-const orderNameGenerator = nameGenerator(name)
-
-export const fetchOrder = createAsyncThunk(
-    orderNameGenerator('request'),
-    async (body) =>
-        request(ORDERS_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body
-        })
-)
+import { createSlice } from "@reduxjs/toolkit";
+import { handleError } from "../../utils/request";
+import { fetchOrder } from "../actions/order-actions";
 
 const initialState = {
     orderNumber: null,
@@ -32,9 +9,13 @@ const initialState = {
 }
 
 export const orderSlice = createSlice({
-    name,
+    name: 'order',
     initialState,
-    reducers: {},
+    reducers: {
+        clearOrder () {
+            return { ...initialState }
+        }
+    },
     extraReducers: (builder) =>
         builder
             .addCase(fetchOrder.fulfilled, (_, { payload }) => {
@@ -58,7 +39,7 @@ export const orderSlice = createSlice({
 })
 
 export const {
-
+    clearOrder
 } = orderSlice.actions
 
 export const orderReducer = orderSlice.reducer

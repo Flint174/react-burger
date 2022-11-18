@@ -4,10 +4,9 @@ import { clsx } from 'clsx'
 import PropTypes from "prop-types";
 
 export const CompositionListItem = ({ isLocked = false, children }) => {
-    const iconStyle = isLocked ? { opacity: 0 } : {}
     return (
         <div className="flex row align-items_center">
-            <div style={iconStyle}>
+            <div className={clsx(isLocked && style.composition_list_item_invisible)}>
                 <DragIcon />
             </div>
             <div className={clsx(style.composition_list_item_children, "ml-2")}>
