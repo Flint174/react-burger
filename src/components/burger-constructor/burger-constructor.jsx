@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
 import { OrderDetail } from "../order-details";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import style from "./style.module.css";
 import { Modal } from "../modal";
 import { useSelector } from "react-redux";

@@ -53,8 +53,6 @@ export const Category = forwardRef(({ type }, ref) => {
     )
 })
 
-export const categoryPropTypes = {
+Category.propTypes = {
     type: categoryPropType.isRequired
 }
-
-Category.propTypes = categoryPropTypes

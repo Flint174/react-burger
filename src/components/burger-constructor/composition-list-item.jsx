@@ -16,8 +16,6 @@ export const CompositionListItem = ({ isLocked = false, children }) => {
     )
 }
 
-export const CompositionListItemPropTypes = {
+CompositionListItem.propTypes = {
     isLocked: PropTypes.bool
 }
-
-CompositionListItem.propTypes = CompositionListItemPropTypes

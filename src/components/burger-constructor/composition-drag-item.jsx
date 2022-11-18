@@ -61,7 +61,7 @@ export const CompositionDragItem = ({ id, index, children }) => {
     )
 }
 
-export const CompositionDragItemPropTypes = {
+CompositionDragItem.propTypes = {
     id: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
 }

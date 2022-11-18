@@ -11,6 +11,6 @@ export const Link = ({ text, icon }) => {
 }
 
 Link.propTypes = {
-    icon: PropTypes.element,
-    text: PropTypes.string
+    icon: PropTypes.element.isRequired,
+    text: PropTypes.string.isRequired
 }

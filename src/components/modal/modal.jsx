@@ -49,5 +49,5 @@ export const Modal = ({ title = '', onClose, children }) => {
 
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
 }

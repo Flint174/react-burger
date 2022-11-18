@@ -3,7 +3,6 @@ import {
     useMemo,
     useRef,
     createRef,
-    useCallback,
 } from "react";
 import { Tabs } from "./tabs";
 import { clsx } from "clsx";
@@ -11,11 +10,11 @@ import style from "./style.module.css";
 import { Category } from "./category";
 
 export const BurgerIngredients = () => {
-    const createTab = (text, value) => ({ text, value, ref: createRef() })
+    // useMemo применен для создания массива ref-ов
     const tabs = useMemo(() => ([
-        createTab('Булки', 'bun'),
-        createTab('Соусы', 'sauce'),
-        createTab('Начинки', 'main')
+        { text: 'Булки', value: 'bun', ref: createRef() },
+        { text: 'Соусы', value: 'sauce', ref: createRef() },
+        { text: 'Начинки', value: 'main', ref: createRef() },
     ]), [])
 
     const [activeTab, setActiveTab] = useState(tabs[0].value)

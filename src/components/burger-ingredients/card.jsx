@@ -10,7 +10,6 @@ import { clsx } from "clsx";
 import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { addIngredient, setBun } from "../../services/slices/constructor-slice";
-import { v4 as uuidv4 } from 'uuid';
 
 export const Card = ({ info, onClick, extraClass }) => {
     const dispatch = useDispatch()
@@ -36,7 +35,6 @@ export const Card = ({ info, onClick, extraClass }) => {
 
     const dragStyle = isDragging ? { opacity: 0.2 } : {}
 
-    // const calcCount = count * (info.type === 'bun' ? 2 : 1)
     const count = info.type === 'bun'
         ? (bun || 0) && (bun._id === info._id) * 2
         : ingredients.filter(el => el._id === info._id).length
@@ -63,10 +61,8 @@ export const Card = ({ info, onClick, extraClass }) => {
     )
 }
 
-export const cardPropTypes = {
+Card.propTypes = {
     info: ingredientPropType.isRequired,
     onClick: PropTypes.func.isRequired,
     extraClass: PropTypes.string
 }
-
-Card.propTypes = cardPropTypes

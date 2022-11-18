@@ -1,8 +1,9 @@
 import { AppHeader } from "../app-header";
-import { AppMain } from "../app-main";
 import { fetchIngredietns } from "../../services/actions/ingredients-actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { BurgerIngredients } from "../burger-ingredients";
+import { BurgerConstructor } from "../burger-constructor";
 
 export const App = () => {
 
@@ -15,7 +16,10 @@ export const App = () => {
     return (
         <>
             <AppHeader />
-            <AppMain />
+            <main className='flex row justify-content_center gap-10'>
+                <BurgerIngredients />
+                <BurgerConstructor />
+            </main>
         </>
     );
 }

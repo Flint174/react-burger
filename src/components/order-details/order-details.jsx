@@ -25,6 +25,6 @@ export const OrderDetail = ({ orderNumber }) => {
     )
 }
 
-export const orderDetailPropTypes = {
-    orderNumber: PropTypes.number
+OrderDetail.propTypes = {
+    orderNumber: PropTypes.number.isRequired
 }

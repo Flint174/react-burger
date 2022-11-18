@@ -9,8 +9,6 @@ export const Container = ({ extraClass, children }) => {
     )
 }
 
-export const containerPropTypes = {
+Container.propTypes = {
     extraClass: PropTypes.string
 }
-
-Container.propTypes = containerPropTypes

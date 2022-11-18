@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { ingredientPropType } from "../../utils/types";
 import { InfoField } from "./info-field";
 
 export const IngredientDetails = () => {
