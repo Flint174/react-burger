@@ -1,16 +1,21 @@
 import PropTypes from "prop-types";
-import { Container } from './container'
+import style from './style.module.css'
+import { clsx } from "clsx";
 
-export const Link = ({ text, icon }) => {
+export const Link = ({ text, icon, href }) => {
     return (
-        <Container extraClass='m-5'>
+        <a
+            className={clsx(style.link, 'm-5 flex row')}
+            href={href}
+        >
             {icon}
             <p className="text text_type_main-default ml-2">{text}</p>
-        </Container >
+        </a>
     )
 }
 
 Link.propTypes = {
     icon: PropTypes.element.isRequired,
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    href: PropTypes.string.isRequired
 }
