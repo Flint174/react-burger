@@ -1,0 +1,66 @@
+.container {
+    width: 600px;
+    min-width: 600px;
+}
+
+.ingredients_scroll {
+    overflow: auto;
+    max-height: 400px;
+}
+
+.composition_list_item_children {
+    flex-grow: 1;
+}
+
+.composition_list_item_invisible {
+    opacity: 0;
+}
+
+.composition_container {
+    transition: box-shadow .2s;
+    border-radius: 60px;
+}
+
+.composition_container_candrop {
+    box-shadow: inset 5px 0px 10px 0px #801ab3;
+}
+
+.composition_container_isover {
+    box-shadow: inset 5px 0px 10px 0px #4c4cff;
+}
+
+
+.empty_element_default {
+    padding: 16px 24px;
+    display: inline-block;
+    border-radius: var(--common-border-radius-s);
+    background: var(--background-element);
+    max-width: 536px;
+    width: 100%;
+    min-height: 80px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty_element_top {
+    composes: empty_element_default;
+    border-radius: var(--top-constructor-item-border-radius);
+}
+
+.empty_element_bottom {
+    composes: empty_element_default;
+    border-radius: var(--bottom-constructor-item-border-radius);
+}
+
+.empty_element_text {
+    text-align: center;
+}

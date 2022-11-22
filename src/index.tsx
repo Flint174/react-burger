@@ -3,16 +3,24 @@ import ReactDOM from 'react-dom/client';
 import 'normalize.css'
 import './index.css';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { App } from './components/App/App';
-import reportWebVitals from './reportWebVitals';
+import { App } from './components/app'
+import reportWebVitals from './report-web-vitals';
 import { ROOT_ELEMENT } from './utils/constants';
+import { Provider } from "react-redux";
+import { store } from './services'
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const root = ReactDOM.createRoot(
     ROOT_ELEMENT as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <App />
+        <DndProvider backend={HTML5Backend}>
+            <Provider store={store}>
+                <App />
+            </Provider>
+        </DndProvider>
     </React.StrictMode>
 );
 
