@@ -1,21 +1,28 @@
 import PropTypes from "prop-types";
-import style from './style.module.css'
+import style from "./style.module.css";
 import { clsx } from "clsx";
+import { NavLink } from "react-router-dom";
 
 export const Link = ({ text, icon, href }) => {
-    return (
-        <a
-            className={clsx(style.link, 'm-5 flex row')}
-            href={href}
-        >
-            {icon}
-            <p className="text text_type_main-default ml-2">{text}</p>
-        </a>
-    )
-}
-
+  return (
+    <NavLink className={clsx(style.link, "m-5 flex row")} to={href}>
+      {({ isActive }) => (
+        <>
+          {icon({ type: isActive ? "primary" : "secondary" })}
+          <p
+            className={clsx("text text_type_main-default ml-2", {
+              text_color_inactive: !isActive,
+            })}
+          >
+            {text}
+          </p>
+        </>
+      )}
+    </NavLink>
+  );
+};
 Link.propTypes = {
-    icon: PropTypes.element.isRequired,
-    text: PropTypes.string.isRequired,
-    href: PropTypes.string.isRequired
-}
+  icon: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
+};
