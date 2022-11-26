@@ -1,5 +1,5 @@
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import { clsx } from "clsx";
 import PropTypes from "prop-types";
 

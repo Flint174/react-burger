@@ -1,6 +1,6 @@
 import { useDrop } from "react-dnd";
 import { dragTypes } from "../../utils/constants";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import { clsx } from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";

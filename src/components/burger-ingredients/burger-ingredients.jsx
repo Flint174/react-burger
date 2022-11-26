@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, createRef } from "react";
 import { Tabs } from "./tabs";
 import { clsx } from "clsx";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import { Category } from "./category";
 
 export const BurgerIngredients = () => {

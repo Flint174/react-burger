@@ -1,8 +1,13 @@
+.container {
+  background: var(--bg-color_element);
+  height: 88px;
+}
+
 .link {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
 }
 
 .list {
-    list-style: none;
+  list-style: none;
 }

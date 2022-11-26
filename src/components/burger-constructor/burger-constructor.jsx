@@ -6,7 +6,7 @@ import {
 import { clsx } from "clsx";
 import { OrderDetail } from "../order-details";
 import { useMemo } from "react";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 import { Modal } from "../modal";
 import { useSelector } from "react-redux";
 import { fetchOrder } from "../../services/actions/order-actions";
