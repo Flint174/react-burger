@@ -21,7 +21,10 @@ export const Form = ({ title, form, footer, onSubmit, submitLabel }) => {
           {submitLabel}
         </Button>
       </form>
-      <div className="flex column align-items_center gap-4 text text_type_main-default text_color_inactive">
+      <div
+        className="flex column align-items_center gap-4 text text_type_main-default text_color_inactive"
+        style={{ margin: 0 }}
+      >
         {footer}
       </div>
     </section>
