@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./styles.module.css";
 import { clsx } from "clsx";
 import {
@@ -6,19 +7,22 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setEmail, setPassword } from "../../services/slices/auth-slice";
 
-export const Login = () => {
-  const { email, password } = useSelector((store) => store.authReducer);
-  const dispatch = useDispatch();
+export const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const onEmailChange = (event) => {
-    dispatch(setEmail(event.target.value));
+  const onNameChange = (event) => {
+    setName(event.target.value);
   };
 
-  const onChangePassword = (event) => {
-    dispatch(setPassword(event.target.value));
+  const onEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const onPasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
   const onSubmit = (event) => {
@@ -40,10 +44,11 @@ export const Login = () => {
         className="flex column align-items_center gap-6 mt-6 mb-20"
         onSubmit={onSubmit}
       >
+        <EmailInput value={name} onChange={onNameChange} inputMode="text" />
         <EmailInput value={email} onChange={onEmailChange} />
-        <PasswordInput value={password} onChange={onChangePassword} />
+        <PasswordInput value={password} onChange={onPasswordChange} />
         <Button htmlType="submit" extraClass={styles.btn}>
-          Войти
+          Зарегистрироваться
         </Button>
       </form>
       <p
@@ -52,22 +57,10 @@ export const Login = () => {
           "text text_type_main-default text_color_inactive"
         )}
       >
-        Вы новый пользователь?{" "}
+        Уже зарегистрированы?{" "}
         <span>
           {/* TODO: link to... */}
-          <Link>Зарегистрироваться</Link>
-        </span>
-      </p>
-      <p
-        className={clsx(
-          styles.p,
-          "text text_type_main-default text_color_inactive"
-        )}
-      >
-        Забыли пароль?{" "}
-        <span>
-          {/* TODO: link to... */}
-          <Link>Восстановить пароль</Link>
+          <Link>Войти</Link>
         </span>
       </p>
     </main>

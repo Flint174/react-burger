@@ -3,14 +3,14 @@ import { fetchIngredietns } from "../../services/actions/ingredients-actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import { Main } from "../../pages/Main";
-import { Login } from "../../pages/Login/Login";
-import { ForgotPassword } from "../../pages/ForgotPassword";
-import { Register } from "../../pages/Register";
-import { ResetPassword } from "../../pages/ResetPassword";
-import { IngredientsModal } from "../../pages/IngredientsModal";
-import { PageNotFound } from "../../pages/PageNotFound";
-import { Profile } from "../../pages/Profile";
+import { Main } from "../../pages/main";
+import { Login } from "../../pages/login/login";
+import { ForgotPassword } from "../../pages/forgot-password";
+import { Register } from "../../pages/register/register";
+import { ResetPassword } from "../../pages/reset-password";
+import { IngredientsModal } from "../../pages/ingredients-modal";
+import { PageNotFound } from "../../pages/page-not-found";
+import { Profile } from "../../pages/profile";
 
 export const App = () => {
   const dispatch = useDispatch();

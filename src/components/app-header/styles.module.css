@@ -4,15 +4,16 @@
 }
 
 .link {
+  overflow: hidden;
   text-decoration: none;
   color: white;
 }
 
 .list {
+  overflow: hidden;
   list-style: none;
 }
 
 .p {
   white-space: nowrap;
-  text-overflow: ellipsis;
 }
