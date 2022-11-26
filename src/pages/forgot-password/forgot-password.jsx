@@ -25,12 +25,14 @@ export const ForgotPassword = () => {
   );
 
   return (
-    <Form
-      title="Восстановление пароля"
-      form={form}
-      footer={footer}
-      onSubmit={onSubmit}
-      submitLabel="Восстановить"
-    />
+    <main>
+      <Form
+        title="Восстановление пароля"
+        form={form}
+        footer={footer}
+        onSubmit={onSubmit}
+        submitLabel="Восстановить"
+      />
+    </main>
   );
 };
