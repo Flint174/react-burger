@@ -11,3 +11,8 @@
 .list {
   list-style: none;
 }
+
+.p {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

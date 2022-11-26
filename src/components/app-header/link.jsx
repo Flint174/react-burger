@@ -10,9 +10,13 @@ export const Link = ({ text, icon, href }) => {
         <>
           {icon({ type: isActive ? "primary" : "secondary" })}
           <p
-            className={clsx("text text_type_main-default ml-2", {
-              text_color_inactive: !isActive,
-            })}
+            className={clsx(
+              "text text_type_main-default ml-2",
+              {
+                text_color_inactive: !isActive,
+              },
+              styles.p
+            )}
           >
             {text}
           </p>
