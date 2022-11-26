@@ -2,9 +2,9 @@ import { AppHeader } from "../app-header";
 import { fetchIngredietns } from "../../services/actions/ingredients-actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Main } from "../../pages/Main";
-import { Login } from "../../pages/Login";
+import { Login } from "../../pages/Login/Login";
 import { ForgotPassword } from "../../pages/ForgotPassword";
 import { Register } from "../../pages/Register";
 import { ResetPassword } from "../../pages/ResetPassword";
@@ -29,17 +29,6 @@ export const App = () => {
         <Route path="forgot-password" element={<ForgotPassword />} />
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="profile" element={<Profile />} />
-
-        {/* TODO: 
-            use action for dynamic ingredients
-            <Route
-                path="/teams/:teamId"
-                action={({ request }) => {
-                    const formData = await request.formData();
-                    return updateTeam(formData);
-                }}
-            />
-          */}
         <Route path="ingredients/:id" element={<IngredientsModal />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

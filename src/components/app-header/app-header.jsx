@@ -6,7 +6,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
-import style from "./style.module.css";
+import styles from "./style.module.css";
 
 export const AppHeader = () => {
   return (
@@ -14,7 +14,7 @@ export const AppHeader = () => {
       <nav>
         <ul
           className={clsx(
-            style.list,
+            styles.list,
             "flex row nowrap justify-content_space-evenly align-items_center"
           )}
         >

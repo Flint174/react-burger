@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
-import style from "./style.module.css";
+import styles from "./style.module.css";
 import { clsx } from "clsx";
 import { NavLink } from "react-router-dom";
 
 export const Link = ({ text, icon, href }) => {
   return (
-    <NavLink className={clsx(style.link, "m-5 flex row")} to={href}>
+    <NavLink className={clsx(styles.link, "m-5 flex row")} to={href}>
       {({ isActive }) => (
         <>
           {icon({ type: isActive ? "primary" : "secondary" })}
