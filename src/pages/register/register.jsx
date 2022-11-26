@@ -13,15 +13,15 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onNameChange = (event) => {
+  const onChangeName = (event) => {
     setName(event.target.value);
   };
 
-  const onEmailChange = (event) => {
+  const onChangeEmail = (event) => {
     setEmail(event.target.value);
   };
 
-  const onPasswordChange = (event) => {
+  const onChangePassword = (event) => {
     setPassword(event.target.value);
   };
 
@@ -44,9 +44,9 @@ export const Register = () => {
         className="flex column align-items_center gap-6 mt-6 mb-20"
         onSubmit={onSubmit}
       >
-        <EmailInput value={name} onChange={onNameChange} inputMode="text" />
-        <EmailInput value={email} onChange={onEmailChange} />
-        <PasswordInput value={password} onChange={onPasswordChange} />
+        <EmailInput value={name} onChange={onChangeName} inputMode="text" />
+        <EmailInput value={email} onChange={onChangeEmail} />
+        <PasswordInput value={password} onChange={onChangePassword} />
         <Button htmlType="submit" extraClass={styles.btn}>
           Зарегистрироваться
         </Button>

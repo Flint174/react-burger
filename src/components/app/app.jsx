@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { Main } from "../../pages/main";
 import { Login } from "../../pages/login/login";
-import { ForgotPassword } from "../../pages/forgot-password";
+import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
 import { Register } from "../../pages/register/register";
 import { ResetPassword } from "../../pages/reset-password";
 import { IngredientsModal } from "../../pages/ingredients-modal";
