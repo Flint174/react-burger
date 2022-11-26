@@ -7,7 +7,7 @@ import { Main } from "../../pages/main";
 import { Login } from "../../pages/login/login";
 import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
 import { Register } from "../../pages/register/register";
-import { ResetPassword } from "../../pages/reset-password";
+import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { IngredientsModal } from "../../pages/ingredients-modal";
 import { PageNotFound } from "../../pages/page-not-found";
 import { Profile } from "../../pages/profile";
