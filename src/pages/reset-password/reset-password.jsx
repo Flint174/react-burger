@@ -1,4 +1,3 @@
-import styles from "./styles.module.css";
 import {
   Input,
   PasswordInput,
@@ -43,13 +42,13 @@ export const ResetPassword = () => {
 
   const footer = (
     <>
-      <p className={styles.p}>
+      <div>
         Вспомнили пароль?{" "}
         <span>
           {/* TODO: link to... */}
           <Link>Войти</Link>
         </span>
-      </p>
+      </div>
     </>
   );
 

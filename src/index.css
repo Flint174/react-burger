@@ -110,3 +110,7 @@ code {
 .gap-10 {
   gap: calc(var(--offset-base-size) * 10);
 }
+
+.gap-15 {
+  gap: calc(var(--offset-base-size) * 15);
+}

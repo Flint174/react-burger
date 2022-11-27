@@ -6,7 +6,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
-import styles from "./styles.module.css";
 
 export const Register = () => {
   const [name, setName] = useState("");
@@ -47,13 +46,13 @@ export const Register = () => {
 
   const footer = (
     <>
-      <p className={styles.p}>
+      <div>
         Уже зарегистрированы?{" "}
         <span>
           {/* TODO: link to... */}
           <Link>Войти</Link>
         </span>
-      </p>
+      </div>
     </>
   );
 

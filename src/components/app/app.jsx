@@ -10,7 +10,7 @@ import { Register } from "../../pages/register/register";
 import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { IngredientsModal } from "../../pages/ingredients-modal";
 import { PageNotFound } from "../../pages/page-not-found";
-import { Profile } from "../../pages/profile";
+import { Profile } from "../../pages/profile/profile";
 
 export const App = () => {
   const dispatch = useDispatch();

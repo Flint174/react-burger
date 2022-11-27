@@ -1,4 +1,3 @@
-import styles from "./styles.module.css";
 import {
   EmailInput,
   PasswordInput,
@@ -12,7 +11,7 @@ export const Login = () => {
   const { email, password } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
 
-  const onEmailChange = (event) => {
+  const onChangeEmail = (event) => {
     dispatch(setEmail(event.target.value));
   };
 
@@ -29,27 +28,27 @@ export const Login = () => {
 
   const form = (
     <>
-      <EmailInput value={email} onChange={onEmailChange} />
+      <EmailInput value={email} onChange={onChangeEmail} />
       <PasswordInput value={password} onChange={onChangePassword} />
     </>
   );
 
   const footer = (
     <>
-      <p className={styles.p}>
+      <div>
         Вы новый пользователь?{" "}
         <span>
           {/* TODO: link to... */}
           <Link>Зарегистрироваться</Link>
         </span>
-      </p>
-      <p className={styles.p}>
+      </div>
+      <div>
         Забыли пароль?{" "}
         <span>
           {/* TODO: link to... */}
           <Link>Восстановить пароль</Link>
         </span>
-      </p>
+      </div>
     </>
   );
 

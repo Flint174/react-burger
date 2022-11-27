@@ -2,7 +2,6 @@ import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
-import styles from "./styles.module.css";
 
 export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -17,12 +16,12 @@ export const ForgotPassword = () => {
 
   const form = <EmailInput value={email} onChange={onChangeEmail} />;
   const footer = (
-    <p className={styles.p}>
+    <div>
       Вспомнили пароль?{" "}
       <span>
         <Link>Войти</Link>
       </span>
-    </p>
+    </div>
   );
 
   return (

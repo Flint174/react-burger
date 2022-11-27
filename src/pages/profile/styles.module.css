@@ -1,0 +1,23 @@
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.nav {
+  min-width: 320px;
+}
+
+.list {
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link {
+  overflow: hidden;
+  text-decoration: none;
+  min-height: 64px;
+}
