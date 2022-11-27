@@ -1,20 +1,16 @@
 import { EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
+import { useProfile } from "../../hooks/profile-hook";
 
 export const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-
-  const onChangeEmail = (event) => {
-    setEmail(event.target.value);
-  };
+  const { email, handleChangeEmailEvent } = useProfile();
 
   const onSubmit = (event) => {
     event.preventDefault();
   };
 
-  const form = <EmailInput value={email} onChange={onChangeEmail} />;
+  const form = <EmailInput value={email} onChange={handleChangeEmailEvent} />;
   const footer = (
     <div>
       Вспомнили пароль?{" "}

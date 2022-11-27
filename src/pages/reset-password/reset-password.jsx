@@ -5,16 +5,13 @@ import {
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { useState } from "react";
+import { useProfile } from "../../hooks/profile-hook";
 
 export const ResetPassword = () => {
-  const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
+  const { password, handleChangePasswordEvent } = useProfile();
 
-  const onChangePassword = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const onChangeCode = (event) => {
+  const handleChangeCode = (event) => {
     setCode(event.target.value);
   };
 
@@ -30,12 +27,12 @@ export const ResetPassword = () => {
       <PasswordInput
         value={password}
         placeholder="Введите новый пароль"
-        onChange={onChangePassword}
+        onChange={handleChangePasswordEvent}
       />
       <Input
         value={code}
         placeholder="Введите код из письма"
-        onChange={onChangeCode}
+        onChange={handleChangeCode}
       />
     </>
   );

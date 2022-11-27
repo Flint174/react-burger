@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   EmailInput,
   Input,
@@ -6,23 +5,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
+import { useProfile } from "../../hooks/profile-hook";
 
 export const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onChangeName = (event) => {
-    setName(event.target.value);
-  };
-
-  const onChangeEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const onChangePassword = (event) => {
-    setPassword(event.target.value);
-  };
+  const {
+    name,
+    email,
+    password,
+    handleChangeNameEvent,
+    handleChangeEmailEvent,
+    handleChangePasswordEvent,
+  } = useProfile();
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -35,12 +28,12 @@ export const Register = () => {
     <>
       <Input
         value={name}
-        onChange={onChangeName}
+        onChange={handleChangeNameEvent}
         type="text"
         placeholder="Имя"
       />
-      <EmailInput value={email} onChange={onChangeEmail} />
-      <PasswordInput value={password} onChange={onChangePassword} />
+      <EmailInput value={email} onChange={handleChangeEmailEvent} />
+      <PasswordInput value={password} onChange={handleChangePasswordEvent} />
     </>
   );
 

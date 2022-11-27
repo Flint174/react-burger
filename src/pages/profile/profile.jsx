@@ -5,9 +5,9 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useProfile } from "../../hooks/profile-hook";
 import styles from "./styles.module.css";
 
 export const Profile = () => {
@@ -15,28 +15,19 @@ export const Profile = () => {
   // TODO: use dispatch to update profile info
   // eslint-disable-next-line no-unused-vars
   const dispatch = useDispatch();
-  const [name, setName] = useState(profile.name);
-  const [email, setEmail] = useState(profile.email);
-  const [password, setPassword] = useState(profile.password);
-
-  const onChangeName = (event) => {
-    setName(event.target.value);
-  };
-
-  const onChangeEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const onChangePassword = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const onCancel = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
-  };
-
+  const {
+    name,
+    email,
+    password,
+    handleChangeNameEvent,
+    handleChangeEmailEvent,
+    handleChangePasswordEvent,
+    clearProfile,
+  } = useProfile({
+    name: profile.name,
+    email: profile.email,
+    password: profile.password,
+  });
   const onSubmit = (event) => {
     event.preventDefault();
     //dispatch(update profile)
@@ -89,16 +80,20 @@ export const Profile = () => {
           value={name}
           placeholder="Имя"
           icon="EditIcon"
-          onChange={onChangeName}
+          onChange={handleChangeNameEvent}
         />
-        <EmailInput value={email} icon="EditIcon" onChange={onChangeEmail} />
+        <EmailInput
+          value={email}
+          icon="EditIcon"
+          onChange={handleChangeEmailEvent}
+        />
         <PasswordInput
           value={password}
           icon="EditIcon"
-          onChange={onChangePassword}
+          onChange={handleChangePasswordEvent}
         />
         <div className={(clsx(styles.form_actions), "align-self_end")}>
-          <Button htmlType="button" type="secondary" onClick={onCancel}>
+          <Button htmlType="button" type="secondary" onClick={clearProfile}>
             Отмена
           </Button>
           <Button htmlType="submit">Сохранить</Button>

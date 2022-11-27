@@ -3,22 +3,12 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setEmail, setPassword } from "../../services/slices/profile-slice";
 import { Form } from "../../components/form/form";
+import { useProfile } from "../../hooks/profile-hook";
 
 export const Login = () => {
-  const { email, password } = useSelector((store) => store.profileReducer);
-  const dispatch = useDispatch();
-
-  const onChangeEmail = (event) => {
-    dispatch(setEmail(event.target.value));
-  };
-
-  const onChangePassword = (event) => {
-    dispatch(setPassword(event.target.value));
-  };
-
+  const { email, password, handleChangeEmailEvent, handleChangePasswordEvent } =
+    useProfile();
   const onSubmit = (event) => {
     event.preventDefault();
     /**
@@ -28,8 +18,8 @@ export const Login = () => {
 
   const form = (
     <>
-      <EmailInput value={email} onChange={onChangeEmail} />
-      <PasswordInput value={password} onChange={onChangePassword} />
+      <EmailInput value={email} onChange={handleChangeEmailEvent} />
+      <PasswordInput value={password} onChange={handleChangePasswordEvent} />
     </>
   );
 
