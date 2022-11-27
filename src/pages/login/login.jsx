@@ -4,11 +4,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmail, setPassword } from "../../services/slices/auth-slice";
+import { setEmail, setPassword } from "../../services/slices/profile-slice";
 import { Form } from "../../components/form/form";
 
 export const Login = () => {
-  const { email, password } = useSelector((store) => store.authReducer);
+  const { email, password } = useSelector((store) => store.profileReducer);
   const dispatch = useDispatch();
 
   const onChangeEmail = (event) => {

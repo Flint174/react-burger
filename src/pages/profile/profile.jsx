@@ -6,13 +6,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styles from "./styles.module.css";
 
 export const Profile = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const profile = useSelector((store) => store.profileReducer);
+  // TODO: use dispatch to update profile info
+  // eslint-disable-next-line no-unused-vars
+  const dispatch = useDispatch();
+  const [name, setName] = useState(profile.name);
+  const [email, setEmail] = useState(profile.email);
+  const [password, setPassword] = useState(profile.password);
 
   const onChangeName = (event) => {
     setName(event.target.value);
@@ -23,7 +28,7 @@ export const Profile = () => {
   };
 
   const onChangePassword = (event) => {
-    setPassword(event.target.password);
+    setPassword(event.target.value);
   };
 
   const onCancel = () => {
@@ -33,7 +38,8 @@ export const Profile = () => {
   };
 
   const onSubmit = (event) => {
-    event.prevetDefault();
+    event.preventDefault();
+    //dispatch(update profile)
   };
 
   const navLinkClass = clsx(
@@ -79,9 +85,18 @@ export const Profile = () => {
         className="flex column align-items_center gap-6"
         onSubmit={onSubmit}
       >
-        <Input value={name} placeholder="Имя" onChange={onChangeName} />
-        <EmailInput value={email} onChange={onChangeEmail} />
-        <PasswordInput value={password} onChange={onChangePassword} />
+        <Input
+          value={name}
+          placeholder="Имя"
+          icon="EditIcon"
+          onChange={onChangeName}
+        />
+        <EmailInput value={email} icon="EditIcon" onChange={onChangeEmail} />
+        <PasswordInput
+          value={password}
+          icon="EditIcon"
+          onChange={onChangePassword}
+        />
         <div className={(clsx(styles.form_actions), "align-self_end")}>
           <Button htmlType="button" type="secondary" onClick={onCancel}>
             Отмена
