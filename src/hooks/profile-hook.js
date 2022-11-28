@@ -1,13 +1,9 @@
 import { useState } from "react";
 
-export const useProfile = ({
-  name: initName = "",
-  email: initEmail = "",
-  password: initPassword = "",
-}) => {
-  const [name, setName] = useState(initName);
-  const [email, setEmail] = useState(initEmail);
-  const [password, setPassword] = useState(initPassword);
+export const useProfile = (profile = {}) => {
+  const [name, setName] = useState(profile.name || "");
+  const [email, setEmail] = useState(profile.email || "");
+  const [password, setPassword] = useState(profile.password || "");
 
   const handleChangeNameEvent = (e) => {
     setName(e.target.value);

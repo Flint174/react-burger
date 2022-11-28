@@ -4,6 +4,8 @@ const initialState = {
   name: "",
   email: "",
   password: "",
+  accessToken: "",
+  refreshToken: "",
 };
 
 export const profileSlice = createSlice({
