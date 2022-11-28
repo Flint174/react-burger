@@ -3,7 +3,14 @@ import styles from "./styles.module.css";
 import { clsx } from "clsx";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export const Form = ({ title, form, footer, onSubmit, submitLabel }) => {
+export const Form = ({
+  title,
+  form,
+  footer,
+  onSubmit,
+  submitLabel,
+  submitIsActive = true,
+}) => {
   return (
     <section
       className={clsx(
@@ -17,7 +24,11 @@ export const Form = ({ title, form, footer, onSubmit, submitLabel }) => {
         onSubmit={onSubmit}
       >
         {form}
-        <Button htmlType="submit" extraClass={styles.btn}>
+        <Button
+          htmlType="submit"
+          extraClass={styles.btn}
+          disabled={!submitIsActive}
+        >
           {submitLabel}
         </Button>
       </form>
@@ -33,4 +44,5 @@ Form.propTypes = {
   form: PropTypes.element.isRequired,
   footer: PropTypes.element.isRequired,
   submitLabel: PropTypes.string.isRequired,
+  submitIsActive: PropTypes.bool,
 };

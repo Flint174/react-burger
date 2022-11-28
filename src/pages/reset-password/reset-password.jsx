@@ -5,13 +5,14 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { useState } from "react";
-import { useProfile } from "../../hooks/profile-hook";
+import { useAuth } from "../../hooks/auth-hook";
 import { handleError, request } from "../../utils/request";
 import { PASSWORD_RESET_RESET_URL } from "../../utils/constants";
 
 export const ResetPassword = () => {
   const [code, setCode] = useState("");
-  const { password, handleChangePasswordEvent } = useProfile();
+  const { password, handleChangePasswordEvent, loading, setLoading } =
+    useAuth();
   const navigate = useNavigate();
 
   const handleChangeCode = (event) => {
@@ -24,6 +25,7 @@ export const ResetPassword = () => {
       password,
       token: code,
     };
+    setLoading(true);
     request(PASSWORD_RESET_RESET_URL, {
       method: "POST",
       headers: {
@@ -32,11 +34,15 @@ export const ResetPassword = () => {
       body: JSON.stringify(body),
     })
       .then((res) => {
+        setLoading(false);
         if (res.success) {
           navigate("/login");
         }
       })
-      .catch(handleError);
+      .catch((err) => {
+        setLoading(false);
+        handleError(err);
+      });
   };
 
   const form = (
@@ -73,6 +79,7 @@ export const ResetPassword = () => {
         footer={footer}
         onSubmit={onSubmit}
         submitLabel="Сохранить"
+        submitIsActive={!loading}
       />
     </main>
   );

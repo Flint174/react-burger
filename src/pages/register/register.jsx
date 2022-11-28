@@ -3,9 +3,11 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
-import { useProfile } from "../../hooks/profile-hook";
+import { useAuth } from "../../hooks/auth-hook";
+import { fetchRegister } from "../../services/actions/auth-actions";
 
 export const Register = () => {
   const {
@@ -15,13 +17,14 @@ export const Register = () => {
     handleChangeNameEvent,
     handleChangeEmailEvent,
     handleChangePasswordEvent,
-  } = useProfile();
+  } = useAuth();
+
+  const { loading } = useSelector((store) => store.authReducer);
+  const dispatch = useDispatch();
 
   const onSubmit = (event) => {
     event.preventDefault();
-    /**
-     * TODO: send form
-     */
+    dispatch(fetchRegister({ name, email, password }));
   };
 
   const form = (
@@ -42,8 +45,7 @@ export const Register = () => {
       <div>
         Уже зарегистрированы?{" "}
         <span>
-          {/* TODO: link to... */}
-          <Link>Войти</Link>
+          <Link to="/login">Войти</Link>
         </span>
       </div>
     </>
@@ -57,6 +59,7 @@ export const Register = () => {
         footer={footer}
         onSubmit={onSubmit}
         submitLabel="Зарегистрироваться"
+        submitIsActive={!loading}
       />
     </main>
   );

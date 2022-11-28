@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-export const useProfile = (profile = {}) => {
+export const useAuth = (profile = {}) => {
   const [name, setName] = useState(profile.name || "");
   const [email, setEmail] = useState(profile.email || "");
   const [password, setPassword] = useState(profile.password || "");
+  const [loading, setLoading] = useState(false);
 
   const handleChangeNameEvent = (e) => {
     setName(e.target.value);
@@ -34,5 +35,7 @@ export const useProfile = (profile = {}) => {
     setPassword,
     handleChangePasswordEvent,
     clearProfile,
+    loading,
+    setLoading,
   };
 };

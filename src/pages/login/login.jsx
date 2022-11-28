@@ -2,18 +2,21 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
-import { useProfile } from "../../hooks/profile-hook";
+import { useAuth } from "../../hooks/auth-hook";
+import { fetchLogin } from "../../services/actions/auth-actions";
 
 export const Login = () => {
   const { email, password, handleChangeEmailEvent, handleChangePasswordEvent } =
-    useProfile();
+    useAuth();
+  const { loading } = useSelector((store) => store.authReducer);
+  const dispatch = useDispatch();
+
   const onSubmit = (event) => {
     event.preventDefault();
-    /**
-     * TODO: send form
-     */
+    dispatch(fetchLogin({ email, password }));
   };
 
   const form = (
@@ -28,15 +31,13 @@ export const Login = () => {
       <div>
         Вы новый пользователь?{" "}
         <span>
-          {/* TODO: link to... */}
-          <Link>Зарегистрироваться</Link>
+          <Link to="/register">Зарегистрироваться</Link>
         </span>
       </div>
       <div>
         Забыли пароль?{" "}
         <span>
-          {/* TODO: link to... */}
-          <Link>Восстановить пароль</Link>
+          <Link to="/forgot-password">Восстановить пароль</Link>
         </span>
       </div>
     </>
@@ -49,7 +50,8 @@ export const Login = () => {
         form={form}
         footer={footer}
         onSubmit={onSubmit}
-        submitLabel="Восстановить"
+        submitLabel="Войти"
+        submitIsActive={!loading}
       />
     </main>
   );

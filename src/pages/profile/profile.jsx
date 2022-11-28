@@ -7,11 +7,11 @@ import {
 import { clsx } from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { useProfile } from "../../hooks/profile-hook";
+import { useAuth } from "../../hooks/auth-hook";
 import styles from "./styles.module.css";
 
 export const Profile = () => {
-  const profile = useSelector((store) => store.profileReducer);
+  const { user } = useSelector((store) => store.authReducer);
   // TODO: use dispatch to update profile info
   // eslint-disable-next-line no-unused-vars
   const dispatch = useDispatch();
@@ -23,10 +23,9 @@ export const Profile = () => {
     handleChangeEmailEvent,
     handleChangePasswordEvent,
     clearProfile,
-  } = useProfile({
-    name: profile.name,
-    email: profile.email,
-    password: profile.password,
+  } = useAuth({
+    name: user.name,
+    email: user.email,
   });
   const onSubmit = (event) => {
     event.preventDefault();

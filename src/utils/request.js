@@ -1,6 +1,6 @@
 export const handleError = (err) => {
   // console.error(err)
-  alert(err);
+  alert(err.message);
 };
 
 export const checkResponse = (res) => {
