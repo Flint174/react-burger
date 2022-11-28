@@ -21,7 +21,6 @@ export const ForgotPassword = () => {
     })
       .then((res) => {
         if (res.success) {
-          console.log(res);
           navigate("/reset-password");
         }
       })

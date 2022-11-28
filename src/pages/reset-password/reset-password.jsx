@@ -2,14 +2,17 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { useState } from "react";
 import { useProfile } from "../../hooks/profile-hook";
+import { handleError, request } from "../../utils/request";
+import { PASSWORD_RESET_RESET_URL } from "../../utils/constants";
 
 export const ResetPassword = () => {
   const [code, setCode] = useState("");
   const { password, handleChangePasswordEvent } = useProfile();
+  const navigate = useNavigate();
 
   const handleChangeCode = (event) => {
     setCode(event.target.value);
@@ -17,9 +20,23 @@ export const ResetPassword = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    /**
-     * TODO: send form
-     */
+    const body = {
+      password,
+      token: code,
+    };
+    request(PASSWORD_RESET_RESET_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => {
+        if (res.success) {
+          navigate("/login");
+        }
+      })
+      .catch(handleError);
   };
 
   const form = (
@@ -42,8 +59,7 @@ export const ResetPassword = () => {
       <div>
         Вспомнили пароль?{" "}
         <span>
-          {/* TODO: link to... */}
-          <Link>Войти</Link>
+          <Link to="/login">Войти</Link>
         </span>
       </div>
     </>
