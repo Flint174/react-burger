@@ -57,7 +57,7 @@ export const Profile = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className={navLinkClass} style={navLinkStyle} to="history">
+            <NavLink className={navLinkClass} style={navLinkStyle} to="orders">
               История заказов
             </NavLink>
           </li>
