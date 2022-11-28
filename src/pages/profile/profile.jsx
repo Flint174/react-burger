@@ -35,7 +35,7 @@ export const Profile = () => {
 
   const navLinkClass = clsx(
     styles.link,
-    "text text_type_main-default text_color_inactive",
+    "text text_type_main-medium text_color_inactive",
     "flex row align-items_center justify-items_start"
   );
   const navLinkStyle = ({ isActive }) =>
