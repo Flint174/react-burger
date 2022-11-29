@@ -37,7 +37,7 @@ export const ForgotPassword = () => {
     <div>
       Вспомнили пароль?{" "}
       <span>
-        <Link>Войти</Link>
+        <Link to="/login">Войти</Link>
       </span>
     </div>
   );

@@ -8,12 +8,11 @@ import { clsx } from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../hooks/auth-hook";
+import { fetchUserPatch } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
 
 export const Profile = () => {
-  const { user } = useSelector((store) => store.authReducer);
-  // TODO: use dispatch to update profile info
-  // eslint-disable-next-line no-unused-vars
+  const { user, accessToken } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
   const {
     name,
@@ -23,13 +22,19 @@ export const Profile = () => {
     handleChangeEmailEvent,
     handleChangePasswordEvent,
     clearProfile,
-  } = useAuth({
-    name: user.name,
-    email: user.email,
-  });
+  } = useAuth(user);
+
   const onSubmit = (event) => {
     event.preventDefault();
-    //dispatch(update profile)
+    const body = Object.assign({ name, email }, password ? { password } : {});
+    // const body = { email, name, password: "123456" };
+    console.log("submit", body);
+    dispatch(fetchUserPatch(accessToken, body));
+  };
+
+  const onReset = (event) => {
+    event.preventDefault();
+    clearProfile();
   };
 
   const navLinkClass = clsx(
@@ -74,6 +79,7 @@ export const Profile = () => {
       <form
         className="flex column align-items_center gap-6"
         onSubmit={onSubmit}
+        onReset={onReset}
       >
         <Input
           value={name}
@@ -92,7 +98,7 @@ export const Profile = () => {
           onChange={handleChangePasswordEvent}
         />
         <div className={(clsx(styles.form_actions), "align-self_end")}>
-          <Button htmlType="button" type="secondary" onClick={clearProfile}>
+          <Button htmlType="reset" type="secondary">
             Отмена
           </Button>
           <Button htmlType="submit">Сохранить</Button>

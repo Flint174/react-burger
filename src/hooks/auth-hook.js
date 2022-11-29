@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useAuth = (profile = {}) => {
-  const [name, setName] = useState(profile.name || "");
-  const [email, setEmail] = useState(profile.email || "");
-  const [password, setPassword] = useState(profile.password || "");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChangeNameEvent = (e) => {
@@ -19,10 +19,19 @@ export const useAuth = (profile = {}) => {
   };
 
   const clearProfile = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
+    setName(profile.name);
+    setEmail(profile.email);
+    setPassword(profile.password);
   };
+
+  useEffect(() => {
+    setName((prev) =>
+      typeof profile.name === "undefined" ? prev : profile.name
+    );
+    setEmail((prev) =>
+      typeof profile.email === "undefined" ? prev : profile.email
+    );
+  }, [profile]);
 
   return {
     name,
