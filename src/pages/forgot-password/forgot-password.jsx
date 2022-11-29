@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { useAuth } from "../../hooks/auth-hook";
 import { PASSWORD_RESET_URL } from "../../utils/constants";
-import { handleError, request } from "../../utils/request";
+import { handleError, request, requestHeaders } from "../../utils/request";
 
 export const ForgotPassword = () => {
   const { email, handleChangeEmailEvent, loading, setLoading } = useAuth();
@@ -15,9 +15,7 @@ export const ForgotPassword = () => {
     setLoading(true);
     request(PASSWORD_RESET_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: requestHeaders.post,
       body: JSON.stringify(body),
     })
       .then((res) => {

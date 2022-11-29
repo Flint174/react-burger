@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { request } from "../../utils/request";
+import { request, requestHeaders } from "../../utils/request";
 import {
   AUTH_LOGIN_URL,
   AUTH_LOGOUT_URL,
@@ -8,14 +8,16 @@ import {
   AUTH_USER_URL,
 } from "../../utils/constants";
 
+const headers = {
+  "Content-Type": "application/json;charset=utf-8",
+};
+
 export const fetchLogin = createAsyncThunk(
   `auth/login`,
   async (body) =>
     await request(AUTH_LOGIN_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: requestHeaders.post,
       body: JSON.stringify(body),
     })
 );
@@ -25,9 +27,7 @@ export const fetchRegister = createAsyncThunk(
   async (body) =>
     await request(AUTH_REGISTER_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: requestHeaders.post,
       body: JSON.stringify(body),
     })
 );
@@ -37,9 +37,7 @@ export const fetchToken = createAsyncThunk(
   async (body) =>
     await request(AUTH_TOKEN_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: requestHeaders.post,
       body: JSON.stringify(body),
     })
 );
@@ -49,9 +47,7 @@ export const fetchLogout = createAsyncThunk(
   async (body) =>
     await request(AUTH_LOGOUT_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: requestHeaders.post,
       body: JSON.stringify(body),
     })
 );
@@ -62,7 +58,6 @@ export const fetchUserGet = createAsyncThunk(
     await request(AUTH_USER_URL, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
     })
@@ -74,7 +69,7 @@ export const fetchUserPatch = createAsyncThunk(
     await request(AUTH_USER_URL, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        ...requestHeaders.post,
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify(body),

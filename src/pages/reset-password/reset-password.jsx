@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { useState } from "react";
 import { useAuth } from "../../hooks/auth-hook";
-import { handleError, request } from "../../utils/request";
+import { handleError, request, requestHeaders } from "../../utils/request";
 import { PASSWORD_RESET_RESET_URL } from "../../utils/constants";
 
 export const ResetPassword = () => {
@@ -28,9 +28,7 @@ export const ResetPassword = () => {
     setLoading(true);
     request(PASSWORD_RESET_RESET_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: requestHeaders.post,
       body: JSON.stringify(body),
     })
       .then((res) => {

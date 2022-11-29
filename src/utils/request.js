@@ -13,3 +13,8 @@ export const checkResponse = (res) => {
 export const request = (url, options) => {
   return fetch(url, options).then(checkResponse);
 };
+
+export const requestHeaders = {
+  post: { "Content-Type": "application/json;charset=utf-8" },
+  patch: { "Content-Type": "application/json;charset=utf-8" },
+};
