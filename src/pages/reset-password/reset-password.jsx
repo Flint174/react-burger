@@ -10,6 +10,7 @@ import { useAuth } from "../../hooks/auth-hook";
 import { handleError, request, requestHeaders } from "../../utils/request";
 import { PASSWORD_RESET_RESET_URL } from "../../utils/constants";
 import styles from "./styles.module.css";
+import { FormContainer } from "../../components/form/form-container";
 
 export const ResetPassword = () => {
   const [code, setCode] = useState("");
@@ -84,13 +85,15 @@ export const ResetPassword = () => {
 
   return (
     <main>
-      <Form
-        title="Восстановление пароля"
-        form={form}
-        actions={actions}
-        footer={footer}
-        onSubmit={onSubmit}
-      />
+      <FormContainer>
+        <Form
+          title="Восстановление пароля"
+          form={form}
+          actions={actions}
+          footer={footer}
+          onSubmit={onSubmit}
+        />
+      </FormContainer>
     </main>
   );
 };

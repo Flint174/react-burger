@@ -1,10 +1,12 @@
 import { clsx } from "clsx";
 import { useDispatch } from "react-redux";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, Outlet, useMatch } from "react-router-dom";
 import { fetchLogout } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
 
 export const Profile = () => {
+  const isProfile = !!useMatch({ path: "/profile", exact: true });
+  const isOrders = !!useMatch({ path: "/profile/orders" });
   const dispatch = useDispatch();
 
   const exit = () => {
@@ -17,35 +19,32 @@ export const Profile = () => {
     "flex row align-items_center justify-items_start"
   );
 
-  const navLinkStyle = ({ isActive }) =>
-    isActive ? { color: "white" } : undefined;
+  const linkStyle = (isActive) => (isActive ? { color: "white" } : undefined);
 
-  // TODO: заменить NavLink на Link и разобраться с их активным статусом
   return (
     <main
       className={clsx(styles.container, "flex row align-items_start gap-15")}
     >
-      <nav className={styles.column}>
+      <nav className={styles.column_left}>
         <ul className={styles.list}>
           <li>
-            <NavLink className={navLinkClass} style={navLinkStyle} to="">
+            <Link className={navLinkClass} style={linkStyle(isProfile)} to="">
               Профиль
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink className={navLinkClass} style={navLinkStyle} to="orders">
-              История заказов
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
+            <Link
               className={navLinkClass}
-              style={navLinkStyle}
-              to="/"
-              onClick={exit}
+              style={linkStyle(isOrders)}
+              to="orders"
             >
+              История заказов
+            </Link>
+          </li>
+          <li>
+            <Link className={navLinkClass} to="/" onClick={exit}>
               Выход
-            </NavLink>
+            </Link>
           </li>
         </ul>
         <div className="text text_type_main-default text_color_inactive mt-20">
@@ -53,11 +52,11 @@ export const Profile = () => {
         </div>
       </nav>
 
-      <div className={styles.column}>
+      <div className={styles.column_middle}>
         <Outlet />
       </div>
 
-      <div className={styles.column} />
+      <div className={styles.column_right} />
     </main>
   );
 };

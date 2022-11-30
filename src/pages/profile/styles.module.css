@@ -5,7 +5,17 @@
   transform: translate(-50%, -50%);
 }
 
-.column {
+.column_left {
+  min-width: 320px;
+  width: 320px;
+}
+
+.column_middle {
+  min-width: 480px;
+  width: 480px;
+}
+
+.column_right {
   min-width: 320px;
   width: 320px;
 }

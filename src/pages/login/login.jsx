@@ -6,6 +6,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
+import { FormContainer } from "../../components/form/form-container";
 import { useAuth } from "../../hooks/auth-hook";
 import { fetchLogin } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
@@ -53,13 +54,15 @@ export const Login = () => {
 
   return (
     <main>
-      <Form
-        title="Вход"
-        form={form}
-        actions={actions}
-        footer={footer}
-        onSubmit={onSubmit}
-      />
+      <FormContainer>
+        <Form
+          title="Вход"
+          form={form}
+          actions={actions}
+          footer={footer}
+          onSubmit={onSubmit}
+        />
+      </FormContainer>
     </main>
   );
 };

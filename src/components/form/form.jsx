@@ -1,6 +1,4 @@
 import PropTypes from "prop-types";
-import styles from "./styles.module.css";
-import { clsx } from "clsx";
 
 export const Form = ({
   title,
@@ -12,25 +10,20 @@ export const Form = ({
   onReset,
 }) => {
   return (
-    <section
-      className={clsx(
-        styles.container,
-        "flex column align-items_center justify-items_start"
-      )}
-    >
-      {title && <h1 className="text text_type_main-medium">{title}</h1>}
+    <div className="flex column align-items_center justify-items_start">
+      {title && <h1 className="text text_type_main-medium mb-6">{title}</h1>}
       <form
-        className="flex column align-items_center gap-6 mt-6 mb-20"
+        className="flex column align-items_center gap-6"
         onSubmit={onSubmit}
         onReset={onReset}
       >
         {form}
         {actions}
       </form>
-      <div className="flex column align-items_center gap-4 text text_type_main-default text_color_inactive">
+      <div className="flex column align-items_center gap-4 text text_type_main-default text_color_inactive mt-20">
         {footer}
       </div>
-    </section>
+    </div>
   );
 };
 

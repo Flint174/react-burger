@@ -4,6 +4,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
+import { FormContainer } from "../../components/form/form-container";
 import { useAuth } from "../../hooks/auth-hook";
 import { PASSWORD_RESET_URL } from "../../utils/constants";
 import { handleError, request, requestHeaders } from "../../utils/request";
@@ -54,13 +55,15 @@ export const ForgotPassword = () => {
 
   return (
     <main>
-      <Form
-        title="Восстановление пароля"
-        form={form}
-        actions={actions}
-        footer={footer}
-        onSubmit={onSubmit}
-      />
+      <FormContainer>
+        <Form
+          title="Восстановление пароля"
+          form={form}
+          actions={actions}
+          footer={footer}
+          onSubmit={onSubmit}
+        />
+      </FormContainer>
     </main>
   );
 };
