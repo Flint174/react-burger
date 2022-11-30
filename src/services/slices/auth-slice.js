@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
-import { setCookie } from "../../utils/cookie";
+import {
+  accessTokenOpts,
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+} from "../../utils/constants";
+import { deleteCookie, setCookie } from "../../utils/cookie";
 import { handleError } from "../../utils/request";
 import {
   fetchLogout,
-  fetchToken,
+  //   fetchToken,
   fetchUserPatch,
 } from "../actions/auth-actions";
 
@@ -16,10 +20,6 @@ const initialState = {
   loading: false,
   error: false,
 };
-
-const BEARER = "Bearer ";
-const removeBearer = (str) =>
-  str.startsWith(BEARER) ? str.slice(BEARER.length) : str;
 
 function match(action, value) {
   if (action.type.startsWith("auth")) {
@@ -38,17 +38,17 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) =>
     builder
-      .addCase(
-        fetchToken.fulfilled,
-        (state, { payload: { accessToken, refreshToken } }) => {
-          setCookie(ACCESS_TOKEN, removeBearer(accessToken));
-          setCookie(REFRESH_TOKEN, refreshToken);
-          state.loading = false;
-        }
-      )
+      //   .addCase(
+      //     fetchToken.fulfilled,
+      //     (state, { payload: { accessToken, refreshToken } }) => {
+      //       setCookie(ACCESS_TOKEN, accessToken);
+      //       setCookie(REFRESH_TOKEN, refreshToken);
+      //       state.loading = false;
+      //     }
+      //   )
       .addCase(fetchLogout.fulfilled, () => {
-        setCookie(ACCESS_TOKEN, "");
-        setCookie(REFRESH_TOKEN, "");
+        deleteCookie(ACCESS_TOKEN);
+        localStorage.removeItem(REFRESH_TOKEN);
         return initialState;
       })
       .addCase(fetchUserPatch.fulfilled, (state, { payload: { user } }) => {
@@ -57,8 +57,8 @@ export const authSlice = createSlice({
       .addMatcher(
         (action) => match(action, ["login/fulfilled", "register/fulfilled"]),
         (state, { payload: { accessToken, refreshToken, user } }) => {
-          setCookie(ACCESS_TOKEN, removeBearer(accessToken));
-          setCookie(REFRESH_TOKEN, refreshToken);
+          setCookie(ACCESS_TOKEN, accessToken, accessTokenOpts);
+          localStorage.setItem(REFRESH_TOKEN, refreshToken);
           state.user = user;
           state.loading = false;
         }

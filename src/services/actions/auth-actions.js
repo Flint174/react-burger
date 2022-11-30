@@ -1,18 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { request, requestHeaders } from "../../utils/request";
 import {
+  accessTokenOpts,
   ACCESS_TOKEN,
   AUTH_LOGIN_URL,
   AUTH_LOGOUT_URL,
   AUTH_REGISTER_URL,
   AUTH_TOKEN_URL,
   AUTH_USER_URL,
+  REFRESH_TOKEN,
 } from "../../utils/constants";
-import { getCookie } from "../../utils/cookie";
-
-const headers = {
-  "Content-Type": "application/json;charset=utf-8",
-};
+import { getCookie, setCookie } from "../../utils/cookie";
 
 export const fetchLogin = createAsyncThunk(
   `auth/login`,
@@ -34,33 +32,62 @@ export const fetchRegister = createAsyncThunk(
     })
 );
 
-export const fetchToken = createAsyncThunk(
-  `auth/token`,
-  async (body) =>
-    await request(AUTH_TOKEN_URL, {
-      method: "POST",
-      headers: requestHeaders.post,
-      body: JSON.stringify(body),
-    })
-);
+const refreshToken = () => {
+  return request(AUTH_TOKEN_URL, {
+    method: "POST",
+    headers: requestHeaders.post,
+    body: JSON.stringify({ token: localStorage.getItem(REFRESH_TOKEN) }),
+  });
+};
+
+// export const fetchToken = createAsyncThunk(
+//   `auth/token`,
+//   refreshToken
+//   //   async () => await refreshToken()
+//   //   async (body) =>
+//   //     await request(AUTH_TOKEN_URL, {
+//   //       method: "POST",
+//   //       headers: requestHeaders.post,
+//   //       body: JSON.stringify(body),
+//   //     })
+// );
 
 export const fetchLogout = createAsyncThunk(
   `auth/logout`,
-  async (body) =>
+  async () =>
     await request(AUTH_LOGOUT_URL, {
       method: "POST",
       headers: requestHeaders.post,
-      body: JSON.stringify(body),
+      body: JSON.stringify({ token: localStorage.getItem(REFRESH_TOKEN) }),
     })
 );
+
+const fetchWithRefresh = async (url, options) => {
+  try {
+    return await request(url, options);
+  } catch (err) {
+    if (err.message === "jwt expired") {
+      const refreshData = await refreshToken();
+      if (!refreshData.success) {
+        Promise.reject(refreshData);
+      }
+      localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
+      setCookie(ACCESS_TOKEN, refreshData.accessToken, accessTokenOpts);
+      options.headers.authorization = refreshData.accessToken;
+      return await request(url, options);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+};
 
 export const fetchUserGet = createAsyncThunk(
   `auth/user/get`,
   async () =>
-    await request(AUTH_USER_URL, {
+    await fetchWithRefresh(AUTH_USER_URL, {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + getCookie(ACCESS_TOKEN),
+        authorization: getCookie(ACCESS_TOKEN),
       },
     })
 );
@@ -68,11 +95,11 @@ export const fetchUserGet = createAsyncThunk(
 export const fetchUserPatch = createAsyncThunk(
   `auth/user/patch`,
   async (body) =>
-    await request(AUTH_USER_URL, {
+    await fetchWithRefresh(AUTH_USER_URL, {
       method: "PATCH",
       headers: {
         ...requestHeaders.post,
-        Authorization: "Bearer " + getCookie(ACCESS_TOKEN),
+        authorization: getCookie(ACCESS_TOKEN),
       },
       body: JSON.stringify(body),
     })
