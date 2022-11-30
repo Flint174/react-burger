@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import { setCookie } from "../../utils/cookie";
 import { handleError } from "../../utils/request";
-import { fetchLogout, fetchToken } from "../actions/auth-actions";
+import {
+  fetchLogout,
+  fetchToken,
+  fetchUserPatch,
+} from "../actions/auth-actions";
 
 const initialState = {
   user: {
     name: "",
     email: "",
   },
-  accessToken: "",
-  refreshToken: "",
   loading: false,
   error: false,
 };
@@ -26,7 +29,6 @@ function match(action, value) {
       }
     } else if (action.type.endsWith(value)) return true;
   }
-  //   return action.type.startsWith("auth") && action.type.endsWith(value);
   return false;
 }
 
@@ -39,30 +41,26 @@ export const authSlice = createSlice({
       .addCase(
         fetchToken.fulfilled,
         (state, { payload: { accessToken, refreshToken } }) => {
-          setCookie("refreshToken", refreshToken);
-          return {
-            ...state,
-            accessToken: removeBearer(accessToken),
-            refreshToken: refreshToken,
-            loading: false,
-          };
+          setCookie(ACCESS_TOKEN, removeBearer(accessToken));
+          setCookie(REFRESH_TOKEN, refreshToken);
+          state.loading = false;
         }
       )
       .addCase(fetchLogout.fulfilled, () => {
-        setCookie("refreshToken", "");
+        setCookie(ACCESS_TOKEN, "");
+        setCookie(REFRESH_TOKEN, "");
         return initialState;
+      })
+      .addCase(fetchUserPatch.fulfilled, (state, { payload: { user } }) => {
+        state.user = user;
       })
       .addMatcher(
         (action) => match(action, ["login/fulfilled", "register/fulfilled"]),
         (state, { payload: { accessToken, refreshToken, user } }) => {
-          setCookie("refreshToken", refreshToken, { expires: 20 * 60 });
-          return {
-            ...state,
-            accessToken: removeBearer(accessToken),
-            refreshToken: refreshToken,
-            user,
-            loading: false,
-          };
+          setCookie(ACCESS_TOKEN, removeBearer(accessToken));
+          setCookie(REFRESH_TOKEN, refreshToken);
+          state.user = user;
+          state.loading = false;
         }
       )
       .addMatcher(

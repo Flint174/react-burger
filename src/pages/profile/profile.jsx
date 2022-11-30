@@ -12,7 +12,7 @@ import { fetchUserPatch } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
 
 export const Profile = () => {
-  const { user, accessToken } = useSelector((store) => store.authReducer);
+  const { user } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
   const {
     name,
@@ -29,7 +29,7 @@ export const Profile = () => {
     const body = Object.assign({ name, email }, password ? { password } : {});
     // const body = { email, name, password: "123456" };
     console.log("submit", body);
-    dispatch(fetchUserPatch(accessToken, body));
+    dispatch(fetchUserPatch(body));
   };
 
   const onReset = (event) => {

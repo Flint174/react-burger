@@ -1,12 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { request, requestHeaders } from "../../utils/request";
 import {
+  ACCESS_TOKEN,
   AUTH_LOGIN_URL,
   AUTH_LOGOUT_URL,
   AUTH_REGISTER_URL,
   AUTH_TOKEN_URL,
   AUTH_USER_URL,
 } from "../../utils/constants";
+import { getCookie } from "../../utils/cookie";
 
 const headers = {
   "Content-Type": "application/json;charset=utf-8",
@@ -54,23 +56,23 @@ export const fetchLogout = createAsyncThunk(
 
 export const fetchUserGet = createAsyncThunk(
   `auth/user/get`,
-  async (token) =>
+  async () =>
     await request(AUTH_USER_URL, {
       method: "GET",
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + getCookie(ACCESS_TOKEN),
       },
     })
 );
 
 export const fetchUserPatch = createAsyncThunk(
   `auth/user/patch`,
-  async (token, body) =>
+  async (body) =>
     await request(AUTH_USER_URL, {
       method: "PATCH",
       headers: {
         ...requestHeaders.post,
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + getCookie(ACCESS_TOKEN),
       },
       body: JSON.stringify(body),
     })

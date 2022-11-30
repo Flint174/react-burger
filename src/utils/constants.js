@@ -15,3 +15,5 @@ export const dragTypes = {
   INGREDIENT: "INGREDIENT",
   CONSTRUCTOR: "CONSTRUCTOR",
 };
+export const ACCESS_TOKEN = "accessToken";
+export const REFRESH_TOKEN = "refreshToken";
