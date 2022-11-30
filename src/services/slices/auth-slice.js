@@ -13,10 +13,7 @@ import {
 } from "../actions/auth-actions";
 
 const initialState = {
-  user: {
-    name: "",
-    email: "",
-  },
+  user: null,
   loading: false,
   error: false,
 };
