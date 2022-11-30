@@ -51,9 +51,24 @@ export const authSlice = createSlice({
         localStorage.removeItem(REFRESH_TOKEN);
         return initialState;
       })
-      .addCase(fetchUserPatch.fulfilled, (state, { payload: { user } }) => {
-        state.user = user;
+      //   .addCase(fetchUserPatch.fulfilled, (state, { payload: { user } }) => {
+      //     state.user = user;
+      //   })
+      .addCase(fetchUserPatch.rejected, (state) => {
+        deleteCookie(ACCESS_TOKEN);
+        localStorage.removeItem(REFRESH_TOKEN);
+        return {
+          ...initialState,
+          error: true,
+        };
       })
+      .addMatcher(
+        (action) =>
+          match(action, ["user/get/fulfilled", "user/patch/fulfilled"]),
+        (state, { payload: { user } }) => {
+          state.user = user;
+        }
+      )
       .addMatcher(
         (action) => match(action, ["login/fulfilled", "register/fulfilled"]),
         (state, { payload: { accessToken, refreshToken, user } }) => {
