@@ -1,4 +1,5 @@
 import {
+  Button,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,6 +9,7 @@ import { useState } from "react";
 import { useAuth } from "../../hooks/auth-hook";
 import { handleError, request, requestHeaders } from "../../utils/request";
 import { PASSWORD_RESET_RESET_URL } from "../../utils/constants";
+import styles from "./styles.module.css";
 
 export const ResetPassword = () => {
   const [code, setCode] = useState("");
@@ -69,15 +71,20 @@ export const ResetPassword = () => {
     </>
   );
 
+  const actions = (
+    <Button htmlType="submit" extraClass={styles.btn} disabled={loading}>
+      Зарегистрироваться
+    </Button>
+  );
+
   return (
     <main>
       <Form
         title="Восстановление пароля"
         form={form}
+        actions={actions}
         footer={footer}
         onSubmit={onSubmit}
-        submitLabel="Сохранить"
-        submitIsActive={!loading}
       />
     </main>
   );

@@ -13,6 +13,7 @@ import { PageNotFound } from "../../pages/page-not-found";
 import { Profile } from "../../pages/profile/profile";
 import { ProtectedRoute } from "../protected-route";
 import { fetchUserGet } from "../../services/actions/auth-actions";
+import { ProfileForm } from "../../pages/profile/profile-form";
 
 export const App = () => {
   const { user } = useSelector((store) => store.authReducer);
@@ -20,7 +21,7 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(fetchIngredietns());
-    dispatch(fetchUserGet());
+    // dispatch(fetchUserGet());
   }, [dispatch]);
 
   return (
@@ -35,7 +36,10 @@ export const App = () => {
           <Route path="reset-password" element={<ResetPassword />} />
         </Route>
         <Route element={<ProtectedRoute isAllowed={!!user} />}>
-          <Route path="profile" element={<Profile />} />
+          <Route path="profile" element={<Profile />}>
+            <Route path="" element={<ProfileForm />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
         </Route>
         <Route path="/ingredients/:id" element={<IngredientsModal />} />
         <Route path="*" element={<PageNotFound />} />

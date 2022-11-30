@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 import styles from "./styles.module.css";
 import { clsx } from "clsx";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export const Form = ({
   title,
   form,
+  actions,
   footer,
+
   onSubmit,
-  submitLabel,
-  submitIsActive = true,
+  onReset,
 }) => {
   return (
     <section
@@ -18,19 +18,14 @@ export const Form = ({
         "flex column align-items_center justify-items_start"
       )}
     >
-      <h1 className="text text_type_main-medium">{title}</h1>
+      {title && <h1 className="text text_type_main-medium">{title}</h1>}
       <form
         className="flex column align-items_center gap-6 mt-6 mb-20"
         onSubmit={onSubmit}
+        onReset={onReset}
       >
         {form}
-        <Button
-          htmlType="submit"
-          extraClass={styles.btn}
-          disabled={!submitIsActive}
-        >
-          {submitLabel}
-        </Button>
+        {actions}
       </form>
       <div className="flex column align-items_center gap-4 text text_type_main-default text_color_inactive">
         {footer}
@@ -40,9 +35,10 @@ export const Form = ({
 };
 
 Form.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   form: PropTypes.element.isRequired,
-  footer: PropTypes.element.isRequired,
-  submitLabel: PropTypes.string.isRequired,
-  submitIsActive: PropTypes.bool,
+  actions: PropTypes.element.isRequired,
+  footer: PropTypes.element,
+  onSubmit: PropTypes.func,
+  onReset: PropTypes.func,
 };

@@ -1,4 +1,5 @@
 import {
+  Button,
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -7,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { useAuth } from "../../hooks/auth-hook";
 import { fetchLogin } from "../../services/actions/auth-actions";
+import styles from "./styles.module.css";
 
 export const Login = () => {
   const { email, password, handleChangeEmailEvent, handleChangePasswordEvent } =
@@ -43,15 +45,20 @@ export const Login = () => {
     </>
   );
 
+  const actions = (
+    <Button htmlType="submit" extraClass={styles.btn} disabled={loading}>
+      Войти
+    </Button>
+  );
+
   return (
     <main>
       <Form
         title="Вход"
         form={form}
+        actions={actions}
         footer={footer}
         onSubmit={onSubmit}
-        submitLabel="Войти"
-        submitIsActive={!loading}
       />
     </main>
   );
