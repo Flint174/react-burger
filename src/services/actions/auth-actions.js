@@ -69,7 +69,7 @@ const fetchWithRefresh = async (url, options) => {
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
-        Promise.reject(refreshData);
+        return Promise.reject(refreshData);
       }
       localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
       setCookie(ACCESS_TOKEN, refreshData.accessToken, accessTokenOpts);
