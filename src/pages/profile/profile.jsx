@@ -1,3 +1,4 @@
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
 import { useDispatch } from "react-redux";
 import { Link, Outlet, useMatch } from "react-router-dom";
@@ -13,7 +14,7 @@ export const Profile = () => {
     dispatch(fetchLogout());
   };
 
-  const navLinkClass = clsx(
+  const linkClass = clsx(
     styles.link,
     "text text_type_main-medium text_color_inactive",
     "flex row align-items_center justify-items_start"
@@ -28,23 +29,19 @@ export const Profile = () => {
       <nav className={styles.column_left}>
         <ul className={styles.list}>
           <li>
-            <Link className={navLinkClass} style={linkStyle(isProfile)} to="">
+            <Link className={linkClass} style={linkStyle(isProfile)} to="">
               Профиль
             </Link>
           </li>
           <li>
-            <Link
-              className={navLinkClass}
-              style={linkStyle(isOrders)}
-              to="orders"
-            >
+            <Link className={linkClass} style={linkStyle(isOrders)} to="orders">
               История заказов
             </Link>
           </li>
           <li>
-            <Link className={navLinkClass} to="/" onClick={exit}>
+            <div className={linkClass} to="/login" onClick={exit}>
               Выход
-            </Link>
+            </div>
           </li>
         </ul>
         <div className="text text_type_main-default text_color_inactive mt-20">

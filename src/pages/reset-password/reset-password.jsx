@@ -75,7 +75,7 @@ export const ResetPassword = () => {
 
   const actions = (
     <Button htmlType="submit" extraClass={styles.btn} disabled={loading}>
-      Зарегистрироваться
+      Сохранить
     </Button>
   );
 

@@ -31,4 +31,5 @@
   overflow: hidden;
   text-decoration: none;
   min-height: 64px;
+  cursor: pointer;
 }
