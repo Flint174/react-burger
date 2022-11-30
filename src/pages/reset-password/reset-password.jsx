@@ -3,7 +3,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { useState } from "react";
 import { useAuth } from "../../hooks/auth-hook";
@@ -16,6 +16,7 @@ export const ResetPassword = () => {
   const { password, handleChangePasswordEvent, loading, setLoading } =
     useAuth();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const handleChangeCode = (event) => {
     setCode(event.target.value);
@@ -36,7 +37,7 @@ export const ResetPassword = () => {
       .then((res) => {
         setLoading(false);
         if (res.success) {
-          navigate("/login");
+          navigate("/login", { replace: true });
         }
       })
       .catch((err) => {
@@ -76,6 +77,10 @@ export const ResetPassword = () => {
       Зарегистрироваться
     </Button>
   );
+
+  if (!state || state.from !== "/forgot-password") {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <main>

@@ -1,5 +1,5 @@
 import { AppHeader } from "../app-header";
-import { fetchIngredietns } from "../../services/actions/ingredients-actions";
+import { fetchIngredients } from "../../services/actions/ingredients-actions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
@@ -14,14 +14,18 @@ import { Profile } from "../../pages/profile/profile";
 import { ProtectedRoute } from "../protected-route";
 import { fetchUserGet } from "../../services/actions/auth-actions";
 import { ProfileForm } from "../../pages/profile/profile-form";
+import { getCookie } from "../../utils/cookie";
+import { ACCESS_TOKEN } from "../../utils/constants";
 
 export const App = () => {
   const { user } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchIngredietns());
-    // dispatch(fetchUserGet());
+    dispatch(fetchIngredients());
+    if (getCookie(ACCESS_TOKEN)) {
+      dispatch(fetchUserGet());
+    }
   }, [dispatch]);
 
   return (

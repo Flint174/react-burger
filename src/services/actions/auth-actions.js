@@ -81,16 +81,20 @@ const fetchWithRefresh = async (url, options) => {
   }
 };
 
-export const fetchUserGet = createAsyncThunk(
-  `auth/user/get`,
-  async () =>
-    await fetchWithRefresh(AUTH_USER_URL, {
-      method: "GET",
-      headers: {
-        authorization: getCookie(ACCESS_TOKEN),
-      },
-    })
-);
+export const fetchUserGet = createAsyncThunk(`auth/user/get`, async () => {
+  //   const token = getCookie(ACCESS_TOKEN);
+  //   if (!token) {
+  //     console.log("return ");
+  //     return Promise.reject();
+  //   }
+  return await fetchWithRefresh(AUTH_USER_URL, {
+    method: "GET",
+    headers: {
+      authorization: getCookie(ACCESS_TOKEN),
+      //   authorization: token,
+    },
+  });
+});
 
 export const fetchUserPatch = createAsyncThunk(
   `auth/user/patch`,

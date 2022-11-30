@@ -25,7 +25,10 @@ export const ForgotPassword = () => {
       .then((res) => {
         setLoading(false);
         if (res.success) {
-          navigate("/reset-password");
+          navigate("/reset-password", {
+            state: { from: "/forgot-password" },
+            replace: true,
+          });
         }
       })
       .catch((err) => {
