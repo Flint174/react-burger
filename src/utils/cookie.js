@@ -22,7 +22,6 @@ export function setCookie(name, value, props = {}) {
     }
   }
   document.cookie = updatedCookie;
-  console.log("cookie", updatedCookie);
 }
 
 export function getCookie(name) {
