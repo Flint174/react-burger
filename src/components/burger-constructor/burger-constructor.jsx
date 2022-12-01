@@ -13,12 +13,16 @@ import { fetchOrder } from "../../services/actions/order-actions";
 import { clearOrder } from "../../services/slices/order-slice";
 import { clearConstructor } from "../../services/slices/constructor-slice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 export const BurgerConstructor = () => {
   const { bun, ingredients } = useSelector((store) => store.constructorReducer);
 
   const { orderNumber, loading } = useSelector((store) => store.orderReducer);
+  const { user } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const total = useMemo(() => {
     const bunPrice = bun ? bun.price * 2 : 0;
@@ -40,7 +44,11 @@ export const BurgerConstructor = () => {
       ...ingredients.map((el) => el._id),
       bun._id,
     ];
-    dispatch(fetchOrder({ ingredients: ingredientsIds }));
+    if (user) {
+      dispatch(fetchOrder({ ingredients: ingredientsIds }));
+    } else {
+      navigate("/login");
+    }
   };
 
   const disableButton = useMemo(
