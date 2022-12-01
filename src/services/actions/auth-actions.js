@@ -40,18 +40,6 @@ const refreshToken = () => {
   });
 };
 
-// export const fetchToken = createAsyncThunk(
-//   `auth/token`,
-//   refreshToken
-//   //   async () => await refreshToken()
-//   //   async (body) =>
-//   //     await request(AUTH_TOKEN_URL, {
-//   //       method: "POST",
-//   //       headers: requestHeaders.post,
-//   //       body: JSON.stringify(body),
-//   //     })
-// );
-
 export const fetchLogout = createAsyncThunk(
   `auth/logout`,
   async () =>
@@ -82,16 +70,10 @@ const fetchWithRefresh = async (url, options) => {
 };
 
 export const fetchUserGet = createAsyncThunk(`auth/user/get`, async () => {
-  //   const token = getCookie(ACCESS_TOKEN);
-  //   if (!token) {
-  //     console.log("return ");
-  //     return Promise.reject();
-  //   }
   return await fetchWithRefresh(AUTH_USER_URL, {
     method: "GET",
     headers: {
       authorization: getCookie(ACCESS_TOKEN),
-      //   authorization: token,
     },
   });
 });

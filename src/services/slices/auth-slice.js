@@ -6,11 +6,7 @@ import {
 } from "../../utils/constants";
 import { deleteCookie, setCookie } from "../../utils/cookie";
 import { handleError } from "../../utils/request";
-import {
-  fetchLogout,
-  //   fetchToken,
-  fetchUserPatch,
-} from "../actions/auth-actions";
+import { fetchLogout, fetchUserPatch } from "../actions/auth-actions";
 
 const initialState = {
   user: null,
@@ -35,22 +31,11 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) =>
     builder
-      //   .addCase(
-      //     fetchToken.fulfilled,
-      //     (state, { payload: { accessToken, refreshToken } }) => {
-      //       setCookie(ACCESS_TOKEN, accessToken);
-      //       setCookie(REFRESH_TOKEN, refreshToken);
-      //       state.loading = false;
-      //     }
-      //   )
       .addCase(fetchLogout.fulfilled, () => {
         deleteCookie(ACCESS_TOKEN);
         localStorage.removeItem(REFRESH_TOKEN);
         return initialState;
       })
-      //   .addCase(fetchUserPatch.fulfilled, (state, { payload: { user } }) => {
-      //     state.user = user;
-      //   })
       .addCase(fetchUserPatch.rejected, (state) => {
         deleteCookie(ACCESS_TOKEN);
         localStorage.removeItem(REFRESH_TOKEN);

@@ -1,14 +1,6 @@
 import PropTypes from "prop-types";
 
-export const Form = ({
-  title,
-  form,
-  actions,
-  footer,
-
-  onSubmit,
-  onReset,
-}) => {
+export const Form = ({ title, form, actions, footer, onSubmit, onReset }) => {
   return (
     <div className="flex column align-items_center justify-items_start">
       {title && <h1 className="text text_type_main-medium mb-6">{title}</h1>}
