@@ -50,7 +50,7 @@ export const App = () => {
         <Route element={<ProtectedRoute isAllowed={!!user} />}>
           <Route path="profile" element={<Profile />}>
             <Route path="" element={<ProfileForm />} />
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="orders" element={<></>} />
           </Route>
         </Route>
         <Route

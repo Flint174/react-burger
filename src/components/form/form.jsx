@@ -12,9 +12,11 @@ export const Form = ({ title, form, actions, footer, onSubmit, onReset }) => {
         {form}
         {actions}
       </form>
-      <div className="flex column align-items_center gap-4 text text_type_main-default text_color_inactive mt-20">
-        {footer}
-      </div>
+      {footer && (
+        <div className="flex column align-items_center gap-4 text text_type_main-default text_color_inactive mt-20">
+          {footer}
+        </div>
+      )}
     </div>
   );
 };

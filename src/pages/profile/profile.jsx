@@ -1,4 +1,3 @@
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
 import { useDispatch } from "react-redux";
 import { Link, Outlet, useMatch } from "react-router-dom";

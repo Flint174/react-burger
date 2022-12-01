@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { request, requestHeaders } from "../../utils/request";
 import {
-  accessTokenOpts,
   ACCESS_TOKEN,
   AUTH_LOGIN_URL,
   AUTH_LOGOUT_URL,
@@ -54,17 +53,17 @@ const fetchWithRefresh = async (url, options) => {
   try {
     return await request(url, options);
   } catch (err) {
+    console.log(err);
     if (err.message === "jwt expired") {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
       localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
-      setCookie(ACCESS_TOKEN, refreshData.accessToken, accessTokenOpts);
+      setCookie(ACCESS_TOKEN, refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
       return await request(url, options);
     } else {
-      return Promise.reject(err);
     }
   }
 };

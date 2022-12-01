@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  accessTokenOpts,
-  ACCESS_TOKEN,
-  REFRESH_TOKEN,
-} from "../../utils/constants";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import { deleteCookie, setCookie } from "../../utils/cookie";
 import { handleError } from "../../utils/request";
 import { fetchLogout, fetchUserPatch } from "../actions/auth-actions";
@@ -54,7 +50,7 @@ export const authSlice = createSlice({
       .addMatcher(
         (action) => match(action, ["login/fulfilled", "register/fulfilled"]),
         (state, { payload: { accessToken, refreshToken, user } }) => {
-          setCookie(ACCESS_TOKEN, accessToken, accessTokenOpts);
+          setCookie(ACCESS_TOKEN, accessToken);
           localStorage.setItem(REFRESH_TOKEN, refreshToken);
           state.user = user;
           state.loading = false;

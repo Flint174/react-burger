@@ -22,6 +22,7 @@ export const ProfileForm = () => {
     handleChangeEmailEvent,
     handleChangePasswordEvent,
     clearProfile,
+    isChanged,
   } = useAuth(user);
 
   const onSubmit = (event) => {
@@ -56,13 +57,15 @@ export const ProfileForm = () => {
     </>
   );
 
-  const actions = (
+  const actions = isChanged ? (
     <div className={(clsx(styles.form_actions), "align-self_end")}>
       <Button htmlType="reset" type="secondary">
         Отмена
       </Button>
       <Button htmlType="submit">Сохранить</Button>
     </div>
+  ) : (
+    <></>
   );
 
   return (

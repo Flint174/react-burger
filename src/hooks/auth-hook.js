@@ -5,23 +5,28 @@ export const useAuth = (profile = {}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isChanged, setIsChanded] = useState(false);
 
   const handleChangeNameEvent = (e) => {
     setName(e.target.value);
+    setIsChanded(true);
   };
 
   const handleChangeEmailEvent = (e) => {
     setEmail(e.target.value);
+    setIsChanded(true);
   };
 
   const handleChangePasswordEvent = (e) => {
     setPassword(e.target.value);
+    setIsChanded(true);
   };
 
   const clearProfile = () => {
-    setName(profile.name);
-    setEmail(profile.email);
-    setPassword(profile.password);
+    setName(profile.name || "");
+    setEmail(profile.email || "");
+    setPassword(profile.password || "");
+    setIsChanded(false);
   };
 
   useEffect(() => {
@@ -31,6 +36,10 @@ export const useAuth = (profile = {}) => {
     setEmail((prev) =>
       typeof profile.email === "undefined" ? prev : profile.email
     );
+    setPassword((prev) =>
+      typeof profile.password === "undefined" ? prev : profile.password
+    );
+    setIsChanded(false);
   }, [profile]);
 
   return {
@@ -46,5 +55,7 @@ export const useAuth = (profile = {}) => {
     clearProfile,
     loading,
     setLoading,
+    isChanged,
+    setIsChanded,
   };
 };
