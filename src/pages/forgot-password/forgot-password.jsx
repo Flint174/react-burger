@@ -5,26 +5,31 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { FormContainer } from "../../components/form/form-container";
-import { useAuth } from "../../hooks/auth-hook";
+import { useForm } from "../../hooks/use-form";
 import { PASSWORD_RESET_URL } from "../../utils/constants";
 import { handleError, request, requestHeaders } from "../../utils/request";
 import styles from "./styles.module.css";
 
 export const ForgotPassword = () => {
-  const { email, handleChangeEmailEvent, loading, setLoading } = useAuth();
+  const {
+    values: { email, loading },
+    handleChange,
+    setValues,
+  } = useForm({ email: "", loading: false });
+
   const navigate = useNavigate();
 
   const onSubmit = (event) => {
     event.preventDefault();
     const body = { email };
-    setLoading(true);
+    setValues((prev) => ({ ...prev, loading: true }));
     request(PASSWORD_RESET_URL, {
       method: "POST",
       headers: requestHeaders.post,
       body: JSON.stringify(body),
     })
       .then((res) => {
-        setLoading(false);
+        setValues((prev) => ({ ...prev, loading: false }));
         if (res.success) {
           navigate("/reset-password", {
             state: { from: "/forgot-password" },
@@ -33,12 +38,14 @@ export const ForgotPassword = () => {
         }
       })
       .catch((err) => {
-        setLoading(false);
+        setValues((prev) => ({ ...prev, loading: false }));
         handleError(err);
       });
   };
 
-  const form = <EmailInput value={email} onChange={handleChangeEmailEvent} />;
+  const form = (
+    <EmailInput value={email} name="email" onChange={handleChange} />
+  );
   const footer = (
     <div>
       Вспомнили пароль?{" "}

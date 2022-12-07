@@ -8,19 +8,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Form } from "../../components/form/form";
 import { FormContainer } from "../../components/form/form-container";
-import { useAuth } from "../../hooks/auth-hook";
+import { useForm } from "../../hooks/use-form";
 import { fetchRegister } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
 
 export const Register = () => {
   const {
-    name,
-    email,
-    password,
-    handleChangeNameEvent,
-    handleChangeEmailEvent,
-    handleChangePasswordEvent,
-  } = useAuth();
+    values: { name, email, password },
+    handleChange,
+  } = useForm({ name: "", email: "", password: "" });
 
   const { loading } = useSelector((store) => store.authReducer);
   const dispatch = useDispatch();
@@ -34,12 +30,13 @@ export const Register = () => {
     <>
       <Input
         value={name}
-        onChange={handleChangeNameEvent}
+        name="name"
+        onChange={handleChange}
         type="text"
         placeholder="Имя"
       />
-      <EmailInput value={email} onChange={handleChangeEmailEvent} />
-      <PasswordInput value={password} onChange={handleChangePasswordEvent} />
+      <EmailInput value={email} name="email" onChange={handleChange} />
+      <PasswordInput value={password} name="password" onChange={handleChange} />
     </>
   );
 

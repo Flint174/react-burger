@@ -5,23 +5,20 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Form } from "../../components/form/form";
-import { useState } from "react";
-import { useAuth } from "../../hooks/auth-hook";
 import { handleError, request, requestHeaders } from "../../utils/request";
 import { PASSWORD_RESET_RESET_URL } from "../../utils/constants";
 import styles from "./styles.module.css";
 import { FormContainer } from "../../components/form/form-container";
+import { useForm } from "../../hooks/use-form";
 
 export const ResetPassword = () => {
-  const [code, setCode] = useState("");
-  const { password, handleChangePasswordEvent, loading, setLoading } =
-    useAuth();
+  const {
+    values: { password, loading, code },
+    handleChange,
+    setValues,
+  } = useForm({ password: "", loading: false, code: "" });
   const navigate = useNavigate();
   const { state } = useLocation();
-
-  const handleChangeCode = (event) => {
-    setCode(event.target.value);
-  };
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -29,20 +26,20 @@ export const ResetPassword = () => {
       password,
       token: code,
     };
-    setLoading(true);
+    setValues((prev) => ({ ...prev, loading: true }));
     request(PASSWORD_RESET_RESET_URL, {
       method: "POST",
       headers: requestHeaders.post,
       body: JSON.stringify(body),
     })
       .then((res) => {
-        setLoading(false);
+        setValues((prev) => ({ ...prev, loading: false }));
         if (res.success) {
           navigate("/login", { replace: true });
         }
       })
       .catch((err) => {
-        setLoading(false);
+        setValues((prev) => ({ ...prev, loading: false }));
         handleError(err);
       });
   };
@@ -52,12 +49,14 @@ export const ResetPassword = () => {
       <PasswordInput
         value={password}
         placeholder="Введите новый пароль"
-        onChange={handleChangePasswordEvent}
+        name="password"
+        onChange={handleChange}
       />
       <Input
         value={code}
         placeholder="Введите код из письма"
-        onChange={handleChangeCode}
+        name="code"
+        onChange={handleChange}
       />
     </>
   );

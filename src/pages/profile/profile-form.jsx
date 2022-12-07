@@ -5,25 +5,22 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form } from "../../components/form/form";
-import { useAuth } from "../../hooks/auth-hook";
+import { useForm } from "../../hooks/use-form";
 import { fetchUserPatch } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
 
 export const ProfileForm = () => {
   const { user } = useSelector((store) => store.authReducer);
+  const formInitValues = { ...user, password: "", isChanged: false };
   const dispatch = useDispatch();
   const {
-    name,
-    email,
-    password,
-    handleChangeNameEvent,
-    handleChangeEmailEvent,
-    handleChangePasswordEvent,
-    clearProfile,
-    isChanged,
-  } = useAuth(user);
+    values: { name, email, password, isChanged },
+    handleChange,
+    setValues,
+  } = useForm(formInitValues);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -33,8 +30,22 @@ export const ProfileForm = () => {
 
   const onReset = (event) => {
     event.preventDefault();
-    clearProfile();
+    setValues(formInitValues);
   };
+
+  const handleChangeValues = (e) => {
+    handleChange(e);
+    setValues((prev) => ({
+      ...prev,
+      isChanged: formInitValues[e.target.name] !== e.target.value,
+    }));
+  };
+
+  useEffect(() => {
+    setValues(formInitValues);
+    // formInitValues зависит от user
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const form = (
     <>
@@ -42,17 +53,20 @@ export const ProfileForm = () => {
         value={name}
         placeholder="Имя"
         icon="EditIcon"
-        onChange={handleChangeNameEvent}
+        name="name"
+        onChange={handleChangeValues}
       />
       <EmailInput
         value={email}
         icon="EditIcon"
-        onChange={handleChangeEmailEvent}
+        name="email"
+        onChange={handleChangeValues}
       />
       <PasswordInput
         value={password}
         icon="EditIcon"
-        onChange={handleChangePasswordEvent}
+        name="password"
+        onChange={handleChangeValues}
       />
     </>
   );
