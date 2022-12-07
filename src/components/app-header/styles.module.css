@@ -1,0 +1,19 @@
+.container {
+  background: var(--bg-color_element);
+  height: 88px;
+}
+
+.link {
+  overflow: hidden;
+  text-decoration: none;
+  color: white;
+}
+
+.list {
+  overflow: hidden;
+  list-style: none;
+}
+
+.p {
+  white-space: nowrap;
+}

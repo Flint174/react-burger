@@ -1,25 +1,80 @@
 import { AppHeader } from "../app-header";
-import { fetchIngredietns } from "../../services/actions/ingredients-actions";
+import { fetchIngredients } from "../../services/actions/ingredients-actions";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { BurgerIngredients } from "../burger-ingredients";
-import { BurgerConstructor } from "../burger-constructor";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Main } from "../../pages/main";
+import { Login } from "../../pages/login/login";
+import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
+import { Register } from "../../pages/register/register";
+import { ResetPassword } from "../../pages/reset-password/reset-password";
+import { PageNotFound } from "../../pages/page-not-found";
+import { Profile } from "../../pages/profile/profile";
+import { ProtectedRoute } from "../protected-route";
+import { fetchUserGet } from "../../services/actions/auth-actions";
+import { ProfileForm } from "../../pages/profile/profile-form";
+import { getCookie } from "../../utils/cookie";
+import { ACCESS_TOKEN } from "../../utils/constants";
+import { IngredientDetails } from "../ingredient-details";
+import { Modal } from "../modal";
 
 export const App = () => {
+  const { user } = useSelector((store) => store.authReducer);
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = location.state && location.state.background;
 
-    const dispatch = useDispatch()
+  const handleModalClose = () => {
+    navigate(-1);
+  };
 
-    useEffect(() => {
-        dispatch(fetchIngredietns())
-    }, [dispatch])
+  useEffect(() => {
+    dispatch(fetchIngredients());
+    if (getCookie(ACCESS_TOKEN)) {
+      dispatch(fetchUserGet());
+    }
+  }, [dispatch]);
 
-    return (
-        <>
-            <AppHeader />
-            <main className='flex row justify-content_center gap-10'>
-                <BurgerIngredients />
-                <BurgerConstructor />
-            </main>
-        </>
-    );
-}
+  return (
+    <>
+      <AppHeader />
+      <Routes location={background || location}>
+        <Route index element={<Main />} />
+        <Route element={<ProtectedRoute isAllowed={!user} redirectPath="/" />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password" element={<ResetPassword />} />
+        </Route>
+        <Route element={<ProtectedRoute isAllowed={!!user} />}>
+          <Route path="profile" element={<Profile />}>
+            <Route path="" element={<ProfileForm />} />
+            <Route path="orders" element={<></>} />
+          </Route>
+        </Route>
+        <Route
+          path="/ingredients/:id"
+          element={
+            <Modal title="Детали ингредиента">
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+      {background && (
+        <Routes>
+          <Route
+            path="/ingredients/:id"
+            element={
+              <Modal title="Детали ингредиента" onClose={handleModalClose}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+    </>
+  );
+};
