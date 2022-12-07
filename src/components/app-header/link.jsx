@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 import { clsx } from "clsx";
 import { NavLink } from "react-router-dom";
 
-export const Link = ({ text, icon, href }) => {
+export const HeaderLink = ({ text, icon, href }) => {
   return (
     <NavLink className={clsx(styles.link, "m-5 flex row")} to={href}>
       {({ isActive }) => (
@@ -25,7 +25,8 @@ export const Link = ({ text, icon, href }) => {
     </NavLink>
   );
 };
-Link.propTypes = {
+
+HeaderLink.propTypes = {
   icon: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,

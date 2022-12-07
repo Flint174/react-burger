@@ -1,12 +1,13 @@
-import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "./link";
+import { HeaderLink } from "./link";
 import {
   BurgerIcon,
   ListIcon,
   ProfileIcon,
+  Logo,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
 import styles from "./styles.module.css";
+import { Link } from "react-router-dom";
 
 export const AppHeader = () => {
   return (
@@ -24,15 +25,18 @@ export const AppHeader = () => {
           )}
         >
           <li>
-            <Link icon={BurgerIcon} text="Конструктор" href="/" />
+            <HeaderLink icon={BurgerIcon} text="Конструктор" href="/" />
           </li>
           <li>
-            <Link icon={ListIcon} text="Лента заказов" href="orders" />
+            <HeaderLink icon={ListIcon} text="Лента заказов" href="orders" />
           </li>
         </ul>
       </nav>
-      <Logo />
-      <Link icon={ProfileIcon} text="Личный кабинет" href="profile" />
+
+      <Link to="/">
+        <Logo />
+      </Link>
+      <HeaderLink icon={ProfileIcon} text="Личный кабинет" href="profile" />
     </header>
   );
 };
