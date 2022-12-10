@@ -35,9 +35,9 @@ export const constructorSlice = createSlice({
         state.ingredients.push(action.payload);
       },
     },
-    removeIngredient(state, action: PayloadAction<IngredientUuidType>) {
+    removeIngredient(state, action: PayloadAction<string>) {
       state.ingredients = state.ingredients.filter(
-        (el) => el.uuid !== action.payload.uuid
+        (el) => el.uuid !== action.payload
       );
     },
     moveIngredient(
