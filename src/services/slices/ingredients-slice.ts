@@ -1,8 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { handleError } from "../../utils/request";
+import { IngredientType } from "../../utils/types";
 import { fetchIngredients } from "../actions/ingredients-actions";
 
-const initialState = {
+interface IngredientsStoreState {
+  loading: boolean;
+  error: boolean;
+  data: IngredientType[];
+}
+
+const initialState: IngredientsStoreState = {
   loading: false,
   error: false,
   data: [],
@@ -18,15 +25,15 @@ export const ingredientsSlice = createSlice({
   },
   extraReducers: (builder) =>
     builder
-      .addCase(fetchIngredients.fulfilled, (_, action) => {
+      .addCase(fetchIngredients.fulfilled, (_, { payload: { data } }) => {
         return {
-          data: action.payload.data,
+          data,
           error: false,
           loading: false,
         };
       })
-      .addCase(fetchIngredients.rejected, (_, action) => {
-        handleError(action.error.message);
+      .addCase(fetchIngredients.rejected, (_, { error: { message } }) => {
+        handleError(message || "Get ingredeints error");
         return {
           ...initialState,
           error: true,

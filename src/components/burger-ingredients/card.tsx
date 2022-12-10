@@ -1,22 +1,32 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import styles from "./styles.module.css";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientPropType } from "../../utils/types";
+import { IngredientType } from "../../utils/types";
 import { dragTypes } from "../../utils/constants";
 import { clsx } from "clsx";
 import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { addIngredient, setBun } from "../../services/slices/constructor-slice";
 import { Link, useLocation } from "react-router-dom";
+import { FC } from "react";
 
-export const Card = ({ info, extraClass }) => {
+interface CardProps {
+  info: IngredientType;
+  extraClass?: string;
+}
+export const Card: FC<CardProps> = ({ info, extraClass }) => {
   const location = useLocation();
   const id = info._id;
   const dispatch = useDispatch();
-  const { bun, ingredients } = useSelector((store) => store.constructorReducer);
+
+  // TODO: убрать каст типов и any после типизации store
+  const { bun, ingredients } = useSelector(
+    (store: any) => store.constructorReducer
+  ) as { bun: IngredientType | null; ingredients: IngredientType[] };
+
   const { image, price, name } = info;
   const [{ isDragging }, drag] = useDrag(() => ({
     type: dragTypes.INGREDIENT,
@@ -40,7 +50,9 @@ export const Card = ({ info, extraClass }) => {
 
   const count =
     info.type === "bun"
-      ? (bun || 0) && (bun._id === info._id) * 2
+      ? bun !== null && bun._id === info._id
+        ? 2
+        : 0
       : ingredients.filter((el) => el._id === info._id).length;
 
   return (
@@ -69,7 +81,7 @@ export const Card = ({ info, extraClass }) => {
         />
         <div className="flex row align-items_center mt-1 mb-1">
           <p className="text text_type_digits-default mr-1">{price}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary" />
         </div>
         <p className={clsx(styles.card_name, "text text_type_main-default")}>
           {name}
@@ -77,9 +89,4 @@ export const Card = ({ info, extraClass }) => {
       </div>
     </Link>
   );
-};
-
-Card.propTypes = {
-  info: ingredientPropType.isRequired,
-  extraClass: PropTypes.string,
 };

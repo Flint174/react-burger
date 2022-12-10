@@ -2,7 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { handleError } from "../../utils/request";
 import { fetchOrder } from "../actions/order-actions";
 
-const initialState = {
+interface OrderStoreState {
+  orderNumber: number | null;
+  loading: boolean;
+  error: boolean;
+}
+
+const initialState: OrderStoreState = {
   orderNumber: null,
   loading: false,
   error: false,
@@ -13,20 +19,30 @@ export const orderSlice = createSlice({
   initialState,
   reducers: {
     clearOrder() {
-      return { ...initialState };
+      return initialState;
     },
   },
   extraReducers: (builder) =>
     builder
-      .addCase(fetchOrder.fulfilled, (_, { payload }) => {
-        return {
-          orderNumber: payload.order.number,
-          error: false,
-          loading: false,
-        };
-      })
+      .addCase(
+        fetchOrder.fulfilled,
+        (
+          _,
+          {
+            payload: {
+              order: { number },
+            },
+          }
+        ) => {
+          return {
+            orderNumber: number,
+            error: false,
+            loading: false,
+          };
+        }
+      )
       .addCase(fetchOrder.rejected, (_, action) => {
-        handleError(action.error.message);
+        handleError(action.error.message || "Ger order error");
         return {
           ...initialState,
           error: true,
