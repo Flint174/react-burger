@@ -5,9 +5,10 @@ import { IngredientType } from "../../utils/types";
 interface IngredientUuidType extends IngredientType {
   uuid: string;
 }
+type BunType = IngredientType | null;
 
 interface ConstructorStoreState {
-  bun: IngredientType | null;
+  bun: BunType;
   ingredients: IngredientUuidType[];
 }
 
@@ -20,8 +21,8 @@ export const constructorSlice = createSlice({
   name: "constructor",
   initialState,
   reducers: {
-    setBun(state, { payload }) {
-      state.bun = payload;
+    setBun(state, action: PayloadAction<BunType>) {
+      state.bun = action.payload;
     },
     removeBun(state) {
       state.bun = null;
@@ -51,7 +52,7 @@ export const constructorSlice = createSlice({
       );
     },
     clearConstructor() {
-      return { ...initialState };
+      return initialState;
     },
   },
 });
