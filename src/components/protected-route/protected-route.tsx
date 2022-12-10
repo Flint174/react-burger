@@ -1,6 +1,13 @@
+import { FC, ReactElement } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-export const ProtectedRoute = ({
+interface ProtectedRouteProps {
+  isAllowed: boolean;
+  redirectPath?: string;
+  children?: ReactElement;
+}
+
+export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   isAllowed,
   redirectPath = "/login",
   children,

@@ -1,7 +1,6 @@
 import { AppHeader } from "../app-header";
 import { fetchIngredients } from "../../services/actions/ingredients-actions";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Main } from "../../pages/main";
 import { Login } from "../../pages/login/login";
@@ -17,10 +16,11 @@ import { getCookie } from "../../utils/cookie";
 import { ACCESS_TOKEN } from "../../utils/constants";
 import { IngredientDetails } from "../ingredient-details";
 import { Modal } from "../modal";
+import { useAppDispatch, useAppSelector } from "../../hooks/use-store";
 
 export const App = () => {
-  const { user } = useSelector((store) => store.authReducer);
-  const dispatch = useDispatch();
+  const { user } = useAppSelector((store) => store.authReducer);
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
