@@ -8,10 +8,10 @@ import { IngredientType } from "../../utils/types";
 import { dragTypes } from "../../utils/constants";
 import { clsx } from "clsx";
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import { addIngredient, setBun } from "../../services/slices/constructor-slice";
 import { Link, useLocation } from "react-router-dom";
 import { FC } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/use-store";
 
 interface CardProps {
   info: IngredientType;
@@ -20,12 +20,11 @@ interface CardProps {
 export const Card: FC<CardProps> = ({ info, extraClass }) => {
   const location = useLocation();
   const id = info._id;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  // TODO: убрать каст типов и any после типизации store
-  const { bun, ingredients } = useSelector(
-    (store: any) => store.constructorReducer
-  ) as { bun: IngredientType | null; ingredients: IngredientType[] };
+  const { bun, ingredients } = useAppSelector(
+    (store) => store.constructorReducer
+  );
 
   const { image, price, name } = info;
   const [{ isDragging }, drag] = useDrag(() => ({

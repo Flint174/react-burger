@@ -1,6 +1,6 @@
 import { forwardRef, useMemo } from "react";
-import { useSelector } from "react-redux";
-import { CategoryType, IngredientType } from "../../utils/types";
+import { useAppSelector } from "../../hooks/use-store";
+import { CategoryType } from "../../utils/types";
 import { Card } from "./card";
 
 interface CategoryProps {
@@ -9,11 +9,7 @@ interface CategoryProps {
 
 export const Category = forwardRef<HTMLElement, CategoryProps>(
   ({ type }, ref) => {
-    // TODO: убрать каст типов и any после типизации store
-    const { data } = useSelector((store: any) => store.ingredientsReducer) as {
-      data: IngredientType[];
-    };
-
+    const { data } = useAppSelector((store) => store.ingredientsReducer);
     const cardsList = useMemo(
       () =>
         data
