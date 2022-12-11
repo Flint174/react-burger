@@ -4,10 +4,11 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { Form, FormContainer } from "../../components/form";
 import { useForm } from "../../hooks/use-form";
+import { useAppDispatch, useAppSelector } from "../../hooks/use-store";
 import { fetchRegister } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
 
@@ -17,10 +18,10 @@ export const Register = () => {
     handleChange,
   } = useForm({ name: "", email: "", password: "" });
 
-  const { loading } = useSelector((store) => store.authReducer);
-  const dispatch = useDispatch();
+  const { loading } = useAppSelector((store) => store.authReducer);
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: FormEvent<Element>) => {
     event.preventDefault();
     dispatch(fetchRegister({ name, email, password }));
   };
