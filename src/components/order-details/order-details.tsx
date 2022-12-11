@@ -1,7 +1,11 @@
-import PropTypes from "prop-types";
+import { FC } from "react";
 import doneSvg from "../../images/done.svg";
 
-export const OrderDetail = ({ orderNumber }) => {
+interface OrderDetailProps {
+  orderNumber: number;
+}
+
+export const OrderDetail: FC<OrderDetailProps> = ({ orderNumber }) => {
   return (
     <>
       <p className="text text_type_digits-large mt-4">
@@ -19,8 +23,4 @@ export const OrderDetail = ({ orderNumber }) => {
       </p>
     </>
   );
-};
-
-OrderDetail.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
 };
