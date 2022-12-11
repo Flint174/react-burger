@@ -1,8 +1,13 @@
-import PropTypes from "prop-types";
 import styles from "./styles.module.css";
 import { clsx } from "clsx";
+import { FC } from "react";
 
-export const InfoField = ({ name, value }) => {
+interface InfoFieldProps {
+  name: string;
+  value: number;
+}
+
+export const InfoField: FC<InfoFieldProps> = ({ name, value }) => {
   return (
     <div className={clsx(styles.container, "flex column align-items_center")}>
       <p className="text text_type_main-default text_color_inactive">{name}</p>
@@ -12,9 +17,4 @@ export const InfoField = ({ name, value }) => {
       </p>
     </div>
   );
-};
-
-InfoField.propTypes = {
-  name: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
 };

@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { useAppSelector } from "../../hooks/use-store";
 import { InfoField } from "./info-field";
 
 export const IngredientDetails = () => {
-  const { data } = useSelector((store) => store.ingredientsReducer);
+  const { data } = useAppSelector((store) => store.ingredientsReducer);
   const { id } = useParams();
   const details = data.find((el) => el._id === id);
 
