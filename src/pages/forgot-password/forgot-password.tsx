@@ -8,12 +8,8 @@ import { FormContainer, Form } from "../../components/form";
 import { useForm } from "../../hooks/use-form";
 import { PASSWORD_RESET_URL } from "../../utils/constants";
 import { handleError, request, requestHeaders } from "../../utils/request";
-import { RequestDataBase } from "../../utils/types";
+import { RequestDataMessage } from "../../utils/types";
 import styles from "./styles.module.css";
-
-interface RequestDataPassReset extends RequestDataBase {
-  message: string;
-}
 
 export const ForgotPassword = () => {
   const {
@@ -28,7 +24,7 @@ export const ForgotPassword = () => {
     event.preventDefault();
     const body = { email };
     setValues((prev) => ({ ...prev, loading: true }));
-    request<RequestDataPassReset>(PASSWORD_RESET_URL, {
+    request<RequestDataMessage>(PASSWORD_RESET_URL, {
       method: "POST",
       headers: requestHeaders.post,
       body: JSON.stringify(body),

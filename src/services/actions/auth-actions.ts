@@ -10,7 +10,11 @@ import {
   REFRESH_TOKEN,
 } from "../../utils/constants";
 import { getCookie, setCookie } from "../../utils/cookie";
-import { AuthUser, RequestDataBase } from "../../utils/types";
+import {
+  AuthUser,
+  RequestDataBase,
+  RequestDataMessage,
+} from "../../utils/types";
 
 export interface RequestDataUser extends RequestDataBase {
   user: AuthUser;
@@ -22,10 +26,6 @@ export interface RequestDataToken extends RequestDataBase {
 }
 
 export type RequestDataAuth = RequestDataUser & RequestDataToken;
-
-export interface RequestDataLogout extends RequestDataBase {
-  message: string;
-}
 
 export interface RequestBodyLogin {
   email: string;
@@ -69,7 +69,7 @@ const refreshToken = () => {
 export const fetchLogout = createAsyncThunk(
   `auth/logout`,
   async () =>
-    await request<RequestDataLogout>(AUTH_LOGOUT_URL, {
+    await request<RequestDataMessage>(AUTH_LOGOUT_URL, {
       method: "POST",
       headers: requestHeaders.post,
       body: JSON.stringify({ token: localStorage.getItem(REFRESH_TOKEN) }),

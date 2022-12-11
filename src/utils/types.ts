@@ -22,6 +22,10 @@ export interface RequestDataBase {
   success: boolean;
 }
 
+export interface RequestDataMessage extends RequestDataBase {
+  message: string;
+}
+
 export interface AuthUser {
   name: string;
   email: string;

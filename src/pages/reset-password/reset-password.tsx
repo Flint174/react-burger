@@ -9,6 +9,8 @@ import { handleError, request, requestHeaders } from "../../utils/request";
 import { PASSWORD_RESET_RESET_URL } from "../../utils/constants";
 import styles from "./styles.module.css";
 import { useForm } from "../../hooks/use-form";
+import { FormEvent } from "react";
+import { RequestDataMessage } from "../../utils/types";
 
 export const ResetPassword = () => {
   const {
@@ -19,14 +21,14 @@ export const ResetPassword = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: FormEvent<Element>) => {
     event.preventDefault();
     const body = {
       password,
       token: code,
     };
     setValues((prev) => ({ ...prev, loading: true }));
-    request(PASSWORD_RESET_RESET_URL, {
+    request<RequestDataMessage>(PASSWORD_RESET_RESET_URL, {
       method: "POST",
       headers: requestHeaders.post,
       body: JSON.stringify(body),
