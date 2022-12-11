@@ -3,8 +3,7 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { Form } from "../../components/form/form";
-import { FormContainer } from "../../components/form/form-container";
+import { FormContainer, Form } from "../../components/form";
 import { useForm } from "../../hooks/use-form";
 import { PASSWORD_RESET_URL } from "../../utils/constants";
 import { handleError, request, requestHeaders } from "../../utils/request";

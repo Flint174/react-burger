@@ -4,11 +4,10 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { Form } from "../../components/form/form";
+import { Form, FormContainer } from "../../components/form";
 import { handleError, request, requestHeaders } from "../../utils/request";
 import { PASSWORD_RESET_RESET_URL } from "../../utils/constants";
 import styles from "./styles.module.css";
-import { FormContainer } from "../../components/form/form-container";
 import { useForm } from "../../hooks/use-form";
 
 export const ResetPassword = () => {

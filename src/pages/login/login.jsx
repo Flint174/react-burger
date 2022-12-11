@@ -5,8 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Form } from "../../components/form/form";
-import { FormContainer } from "../../components/form/form-container";
+import { Form, FormContainer } from "../../components/form";
 import { useForm } from "../../hooks/use-form";
 import { fetchLogin } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";

@@ -7,7 +7,7 @@ import {
 import clsx from "clsx";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form } from "../../components/form/form";
+import { Form } from "../../components/form";
 import { useForm } from "../../hooks/use-form";
 import { fetchUserPatch } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
