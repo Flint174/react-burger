@@ -1,15 +1,23 @@
-import PropTypes from "prop-types";
 import styles from "./styles.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../modal-overlay";
-import { useEffect } from "react";
+import { FC, ReactElement, useEffect } from "react";
 import { clsx } from "clsx";
 
-export const Modal = ({ title = "", onClose, children }) => {
+interface ModalProps {
+  title?: string;
+  onClose?: () => void;
+  children?: ReactElement;
+}
+
+export const Modal: FC<ModalProps> = ({ title = "", onClose, children }) => {
   useEffect(() => {
-    const onKeyDown = (e) => {
+    const onKeyDown: (
+      this: Document,
+      event: globalThis.KeyboardEvent
+    ) => void = (e) => {
       if (e.key === "Escape") {
-        onClose();
+        onClose && onClose();
       }
     };
 
@@ -24,7 +32,7 @@ export const Modal = ({ title = "", onClose, children }) => {
       <div className={clsx(styles.container, { [styles.modal]: !!onClose })}>
         {onClose && (
           <div className={styles.modal_card_close}>
-            <CloseIcon onClick={onClose} />
+            <CloseIcon type="primary" onClick={onClose} />
           </div>
         )}
         <div
@@ -44,9 +52,4 @@ export const Modal = ({ title = "", onClose, children }) => {
       {onClose && <ModalOverlay onClose={onClose} />}
     </>
   );
-};
-
-Modal.propTypes = {
-  onClose: PropTypes.func,
-  title: PropTypes.string,
 };
