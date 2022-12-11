@@ -8,19 +8,22 @@ import { OrderDetail } from "../order-details";
 import { useMemo } from "react";
 import styles from "./styles.module.css";
 import { Modal } from "../modal";
-import { useSelector } from "react-redux";
 import { fetchOrder } from "../../services/actions/order-actions";
 import { clearOrder } from "../../services/slices/order-slice";
 import { clearConstructor } from "../../services/slices/constructor-slice";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../hooks/use-store";
 
 export const BurgerConstructor = () => {
-  const { bun, ingredients } = useSelector((store) => store.constructorReducer);
+  const { bun, ingredients } = useAppSelector(
+    (store) => store.constructorReducer
+  );
 
-  const { orderNumber, loading } = useSelector((store) => store.orderReducer);
-  const { user } = useSelector((store) => store.authReducer);
-  const dispatch = useDispatch();
+  const { orderNumber, loading } = useAppSelector(
+    (store) => store.orderReducer
+  );
+  const { user } = useAppSelector((store) => store.authReducer);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -39,6 +42,7 @@ export const BurgerConstructor = () => {
   }
 
   const getOrderDedails = () => {
+    if (!bun) return;
     const ingredientsIds = [
       bun._id,
       ...ingredients.map((el) => el._id),
@@ -61,9 +65,9 @@ export const BurgerConstructor = () => {
       <Composition />
       <div className="mt-10 flex row align-items_center align-self_end">
         <p className="text text_type_digits-medium mr-2">{total}</p>
-        <CurrencyIcon />
+        <CurrencyIcon type="primary" />
         <Button
-          disabled={disableButton}
+          disabled={!!disableButton}
           htmlType="button"
           extraClass="ml-10"
           onClick={getOrderDedails}

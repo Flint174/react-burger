@@ -5,7 +5,7 @@ import { getCookie } from "../../utils/cookie";
 import { RequestDataBase } from "../../utils/types";
 
 export interface RequestBodyOrder {
-  ingredients: number[];
+  ingredients: string[];
 }
 
 export interface RequestDataOrder extends RequestDataBase {

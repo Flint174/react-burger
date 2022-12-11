@@ -2,19 +2,19 @@ import { useDrop } from "react-dnd";
 import { dragTypes } from "../../utils/constants";
 import styles from "./styles.module.css";
 import { clsx } from "clsx";
-import { useDispatch, useSelector } from "react-redux";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorElementEmpty } from "./constructor-element-empty";
 import { CompositionListItem } from "./composition-list-item";
 import { CompositionDragItem } from "./composition-drag-item";
 import { removeIngredient } from "../../services/slices/constructor-slice";
+import { useAppDispatch, useAppSelector } from "../../hooks/use-store";
 
 export const Composition = () => {
-  const bun = useSelector((store) => store.constructorReducer.bun);
-  const ingredients = useSelector(
+  const bun = useAppSelector((store) => store.constructorReducer.bun);
+  const ingredients = useAppSelector(
     (store) => store.constructorReducer.ingredients
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: dragTypes.INGREDIENT,
     collect: (monitor) => ({

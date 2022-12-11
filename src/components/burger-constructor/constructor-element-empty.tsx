@@ -1,8 +1,16 @@
-import PropTypes from "prop-types";
 import styles from "./styles.module.css";
 import { clsx } from "clsx";
+import { FC } from "react";
 
-export const ConstructorElementEmpty = ({ type = "default", extraClass }) => {
+interface ConstructorElementEmptyProps {
+  type?: string;
+  extraClass?: string;
+}
+
+export const ConstructorElementEmpty: FC<ConstructorElementEmptyProps> = ({
+  type = "default",
+  extraClass,
+}) => {
   const text = type === "default" ? "Выберите ингредиент" : "Выберите булку";
 
   return (
@@ -17,9 +25,4 @@ export const ConstructorElementEmpty = ({ type = "default", extraClass }) => {
       <p className="text text_type_main-default text_color_inactive">{text}</p>
     </div>
   );
-};
-
-ConstructorElementEmpty.propTypes = {
-  type: PropTypes.oneOf(["top", "default", "bottom"]),
-  extraClass: PropTypes.string,
 };
