@@ -2,12 +2,18 @@ import {
   Button,
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FormContainer, Form } from "../../components/form";
 import { useForm } from "../../hooks/use-form";
 import { PASSWORD_RESET_URL } from "../../utils/constants";
 import { handleError, request, requestHeaders } from "../../utils/request";
+import { RequestDataBase } from "../../utils/types";
 import styles from "./styles.module.css";
+
+interface RequestDataPassReset extends RequestDataBase {
+  message: string;
+}
 
 export const ForgotPassword = () => {
   const {
@@ -18,11 +24,11 @@ export const ForgotPassword = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: FormEvent<Element>) => {
     event.preventDefault();
     const body = { email };
     setValues((prev) => ({ ...prev, loading: true }));
-    request(PASSWORD_RESET_URL, {
+    request<RequestDataPassReset>(PASSWORD_RESET_URL, {
       method: "POST",
       headers: requestHeaders.post,
       body: JSON.stringify(body),
