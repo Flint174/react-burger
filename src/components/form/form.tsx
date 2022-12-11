@@ -1,6 +1,22 @@
-import PropTypes from "prop-types";
+import { FC, FormEvent, ReactElement } from "react";
 
-export const Form = ({ title, form, actions, footer, onSubmit, onReset }) => {
+interface FormProps {
+  title?: string;
+  form: ReactElement;
+  actions: ReactElement;
+  footer?: ReactElement;
+  onSubmit?: (event: FormEvent) => void;
+  onReset?: (event: FormEvent) => void;
+}
+
+export const Form: FC<FormProps> = ({
+  title,
+  form,
+  actions,
+  footer,
+  onSubmit,
+  onReset,
+}) => {
   return (
     <div className="flex column align-items_center justify-items_start">
       {title && <h1 className="text text_type_main-medium mb-6">{title}</h1>}
@@ -19,13 +35,4 @@ export const Form = ({ title, form, actions, footer, onSubmit, onReset }) => {
       )}
     </div>
   );
-};
-
-Form.propTypes = {
-  title: PropTypes.string,
-  form: PropTypes.element.isRequired,
-  actions: PropTypes.element.isRequired,
-  footer: PropTypes.element,
-  onSubmit: PropTypes.func,
-  onReset: PropTypes.func,
 };
