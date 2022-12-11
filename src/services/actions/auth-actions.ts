@@ -36,6 +36,8 @@ export interface RequestBodyRegister extends RequestBodyLogin {
   name: string;
 }
 
+export type RequestBodyUserPatch = Partial<RequestBodyRegister>;
+
 export const fetchLogin = createAsyncThunk(
   `auth/login`,
   async (body: RequestBodyLogin) =>
@@ -109,7 +111,7 @@ export const fetchUserGet = createAsyncThunk(`auth/user/get`, async () => {
 
 export const fetchUserPatch = createAsyncThunk(
   `auth/user/patch`,
-  async (body: RequestBodyRegister) =>
+  async (body: RequestBodyUserPatch) =>
     await fetchWithRefresh<RequestDataUser>(AUTH_USER_URL, {
       method: "PATCH",
       headers: {

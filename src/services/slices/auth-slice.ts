@@ -93,8 +93,10 @@ export const authSlice = createSlice({
         state.loading = true;
         state.error = false;
       })
-      .addMatcher(isRejected, (_, { error }) => {
+      .addMatcher(isRejected, (state, { error }) => {
         handleError(error);
+        state.loading = false;
+        state.error = true;
       }),
 });
 

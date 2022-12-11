@@ -1,13 +1,13 @@
 import { clsx } from "clsx";
-import { useDispatch } from "react-redux";
 import { Link, Outlet, useMatch } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/use-store";
 import { fetchLogout } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
 
 export const Profile = () => {
-  const isProfile = !!useMatch({ path: "/profile", exact: true });
+  const isProfile = !!useMatch({ path: "/profile" });
   const isOrders = !!useMatch({ path: "/profile/orders" });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const exit = () => {
     dispatch(fetchLogout());
@@ -19,7 +19,8 @@ export const Profile = () => {
     "flex row align-items_center justify-items_start"
   );
 
-  const linkStyle = (isActive) => (isActive ? { color: "white" } : undefined);
+  const linkStyle = (isActive: boolean) =>
+    isActive ? { color: "white" } : undefined;
 
   return (
     <main
@@ -38,7 +39,7 @@ export const Profile = () => {
             </Link>
           </li>
           <li>
-            <div className={linkClass} to="/login" onClick={exit}>
+            <div className={linkClass} onClick={exit}>
               Выход
             </div>
           </li>

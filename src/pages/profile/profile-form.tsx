@@ -5,39 +5,47 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { ChangeEvent, FormEvent, useEffect } from "react";
 import { Form } from "../../components/form";
 import { useForm } from "../../hooks/use-form";
+import { useAppDispatch, useAppSelector } from "../../hooks/use-store";
 import { fetchUserPatch } from "../../services/actions/auth-actions";
 import styles from "./styles.module.css";
 
 export const ProfileForm = () => {
-  const { user } = useSelector((store) => store.authReducer);
-  const formInitValues = { ...user, password: "", isChanged: false };
-  const dispatch = useDispatch();
+  const { user } = useAppSelector((store) => store.authReducer);
+  const formInitValues = {
+    ...(user ? user : { name: "", email: "" }),
+    password: "",
+    isChanged: false,
+  };
+  const dispatch = useAppDispatch();
   const {
     values: { name, email, password, isChanged },
     handleChange,
     setValues,
   } = useForm(formInitValues);
 
-  const onSubmit = (event) => {
+  const onSubmit = (event: FormEvent<Element>) => {
     event.preventDefault();
-    const body = Object.assign({ name, email }, password ? { password } : {});
+    const body = {
+      ...(name ? { name } : {}),
+      ...(email ? { email } : {}),
+      ...(password ? { password } : {}),
+    };
     dispatch(fetchUserPatch(body));
   };
 
-  const onReset = (event) => {
+  const onReset = (event: FormEvent<Element>) => {
     event.preventDefault();
     setValues(formInitValues);
   };
 
-  const handleChangeValues = (e) => {
+  const handleChangeValues = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange(e);
     setValues((prev) => ({
       ...prev,
-      isChanged: formInitValues[e.target.name] !== e.target.value,
+      isChanged: true,
     }));
   };
 
@@ -58,7 +66,7 @@ export const ProfileForm = () => {
       />
       <EmailInput
         value={email}
-        icon="EditIcon"
+        isIcon={true}
         name="email"
         onChange={handleChangeValues}
       />
