@@ -12,10 +12,7 @@ interface ModalProps {
 
 export const Modal: FC<ModalProps> = ({ title = "", onClose, children }) => {
   useEffect(() => {
-    const onKeyDown: (
-      this: Document,
-      event: globalThis.KeyboardEvent
-    ) => void = (e) => {
+    const onKeyDown: (event: KeyboardEvent) => void = (e) => {
       if (e.key === "Escape") {
         onClose && onClose();
       }
