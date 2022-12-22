@@ -28,7 +28,7 @@ export const AppHeader = () => {
             <HeaderLink icon={BurgerIcon} text="Конструктор" href="/" />
           </li>
           <li>
-            <HeaderLink icon={ListIcon} text="Лента заказов" href="orders" />
+            <HeaderLink icon={ListIcon} text="Лента заказов" href="feed" />
           </li>
         </ul>
       </nav>

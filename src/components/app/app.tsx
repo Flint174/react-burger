@@ -17,6 +17,8 @@ import { ACCESS_TOKEN } from "../../utils/constants";
 import { IngredientDetails } from "../ingredient-details";
 import { Modal } from "../modal";
 import { useAppDispatch, useAppSelector } from "../../hooks/use-store";
+import { OrderFeed } from "../../pages/OrderFeed/order-feed";
+import { ProfileOrders } from "../../pages/profile/profile-orders";
 
 export const App = () => {
   const { user } = useAppSelector((store) => store.authReducer);
@@ -48,9 +50,10 @@ export const App = () => {
           <Route path="reset-password" element={<ResetPassword />} />
         </Route>
         <Route element={<ProtectedRoute isAllowed={!!user} />}>
+          <Route path="feed" element={<OrderFeed />} />
           <Route path="profile" element={<Profile />}>
             <Route path="" element={<ProfileForm />} />
-            <Route path="orders" element={<></>} />
+            <Route path="orders" element={<ProfileOrders />} />
           </Route>
         </Route>
         <Route

@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, createRef, RefObject, FC } from "react";
+import { useState, useMemo, useRef, createRef, RefObject } from "react";
 import { Tabs } from "./tabs";
 import { clsx } from "clsx";
 import styles from "./styles.module.css";
