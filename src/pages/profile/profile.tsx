@@ -23,37 +23,39 @@ export const Profile = () => {
     isActive ? { color: "white" } : undefined;
 
   return (
-    <main
-      className={clsx(styles.container, "flex row align-items_start gap-15")}
-    >
-      <nav className={styles.column_left}>
-        <ul className={styles.list}>
-          <li>
-            <Link className={linkClass} style={linkStyle(isProfile)} to="">
-              Профиль
-            </Link>
-          </li>
-          <li>
-            <Link className={linkClass} style={linkStyle(isOrders)} to="orders">
-              История заказов
-            </Link>
-          </li>
-          <li>
-            <div className={linkClass} onClick={exit}>
-              Выход
-            </div>
-          </li>
-        </ul>
-        <div className="text text_type_main-default text_color_inactive mt-20">
-          В этом разделе вы можете изменить свои персональные данные
+    <div className="flex row">
+      <nav className={clsx(styles.nav, "flex column align-items_end")}>
+        <div className={clsx(styles.nav_container, "mt-20")}>
+          <ul className={styles.list}>
+            <li>
+              <Link className={linkClass} style={linkStyle(isProfile)} to="">
+                Профиль
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={linkClass}
+                style={linkStyle(isOrders)}
+                to="orders"
+              >
+                История заказов
+              </Link>
+            </li>
+            <li>
+              <div className={linkClass} onClick={exit}>
+                Выход
+              </div>
+            </li>
+          </ul>
+          <div className="text text_type_main-default text_color_inactive mt-20">
+            В этом разделе вы можете изменить свои персональные данные
+          </div>
         </div>
       </nav>
 
-      <div className={styles.column_middle}>
+      <div className={styles.outlet}>
         <Outlet />
       </div>
-
-      <div className={styles.column_right} />
-    </main>
+    </div>
   );
 };

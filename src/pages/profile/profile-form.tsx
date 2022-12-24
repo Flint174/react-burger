@@ -91,6 +91,13 @@ export const ProfileForm = () => {
   );
 
   return (
-    <Form form={form} actions={actions} onSubmit={onSubmit} onReset={onReset} />
+    <main className={clsx(styles.profile_form, "pt-20 pl-15")}>
+      <Form
+        form={form}
+        actions={actions}
+        onSubmit={onSubmit}
+        onReset={onReset}
+      />
+    </main>
   );
 };
