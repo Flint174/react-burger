@@ -30,3 +30,10 @@ export interface AuthUser {
   name: string;
   email: string;
 }
+
+export type OrderStatus = "done" | "created" | "pending";
+export interface Order {
+  _id: string;
+  ingredients: string[];
+  status: OrderStatus;
+}

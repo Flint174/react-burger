@@ -1,0 +1,18 @@
+.container {
+  background: var(--bg-color_element);
+  border-radius: 40px;
+}
+
+.title_update {
+  float: right;
+}
+
+.items_container {
+}
+
+.items_list {
+  flex-grow: 1;
+}
+
+.items_price {
+}
