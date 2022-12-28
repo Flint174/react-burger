@@ -36,4 +36,13 @@ export interface Order {
   _id: string;
   ingredients: string[];
   status: OrderStatus;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface RequestDataOrders extends RequestDataBase {
+  orders: Order[];
+  total: number;
+  totalToday: number;
 }

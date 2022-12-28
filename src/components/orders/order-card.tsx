@@ -1,8 +1,75 @@
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, useMemo } from "react";
+import { useAppSelector } from "../../hooks/use-store";
+import { Order } from "../../utils/types";
 import styles from "./styles.module.css";
 
-export const OrderCard: FC = () => {
+interface OrderCardProps {
+  order: Order;
+}
+
+export const OrderCard: FC<OrderCardProps> = ({ order }) => {
+  const { data: ingredients } = useAppSelector(
+    (store) => store.ingredientsReducer
+  );
+  const pictures = useMemo(() => {
+    const orderLen = order.ingredients.length;
+    const retLenMax = 6;
+    const retOverflow = orderLen - retLenMax;
+    const ret = order.ingredients
+      .slice(0, retLenMax)
+      .map((ingredientId, index) => {
+        const ingredient = ingredients.find((el) => el._id === ingredientId);
+        return (
+          <>
+            <div
+              key={index}
+              className={styles.items_picture_container}
+              style={{
+                position: "relative",
+                right: index * 16,
+                zIndex: 100 - index * 2,
+              }}
+            >
+              <picture className={styles.items_picture}>
+                <source
+                  srcSet={[
+                    ingredient?.image,
+                    ingredient?.image_mobile,
+                    ingredient?.image_large,
+                  ].join(", ")}
+                />
+                <img
+                  src={ingredient?.image_mobile}
+                  alt="ingredient"
+                  width="112"
+                  height="56"
+                />
+              </picture>
+              {index === retLenMax - 1 && (
+                <div
+                  className={clsx(
+                    styles.items_picture_container,
+                    styles.items_overflow
+                  )}
+                >
+                  <div
+                    className={clsx(
+                      styles.items_picture,
+                      "text text_type_main-small"
+                    )}
+                  >
+                    +{retOverflow}
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        );
+      });
+    if (retOverflow > 0) return ret;
+  }, [order, ingredients]);
+
   return (
     <article className={clsx(styles.container, "flex column p-6 gap-6")}>
       <h2 className="text text_type_digits-default">
@@ -20,8 +87,12 @@ export const OrderCard: FC = () => {
         <div className="text text_type_main-medium">title</div>
         <div className="text text_type_main-default">type</div>
       </div>
-      <div className="flex row">
-        <div className={styles.items_list}>items</div>
+      <div className="flex row gap-6">
+        <div
+          className={clsx(styles.items_list, "flex row justify-content_start")}
+        >
+          {pictures}
+        </div>
         <div>price</div>
       </div>
     </article>

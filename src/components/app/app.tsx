@@ -43,6 +43,7 @@ export const App = () => {
       <AppHeader />
       <Routes location={background || location}>
         <Route index element={<Main />} />
+        <Route path="feed" element={<OrderFeed />} />
         <Route element={<ProtectedRoute isAllowed={!user} redirectPath="/" />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
@@ -50,7 +51,6 @@ export const App = () => {
           <Route path="reset-password" element={<ResetPassword />} />
         </Route>
         <Route element={<ProtectedRoute isAllowed={!!user} />}>
-          <Route path="feed" element={<OrderFeed />} />
           <Route path="profile" element={<Profile />}>
             <Route path="" element={<ProfileForm />} />
             <Route path="orders" element={<ProfileOrders />} />

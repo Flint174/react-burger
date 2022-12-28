@@ -1,8 +1,15 @@
-export const fakeOrders = {
+import { RequestDataOrders } from "./types";
+
+export const fakeOrders: RequestDataOrders = {
   success: true,
   orders: [
     {
-      ingredients: ["60d3463f7034a000269f45e9", "60d3463f7034a000269f45e7"],
+      //   ingredients: ["60d3463f7034a000269f45e9", "60d3463f7034a000269f45e7"],
+      ingredients: [
+        "60d3b41abdacab0026a733c6",
+        "60d3b41abdacab0026a733c8",
+        "60d3b41abdacab0026a733c9",
+      ],
       _id: "",
       status: "done",
       number: 1,
@@ -10,7 +17,18 @@ export const fakeOrders = {
       updatedAt: "2021-06-23T20:11:01.406Z",
     },
     {
-      ingredients: ["60d3463f7034a000269f45e9"],
+      //   ingredients: ["60d3463f7034a000269f45e9"],
+      ingredients: [
+        "60d3b41abdacab0026a733c7",
+        "60d3b41abdacab0026a733ca",
+        "60d3b41abdacab0026a733cb",
+        "60d3b41abdacab0026a733cc",
+        "60d3b41abdacab0026a733cc",
+        "60d3b41abdacab0026a733cc",
+        "60d3b41abdacab0026a733cc",
+        "60d3b41abdacab0026a733cc",
+        "60d3b41abdacab0026a733cc",
+      ],
       _id: "",
       status: "done",
       number: 3,

@@ -14,5 +14,35 @@
   flex-grow: 1;
 }
 
+.items_picture_container {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  border-radius: 100px;
+  background: var(--bg-color_element);
+}
+
+.items_picture_container:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  border-radius: 100px;
+  background: linear-gradient(#4c4cff, #801ab2);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.items_picture {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.items_overflow {
+  background: var(--bg-color_overlay);
+}
+
 .items_price {
 }
