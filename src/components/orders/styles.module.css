@@ -1,13 +1,11 @@
 .container {
   background: var(--bg-color_element);
   border-radius: 40px;
+  max-width: 584px;
 }
 
 .title_update {
   float: right;
-}
-
-.items_container {
 }
 
 .items_list {
@@ -33,6 +31,10 @@
   mask-composite: exclude;
 }
 
+.items_list > .items_picture_container:not(:first-child) {
+  margin-left: -16px;
+}
+
 .items_picture {
   position: absolute;
   top: 50%;
@@ -42,7 +44,4 @@
 
 .items_overflow {
   background: var(--bg-color_overlay);
-}
-
-.items_price {
 }

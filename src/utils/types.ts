@@ -37,6 +37,7 @@ export interface Order {
   ingredients: string[];
   status: OrderStatus;
   number: number;
+  name: string;
   createdAt: string;
   updatedAt: string;
 }
