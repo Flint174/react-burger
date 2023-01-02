@@ -19,4 +19,5 @@ export const ACCESS_TOKEN = "accessToken";
 export const REFRESH_TOKEN = "refreshToken";
 export const ACCESS_TOKEN_MAX_AGE = 20 * 60;
 export const accessTokenOpts = { "max-age": ACCESS_TOKEN_MAX_AGE };
-export const BASE_WS_URL = "wss://norma.nomoreparties.space/orders";
+export const WS_BASE_URL = "wss://norma.nomoreparties.space/orders";
+export const WS_ALL_URL = WS_BASE_URL + "/all";

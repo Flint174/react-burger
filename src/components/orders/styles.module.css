@@ -1,7 +1,11 @@
-.container {
+.orders_container {
+  overflow: auto;
+  max-width: 584px;
+}
+
+.card_container {
   background: var(--bg-color_element);
   border-radius: 40px;
-  max-width: 584px;
 }
 
 .title_update {

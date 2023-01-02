@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { handleError } from "../../utils/request";
 import { IngredientType } from "../../utils/types";
 import { fetchIngredients } from "../actions/ingredients-actions";
@@ -19,8 +19,8 @@ export const ingredientsSlice = createSlice({
   name: "ingredients",
   initialState,
   reducers: {
-    setData(state, { payload }) {
-      state.data = payload;
+    setData(state, action: PayloadAction<IngredientType[]>) {
+      state.data = action.payload;
     },
   },
   extraReducers: (builder) =>
