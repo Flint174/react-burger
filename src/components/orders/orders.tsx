@@ -6,11 +6,11 @@ import styles from "./styles.module.css";
 
 interface OrdersProps {
   showStatus?: boolean;
-  height: number;
+  height: number | string;
 }
 
 export const Orders: FC<OrdersProps> = ({ showStatus = false, height }) => {
-  const orders = useAppSelector((store) => store.ordersFeedReducer);
+  const { orders } = useAppSelector((store) => store.ordersFeedReducer);
 
   return (
     <section

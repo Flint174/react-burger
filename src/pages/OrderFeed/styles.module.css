@@ -1,0 +1,15 @@
+.main_container {
+  width: 100%;
+}
+
+.orders_container {
+  width: 272px;
+}
+
+.orders_numbers {
+  height: 154px;
+}
+
+.orders_title_ready {
+  color: var(--text-color_ready);
+}

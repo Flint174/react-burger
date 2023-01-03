@@ -17,6 +17,7 @@ code {
   --border-color_modal: rgba(76, 76, 255, 0.2);
   --bg-color_overlay: rgba(0, 0, 0, 0.6);
   --bg-color_element: #1c1c21;
+  --text-color_ready: #00cccc;
 }
 
 ::-webkit-scrollbar {
@@ -60,10 +61,12 @@ code {
 }
 
 .wrap {
+  overflow: hidden;
   flex-wrap: wrap;
 }
 
 .nowrap {
+  overflow: hidden;
   flex-wrap: nowrap;
 }
 
@@ -105,6 +108,10 @@ code {
 
 .gap-6 {
   gap: calc(var(--offset-base-size) * 6);
+}
+
+.gap-9 {
+  gap: calc(var(--offset-base-size) * 9);
 }
 
 .gap-10 {
