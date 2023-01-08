@@ -1,6 +1,6 @@
 .orders_container {
   overflow: auto;
-  max-width: 584px;
+  width: 584px;
 }
 
 .card_container {
