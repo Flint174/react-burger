@@ -1,22 +1,15 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import clsx from "clsx";
-import dayjs from "dayjs";
 import { FC, useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks/use-store";
 import { IngredientType, Order } from "../../utils/types";
 import styles from "./styles.module.css";
-import duration from "dayjs/plugin/duration";
-import relativeTime from "dayjs/plugin/relativeTime";
-import "dayjs/locale/ru";
+import { formattedDate } from "../../utils/formatted-date";
 
 interface OrderCardProps {
   order: Order;
   showStatus?: boolean;
 }
-
-dayjs.extend(duration);
-dayjs.extend(relativeTime);
-dayjs.locale("ru");
 
 function orderStatus(status: string) {
   switch (status) {
@@ -29,17 +22,6 @@ function orderStatus(status: string) {
 
     default:
       return status;
-  }
-}
-function dateFormatter(duration: number) {
-  switch (duration) {
-    case 0:
-      return "Сегодня";
-    case 1:
-      return "Вчера";
-
-    default:
-      return `${dayjs.duration({ days: duration }).humanize()} назад`;
   }
 }
 
@@ -117,9 +99,7 @@ export const OrderCard: FC<OrderCardProps> = ({
 
   const status = orderStatus(order.status);
 
-  const updateDate = `${dateFormatter(
-    dayjs(Date.now()).diff(order.createdAt, "days")
-  )}, ${dayjs(order.createdAt).format("HH:MM")}`;
+  const updateDate = formattedDate(order.createdAt);
 
   return (
     <>
