@@ -5,12 +5,11 @@ import { FC, ReactElement, useEffect } from "react";
 import { clsx } from "clsx";
 
 interface ModalProps {
-  title?: string;
   onClose?: () => void;
   children?: ReactElement;
 }
 
-export const Modal: FC<ModalProps> = ({ title = "", onClose, children }) => {
+export const Modal: FC<ModalProps> = ({ onClose, children }) => {
   useEffect(() => {
     const onKeyDown: (event: KeyboardEvent) => void = (e) => {
       if (e.key === "Escape") {
@@ -32,15 +31,6 @@ export const Modal: FC<ModalProps> = ({ title = "", onClose, children }) => {
             <CloseIcon type="primary" onClick={onClose} />
           </div>
         )}
-        <div
-          className={clsx(
-            styles.title_container,
-            "flex row align-items_center mt-10 ml-10 mr-10",
-            { "justify-content_center": !onClose }
-          )}
-        >
-          <h3 className="text text_type_main-large">{title}</h3>
-        </div>
         <div className="flex column align-items_center justify-content_center">
           {children}
         </div>

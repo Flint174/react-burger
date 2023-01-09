@@ -1,1 +1,1 @@
-export { OrderNumber } from "./order-details";
+export { orderDetails } from "./order-details";

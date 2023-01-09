@@ -4,7 +4,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { clsx } from "clsx";
-import { OrderNumber } from "../order-details";
+import { OrderNumber } from "../order-number";
 import { useMemo } from "react";
 import styles from "./styles.module.css";
 import { Modal } from "../modal";

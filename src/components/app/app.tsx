@@ -59,7 +59,7 @@ export const App = () => {
         <Route
           path="/ingredients/:id"
           element={
-            <Modal title="Детали ингредиента">
+            <Modal>
               <IngredientDetails />
             </Modal>
           }
@@ -71,8 +71,8 @@ export const App = () => {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal title="Детали ингредиента" onClose={handleModalClose}>
-                <IngredientDetails />
+              <Modal onClose={handleModalClose}>
+                <IngredientDetails isModal={true} />
               </Modal>
             }
           />

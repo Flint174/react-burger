@@ -9,12 +9,16 @@ interface InfoFieldProps {
 
 export const InfoField: FC<InfoFieldProps> = ({ name, value }) => {
   return (
-    <div className={clsx(styles.container, "flex column align-items_center")}>
-      <p className="text text_type_main-default text_color_inactive">{name}</p>
+    <div
+      className={clsx(styles.container, "flex column align-items_center gap-2")}
+    >
+      <div className="text text_type_main-default text_color_inactive">
+        {name}
+      </div>
 
-      <p className="text text_type_digits-default text_color_inactive">
+      <div className="text text_type_digits-default text_color_inactive">
         {value}
-      </p>
+      </div>
     </div>
   );
 };
