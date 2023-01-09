@@ -96,6 +96,7 @@ export const OrderCard: FC<OrderCardProps> = ({
             <div
               className={clsx(
                 styles.items_picture_container,
+                styles.items_picture,
                 styles.items_overflow
               )}
             >

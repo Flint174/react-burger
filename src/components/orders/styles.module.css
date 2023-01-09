@@ -22,6 +22,7 @@
   position: relative;
   border-radius: 100px;
   border: 2px solid transparent;
+  box-sizing: border-box;
   background: linear-gradient(var(--bg-color_element), var(--bg-color_element))
       content-box,
     linear-gradient(var(--gradient-color_1), var(--gradient-color_2)) border-box;
@@ -39,5 +40,5 @@
 }
 
 .items_overflow {
-  background: var(--bg-color_overlay);
+  background: var(--bg-color_overlay) content-box;
 }
