@@ -5,7 +5,7 @@ interface OrderDetailProps {
   orderNumber: number;
 }
 
-export const OrderDetail: FC<OrderDetailProps> = ({ orderNumber }) => {
+export const OrderNumber: FC<OrderDetailProps> = ({ orderNumber }) => {
   return (
     <>
       <p className="text text_type_digits-large mt-4">
