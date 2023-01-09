@@ -21,5 +21,5 @@ function dateFormatter(duration: number) {
 
 export const formattedDate = (date: Date | string) =>
   `${dateFormatter(dayjs(Date.now()).diff(date, "days"))}, ${dayjs(date).format(
-    "hh:mm"
+    "HH:mm"
   )}`;
