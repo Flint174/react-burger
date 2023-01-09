@@ -22,11 +22,11 @@
 }
 
 .composition_container_candrop {
-  box-shadow: inset 5px 0px 10px 0px #801ab3;
+  box-shadow: inset 5px 0px 10px 0px var(--gradient-color_2);
 }
 
 .composition_container_isover {
-  box-shadow: inset 5px 0px 10px 0px #4c4cff;
+  box-shadow: inset 5px 0px 10px 0px var(--gradient-color_1);
 }
 
 .empty_element_default {
