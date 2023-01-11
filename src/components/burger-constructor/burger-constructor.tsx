@@ -8,7 +8,7 @@ import { OrderNumber } from "../order-number";
 import { useMemo } from "react";
 import styles from "./styles.module.css";
 import { Modal } from "../modal";
-import { fetchOrder } from "../../services/actions/order-actions";
+import { fetchOrderRegister } from "../../services/actions/order-actions";
 import { clearOrder } from "../../services/slices/order-slice";
 import { clearConstructor } from "../../services/slices/constructor-slice";
 import { useNavigate } from "react-router";
@@ -19,9 +19,7 @@ export const BurgerConstructor = () => {
     (store) => store.constructorReducer
   );
 
-  const { orderNumber, loading } = useAppSelector(
-    (store) => store.orderReducer
-  );
+  const { order, loading } = useAppSelector((store) => store.orderReducer);
   const { user } = useAppSelector((store) => store.authReducer);
   const dispatch = useAppDispatch();
 
@@ -49,15 +47,15 @@ export const BurgerConstructor = () => {
       bun._id,
     ];
     if (user) {
-      dispatch(fetchOrder({ ingredients: ingredientsIds }));
+      dispatch(fetchOrderRegister({ ingredients: ingredientsIds }));
     } else {
       navigate("/login");
     }
   };
 
   const disableButton = useMemo(
-    () => !bun || !ingredients.length || orderNumber || loading,
-    [bun, ingredients, orderNumber, loading]
+    () => !bun || !ingredients.length || order || loading,
+    [bun, ingredients, order, loading]
   );
 
   return (
@@ -75,9 +73,9 @@ export const BurgerConstructor = () => {
           ОФОРМИТЬ ЗАКАЗ
         </Button>
       </div>
-      {orderNumber && (
+      {order && order.number && (
         <Modal onClose={closeOrderDetails}>
-          <OrderNumber orderNumber={orderNumber} />
+          <OrderNumber orderNumber={order.number} />
         </Modal>
       )}
     </section>

@@ -1,26 +1,25 @@
-import { createSlice, AnyAction, Action } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  isFulfilled,
+  isPending,
+  isRejected,
+} from "@reduxjs/toolkit";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/constants";
 import { deleteCookie, setCookie } from "../../utils/cookie";
 import { handleError } from "../../utils/request";
 import { AuthUser } from "../../utils/types";
-import { fetchLogout, fetchUserPatch } from "../actions/auth-actions";
+import {
+  fetchLogin,
+  fetchLogout,
+  fetchRegister,
+  fetchUserGet,
+  fetchUserPatch,
+} from "../actions/auth-actions";
 
 interface AuthStoreState {
   user: AuthUser | null;
   loading: boolean;
   error: boolean;
-}
-
-interface UserFulfilledAction extends Action {
-  payload: { user: AuthUser };
-}
-
-interface LoginRegisterFulfilledAction extends Action {
-  payload: { accessToken: string; refreshToken: string; user: AuthUser };
-}
-
-interface RejectedAction extends Action {
-  error: Error;
 }
 
 const initialState: AuthStoreState = {
@@ -29,34 +28,25 @@ const initialState: AuthStoreState = {
   error: false,
 };
 
-function match(action: AnyAction, value: string | string[]) {
-  if (action.type.startsWith("auth")) {
-    if (Array.isArray(value)) {
-      for (const v of value) {
-        if (action.type.endsWith(v)) return true;
-      }
-    } else if (action.type.endsWith(value)) return true;
-  }
-  return false;
-}
+const isUserFulfilled = isFulfilled(fetchUserGet, fetchUserPatch);
 
-function isUserFulfilled(action: AnyAction): action is UserFulfilledAction {
-  return match(action, ["user/get/fulfilled", "user/patch/fulfilled"]);
-}
+const isLoginRegisterFulfilled = isFulfilled(fetchLogin, fetchRegister);
 
-function isLoginRegisterFulfilled(
-  action: AnyAction
-): action is LoginRegisterFulfilledAction {
-  return match(action, ["login/fulfilled", "register/fulfilled"]);
-}
+const isAPendingAction = isPending(
+  fetchLogin,
+  fetchLogout,
+  fetchRegister,
+  fetchUserGet,
+  fetchUserPatch
+);
 
-function isPending(action: AnyAction): action is Action {
-  return match(action, "/pending");
-}
-
-function isRejected(action: AnyAction): action is RejectedAction {
-  return match(action, "/rejected");
-}
+const isARejectedAction = isRejected(
+  fetchLogin,
+  fetchLogout,
+  fetchRegister,
+  fetchUserGet,
+  fetchUserPatch
+);
 
 export const authSlice = createSlice({
   name: "auth",
@@ -89,12 +79,12 @@ export const authSlice = createSlice({
           state.loading = false;
         }
       )
-      .addMatcher(isPending, (state) => {
+      .addMatcher(isAPendingAction, (state) => {
         state.loading = true;
         state.error = false;
       })
-      .addMatcher(isRejected, (state, { error }) => {
-        handleError(error);
+      .addMatcher(isARejectedAction, (state, { error }) => {
+        handleError(error.message || "AuthFetchError");
         state.loading = false;
         state.error = true;
       }),

@@ -84,6 +84,8 @@ const fetchWithRefresh = async <T>(url: string, options: RequestInit) => {
       const refreshData = await refreshToken();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
+        // Promise.reject(refreshData);
+        // rejectWithValue
       }
       localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
       setCookie(ACCESS_TOKEN, refreshData.accessToken);
@@ -95,8 +97,8 @@ const fetchWithRefresh = async <T>(url: string, options: RequestInit) => {
         },
       };
       return await request<T>(url, options);
-    } else {
     }
+    return Promise.reject(err);
   }
 };
 

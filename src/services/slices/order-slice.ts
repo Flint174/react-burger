@@ -1,18 +1,30 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  isFulfilled,
+  isPending,
+  isRejected,
+} from "@reduxjs/toolkit";
 import { handleError } from "../../utils/request";
-import { fetchOrder } from "../actions/order-actions";
+import { Order } from "../../utils/types";
+import { fetchOrderGet, fetchOrderRegister } from "../actions/order-actions";
 
 interface OrderStoreState {
-  orderNumber: number | null;
+  order: Order | null;
   loading: boolean;
   error: boolean;
 }
 
 const initialState: OrderStoreState = {
-  orderNumber: null,
+  order: null,
   loading: false,
   error: false,
 };
+
+const isAFulfilledAction = isFulfilled(fetchOrderGet, fetchOrderRegister);
+
+const isARejectedAction = isRejected(fetchOrderGet, fetchOrderRegister);
+
+const isAPendingdAction = isPending(fetchOrderGet, fetchOrderRegister);
 
 export const orderSlice = createSlice({
   name: "order",
@@ -24,33 +36,21 @@ export const orderSlice = createSlice({
   },
   extraReducers: (builder) =>
     builder
-      .addCase(
-        fetchOrder.fulfilled,
-        (
-          _,
-          {
-            payload: {
-              order: { number },
-            },
-          }
-        ) => {
-          return {
-            orderNumber: number,
-            error: false,
-            loading: false,
-          };
-        }
-      )
-      .addCase(fetchOrder.rejected, (_, action) => {
-        handleError(action.error.message || "Ger order error");
+      .addMatcher(isAFulfilledAction, (_, { payload: { order } }) => ({
+        order,
+        error: false,
+        loading: false,
+      }))
+      .addMatcher(isAPendingdAction, (state) => {
+        state.error = false;
+        state.loading = true;
+      })
+      .addMatcher(isARejectedAction, (_, action) => {
+        handleError(action.error.message || "GerOrderError");
         return {
           ...initialState,
           error: true,
         };
-      })
-      .addCase(fetchOrder.pending, (state) => {
-        state.error = false;
-        state.loading = true;
       }),
 });
 

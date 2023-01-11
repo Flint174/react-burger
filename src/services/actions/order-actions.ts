@@ -2,20 +2,18 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { request, requestHeaders } from "../../utils/request";
 import { ACCESS_TOKEN, ORDERS_URL } from "../../utils/constants";
 import { getCookie } from "../../utils/cookie";
-import { RequestDataBase } from "../../utils/types";
+import { Order, RequestDataBase } from "../../utils/types";
 
 export interface RequestBodyOrder {
   ingredients: string[];
 }
 
 export interface RequestDataOrder extends RequestDataBase {
-  order: {
-    number: number;
-  };
+  order: Order;
 }
 
-export const fetchOrder = createAsyncThunk(
-  `order/request`,
+export const fetchOrderRegister = createAsyncThunk(
+  `order/register`,
   async (body: RequestBodyOrder) =>
     request<RequestDataOrder>(ORDERS_URL, {
       method: "POST",
@@ -25,4 +23,8 @@ export const fetchOrder = createAsyncThunk(
       },
       body: JSON.stringify(body),
     })
+);
+
+export const fetchOrderGet = createAsyncThunk(`order/get`, async () =>
+  request<RequestDataOrder>(ORDERS_URL)
 );
