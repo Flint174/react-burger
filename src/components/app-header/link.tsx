@@ -12,7 +12,7 @@ interface HeaderLinkProps {
 
 export const HeaderLink: FC<HeaderLinkProps> = ({ text, icon, href }) => {
   return (
-    <NavLink className={clsx(styles.link, "m-5 flex row")} to={href}>
+    <NavLink className="m-5 flex row" to={href}>
       {({ isActive }) => (
         <>
           {icon({ type: isActive ? "primary" : "secondary" })}
