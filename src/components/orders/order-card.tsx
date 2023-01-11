@@ -5,24 +5,11 @@ import { useAppSelector } from "../../hooks/use-store";
 import { IngredientType, Order } from "../../utils/types";
 import styles from "./styles.module.css";
 import { formattedDate } from "../../utils/formatted-date";
+import { orderStatus } from "../../utils/orderStatus";
 
 interface OrderCardProps {
   order: Order;
   showStatus?: boolean;
-}
-
-function orderStatus(status: string) {
-  switch (status) {
-    case "created":
-      return "Создан";
-    case "pending":
-      return "Готовится";
-    case "done":
-      return "Готов";
-
-    default:
-      return status;
-  }
 }
 
 export const OrderCard: FC<OrderCardProps> = ({
@@ -74,7 +61,7 @@ export const OrderCard: FC<OrderCardProps> = ({
               height="56"
             />
           </picture>
-          {index === picLenMax - 1 && picOverflow > 0 && (
+          {!index && picOverflow > 0 && (
             <div
               className={clsx(
                 styles.items_picture_container,
@@ -128,7 +115,7 @@ export const OrderCard: FC<OrderCardProps> = ({
             <div
               className={clsx(
                 styles.items_list,
-                "flex row justify-content_start"
+                "flex row-reverse justify-content_start"
               )}
             >
               {pictures}

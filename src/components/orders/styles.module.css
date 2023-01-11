@@ -28,7 +28,7 @@
     linear-gradient(var(--gradient-color_1), var(--gradient-color_2)) border-box;
 }
 
-.items_list > .items_picture_container:not(:first-child) {
+.items_list > .items_picture_container:not(:last-child) {
   margin-left: -16px;
 }
 

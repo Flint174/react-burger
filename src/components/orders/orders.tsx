@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { FC } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../hooks/use-store";
 import { OrderCard } from "./order-card";
 import styles from "./styles.module.css";
@@ -11,6 +12,7 @@ interface OrdersProps {
 
 export const Orders: FC<OrdersProps> = ({ showStatus = false, height }) => {
   const { orders } = useAppSelector((store) => store.ordersFeedReducer);
+  const location = useLocation();
 
   return (
     <section
@@ -18,7 +20,13 @@ export const Orders: FC<OrdersProps> = ({ showStatus = false, height }) => {
       style={{ maxHeight: height }}
     >
       {orders.map((order) => (
-        <OrderCard order={order} showStatus={showStatus} key={order.number} />
+        <Link
+          to={{ pathname: `${location.pathname}/${order.number}` }}
+          state={{ background: location }}
+          key={order.number}
+        >
+          <OrderCard order={order} showStatus={showStatus} />
+        </Link>
       ))}
     </section>
   );

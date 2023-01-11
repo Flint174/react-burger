@@ -1,10 +1,5 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
-import {
-  RequestDataOrders,
-  RequestDataMessage,
-  Order,
-  RequestDataBase,
-} from "../../utils/types";
+import { RequestDataOrders, RequestDataMessage } from "../../utils/types";
 import { fetchUserGet } from "../actions/auth-actions";
 import {
   ordersWsConnect,
@@ -12,52 +7,10 @@ import {
 } from "../actions/orders-ws-actions";
 import { clear, set } from "../slices/orders-feed-slice";
 
-function isDataMessage(data: unknown): data is RequestDataMessage {
-  return (
-    typeof data === "object" &&
-    data !== null &&
-    "message" in data &&
-    typeof data.message === "string"
-  );
-}
-
-function isDataSuccess(data: unknown): data is RequestDataBase {
-  return (
-    typeof data === "object" &&
-    data !== null &&
-    "success" in data &&
-    typeof data.success === "boolean"
-  );
-}
-
-function isOrder(data: unknown): data is Order {
-  return (
-    typeof data === "object" &&
-    data !== null &&
-    "_id" in data &&
-    typeof data._id === "string" &&
-    "ingredients" in data &&
-    Array.isArray(data.ingredients) &&
-    "number" in data &&
-    typeof data.number === "number" &&
-    "status" in data &&
-    typeof data.status === "string" &&
-    "name" in data &&
-    typeof data.name === "string"
-  );
-}
-
-function isDataOrders(data: unknown): data is RequestDataOrders {
-  return (
-    typeof data === "object" &&
-    data !== null &&
-    "orders" in data &&
-    Array.isArray(data.orders) &&
-    "total" in data &&
-    typeof data.total === "number" &&
-    "totalToday" in data &&
-    typeof data.totalToday === "number"
-  );
+function isOrders(
+  data: RequestDataOrders | RequestDataMessage
+): data is RequestDataOrders {
+  return data.success;
 }
 
 export const createOrdersFeedWs = () => {
@@ -86,19 +39,13 @@ export const createOrdersFeedWs = () => {
 
         ws.onmessage = (e: MessageEvent<string>) => {
           try {
-            const data = JSON.parse(e.data);
-            if (isDataSuccess(data)) {
-              if (data.success) {
-                if (isDataOrders(data)) {
-                  data.orders = data.orders.filter((order) => isOrder(order));
-                  dispatch(set(data));
-                }
-              } else if (
-                isDataMessage(data) &&
-                data.message === "Invalid or missing token"
-              ) {
-                dispatch(fetchUserGet());
-              }
+            const data = JSON.parse(e.data) as
+              | RequestDataOrders
+              | RequestDataMessage;
+            if (isOrders(data)) {
+              dispatch(set(data));
+            } else if (data.message === "Invalid or missing token") {
+              dispatch(fetchUserGet());
             }
           } catch (error) {
             console.error(error);
@@ -115,7 +62,7 @@ export const createOrdersFeedWs = () => {
 
       ordersFeedWs.startListening({
         actionCreator: ordersWsDisconnect,
-        effect: async (action, api) => {
+        effect: async () => {
           reconnect = false;
           ws.close();
         },

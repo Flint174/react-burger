@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { request, requestHeaders } from "../../utils/request";
+import { fetchWithRefresh, request, requestHeaders } from "../../utils/request";
 import { ACCESS_TOKEN, ORDERS_URL } from "../../utils/constants";
 import { getCookie } from "../../utils/cookie";
 import { Order, RequestDataBase } from "../../utils/types";
@@ -12,10 +12,14 @@ export interface RequestDataOrder extends RequestDataBase {
   order: Order;
 }
 
+export interface RequestDataOrders extends RequestDataBase {
+  orders: Order[];
+}
+
 export const fetchOrderRegister = createAsyncThunk(
   `order/register`,
   async (body: RequestBodyOrder) =>
-    request<RequestDataOrder>(ORDERS_URL, {
+    fetchWithRefresh<RequestDataOrder>(ORDERS_URL, {
       method: "POST",
       headers: {
         ...requestHeaders.post,
@@ -25,6 +29,8 @@ export const fetchOrderRegister = createAsyncThunk(
     })
 );
 
-export const fetchOrderGet = createAsyncThunk(`order/get`, async () =>
-  request<RequestDataOrder>(ORDERS_URL)
+export const fetchOrderGet = createAsyncThunk(
+  `order/get`,
+  async (number: string) =>
+    request<RequestDataOrders>(`${ORDERS_URL}/${number}`)
 );

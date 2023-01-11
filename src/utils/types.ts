@@ -47,3 +47,12 @@ export interface RequestDataOrders extends RequestDataBase {
   total: number;
   totalToday: number;
 }
+
+export interface RequestDataUser extends RequestDataBase {
+  user: AuthUser;
+}
+
+export interface RequestDataToken extends RequestDataBase {
+  accessToken: string;
+  refreshToken: string;
+}

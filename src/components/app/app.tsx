@@ -19,6 +19,7 @@ import { Modal } from "../modal";
 import { useAppDispatch, useAppSelector } from "../../hooks/use-store";
 import { OrderFeed } from "../../pages/OrderFeed/order-feed";
 import { ProfileOrders } from "../../pages/profile/profile-orders";
+import { OrderDetails } from "../../components/order-details";
 
 export const App = () => {
   const { user } = useAppSelector((store) => store.authReducer);
@@ -73,6 +74,14 @@ export const App = () => {
             element={
               <Modal onClose={handleModalClose}>
                 <IngredientDetails isModal={true} />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:number"
+            element={
+              <Modal onClose={handleModalClose}>
+                <OrderDetails isModal={true} />
               </Modal>
             }
           />

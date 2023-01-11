@@ -1,9 +1,4 @@
-import {
-  createSlice,
-  isFulfilled,
-  isPending,
-  isRejected,
-} from "@reduxjs/toolkit";
+import { createSlice, isPending, isRejected } from "@reduxjs/toolkit";
 import { handleError } from "../../utils/request";
 import { Order } from "../../utils/types";
 import { fetchOrderGet, fetchOrderRegister } from "../actions/order-actions";
@@ -20,8 +15,6 @@ const initialState: OrderStoreState = {
   error: false,
 };
 
-const isAFulfilledAction = isFulfilled(fetchOrderGet, fetchOrderRegister);
-
 const isARejectedAction = isRejected(fetchOrderGet, fetchOrderRegister);
 
 const isAPendingdAction = isPending(fetchOrderGet, fetchOrderRegister);
@@ -36,7 +29,12 @@ export const orderSlice = createSlice({
   },
   extraReducers: (builder) =>
     builder
-      .addMatcher(isAFulfilledAction, (_, { payload: { order } }) => ({
+      .addCase(fetchOrderGet.fulfilled, (_, { payload: { orders } }) => ({
+        order: orders.length ? orders[0] : null,
+        error: false,
+        loading: false,
+      }))
+      .addCase(fetchOrderRegister.fulfilled, (_, { payload: { order } }) => ({
         order,
         error: false,
         loading: false,

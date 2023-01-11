@@ -1,29 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { request, requestHeaders } from "../../utils/request";
+import { fetchWithRefresh, request, requestHeaders } from "../../utils/request";
 import {
   ACCESS_TOKEN,
   AUTH_LOGIN_URL,
   AUTH_LOGOUT_URL,
   AUTH_REGISTER_URL,
-  AUTH_TOKEN_URL,
   AUTH_USER_URL,
   REFRESH_TOKEN,
 } from "../../utils/constants";
-import { getCookie, setCookie } from "../../utils/cookie";
+import { getCookie } from "../../utils/cookie";
 import {
-  AuthUser,
-  RequestDataBase,
   RequestDataMessage,
+  RequestDataToken,
+  RequestDataUser,
 } from "../../utils/types";
-
-export interface RequestDataUser extends RequestDataBase {
-  user: AuthUser;
-}
-
-export interface RequestDataToken extends RequestDataBase {
-  accessToken: string;
-  refreshToken: string;
-}
 
 export type RequestDataAuth = RequestDataUser & RequestDataToken;
 
@@ -58,14 +48,6 @@ export const fetchRegister = createAsyncThunk(
     })
 );
 
-const refreshToken = () => {
-  return request<RequestDataToken>(AUTH_TOKEN_URL, {
-    method: "POST",
-    headers: requestHeaders.post,
-    body: JSON.stringify({ token: localStorage.getItem(REFRESH_TOKEN) }),
-  });
-};
-
 export const fetchLogout = createAsyncThunk(
   `auth/logout`,
   async () =>
@@ -75,32 +57,6 @@ export const fetchLogout = createAsyncThunk(
       body: JSON.stringify({ token: localStorage.getItem(REFRESH_TOKEN) }),
     })
 );
-
-const fetchWithRefresh = async <T>(url: string, options: RequestInit) => {
-  try {
-    return await request<T>(url, options);
-  } catch (err) {
-    if ((err as Error).message === "jwt expired") {
-      const refreshData = await refreshToken();
-      if (!refreshData.success) {
-        return Promise.reject(refreshData);
-        // Promise.reject(refreshData);
-        // rejectWithValue
-      }
-      localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
-      setCookie(ACCESS_TOKEN, refreshData.accessToken);
-      options = {
-        ...options,
-        headers: {
-          ...options.headers,
-          authorization: refreshData.accessToken,
-        },
-      };
-      return await request<T>(url, options);
-    }
-    return Promise.reject(err);
-  }
-};
 
 export const fetchUserGet = createAsyncThunk(`auth/user/get`, async () => {
   return await fetchWithRefresh<RequestDataUser>(AUTH_USER_URL, {
